@@ -1,0 +1,157 @@
+/* * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+ * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+ *
+ * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+ * graphic logo is a trademark of OpenMRS Inc.
+ */
+body {
+  font-family: "OpenSans", Arial, sans-serif;
+  -webkit-font-smoothing: subpixel-antialiased;
+  max-width: 1200px;
+  margin: 10px auto;
+  background: #eeeeee;
+  color: #363463;
+  font-size: 16px;
+}
+
+header {
+  position: relative;
+  background-color: #00463f;
+  color: #ccc;
+  line-height: 1em;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  display: block;
+  min-height: 48px;
+}
+
+header .logo {
+  float: left;
+  margin: 4px;
+  display: block;
+}
+
+header .logo img {
+  width: 120px;
+}
+
+#body-wrapper {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: white;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  min-height: 500px;
+  justify-content: center;
+}
+
+.app-title {
+  display: block;
+  float: right;
+  color: #eeeeee;
+  font-size: 32px;
+  margin: 4px;
+  height: 100%;
+  padding-top: 12px;
+  padding-right: 5px;
+}
+
+.instructions {
+  align-self: center;
+}
+.cardBlock {
+  border: 1px solid #dfd1d1;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.formInput {
+  width: 250px;
+}
+
+input[type="time"]:required:invalid::-webkit-datetime-edit {
+  color: transparent;
+}
+input[type="time"]:focus::-webkit-datetime-edit {
+  color: black !important;
+}
+
+.top {
+  display: flex;
+  margin-top: 15px;
+  border: transparent;
+  background-color: transparent;
+}
+.top label {
+  margin-right: 5px;
+}
+
+.top input {
+  margin-right: 30px;
+}
+
+.middle_1 {
+  display: flex;
+  margin-top: 20px;
+  padding-left: 0px;
+  border: transparent;
+  background-color: transparent;
+}
+.middle_1 input {
+  margin-right: 20px;
+}
+.middle_1 label {
+  margin-right: 20px;
+}
+.middle_2 {
+  display: flex;
+  margin-top: 20px;
+  padding-left: 0px;
+  border: transparent;
+  background-color: transparent;
+}
+
+.userInput {
+  width: 100px;
+  height: 25px;
+}
+
+.textAreaShape {
+  color: black;
+  width: 700px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.marks_itemsPick {
+  margin-bottom: 20px;
+  width: 300px;
+}
+.checkBox {
+  border: 1px solid rgb(171 171 249);
+  margin-left: 10px;
+  box-sizing: border-box;
+  width: 400px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.one {
+  margin-left: 15px;
+  margin-right: 25px;
+}

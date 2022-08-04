@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "name": "ViewClinicVisitSummery",
+  "description": "View Clinic Visit Summary",
+  "launch_path": "index.html",
+  "icons": {
+    "48": "/img/omrs-button.png"
+  },
+  "developer": {
+    "name": "",
+    "url": "https://github.com//openmrs-owa-viewclinicvisitsummery"
+  },
+  "default_locale": "en",
+    "activities": {
+      "openmrs": {
+        "href": "*"
+      }
+    }
+}

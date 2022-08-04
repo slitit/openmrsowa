@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ward Transfer</title>
+    <link
+      rel="shortcut icon"
+      type="image/ico"
+      href="../../images/openmrs-favicon.ico"
+    />
+    <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="/openmrs/ms/uiframework/resource/appui/styles/header.css?cache=1625626794012"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+      href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+      href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css"
+      type="text/css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">  
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>  
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css" integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" integrity="sha512-O03ntXoVqaGUTAeAmvQ2YSzkCvclZEcPQu1eqloPaHfJ5RuNGiS4l+3duaidD801P50J28EHyonCV06CUlTSag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css"> -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css" integrity="sha512-LT9fy1J8pE4Cy6ijbg96UkExgOjCqcxAC7xsnv+mLJxSvftGVmmc236jlPTZXPcBRQcVOWoK1IJhb1dAjtb4lQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+
+  <style>
+    .input-file {
+      padding: 0px;
+      margin: 0 auto;
+      background: #ffffff;
+      -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.04);
+      box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0);
+    }
+
+    .upload-img {
+      border-radius: 16px;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;
+      border: 3px solid #20e5bf;
+      margin-right: 15px;
+      vertical-align: middle;
+    }
+
+    .input-file-upload {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .input-file-upload input[type="file"] {
+      opacity: 0;
+      padding: 10px 0;
+      height: 36px;
+      width: 150px;
+    }
+
+    .upload-label {
+      width: 150px;
+      height: 36px;
+      background: #3b70f1;
+      text-align: center;
+      color: #ffffff;
+      display: block;
+      padding: 8px 0;
+      position: absolute;
+      line-height: normal;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .input-file-upload:hover .upload-label {
+      background: #eaf5fe;
+      color: #3b70f1;
+    }
+
+    form select,
+    .form select {
+      min-width: 100% !important;
+    }
+  </style>
+  </head>
+  <body onload="closePage()">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark navigation">
+        <div class="logo">
+          <a href="../../">
+            <img
+              src="data:image/png;base64,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"
+            />
+          </a>
+        </div>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto user-options">
+            <li class="nav-item logout">
+              <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+                Logout <i class="icon-signout small"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="clear"></div>
+    <ul id="breadcrumbs">
+      <li>
+        <a href="/openmrs/index.htm">
+          <i class="icon-home small"></i>
+        </a>
+      </li>
+      <li><i class="icon-chevron-right link"></i>Ward Transfer</li>
+    </ul>
+    <div id="body-wrapper">
+      <div class="card">
+        <div class="card-body row justify-content-center">
+          <div class="col-lg-12 form-group" style="padding: 0">
+            <h2>Ward Transfer</h2>
+          </div>
+          <form class="row col-12" id="wardAdmissionForm">
+            <div class="col-lg-12 form-group" style="padding: 0;">
+              <div class="row">
+                <div class="col-lg-5 form-group">
+                  <div class="col-lg-12 form-group">
+                    <label
+                    ><span class="icon-hand-right"></span>&nbsp;Institute</label
+                    >
+                  
+                    <input
+                      type="text"
+                      disabled
+                      readonly
+                      id="txtInstitute"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="col-lg-12 form-group">
+                    <label
+                    ><span class="icon-hand-right"></span>&nbsp;PHN NO</label
+                    >
+                  
+                    <input
+                      type="text"
+                      
+                      id="txtPHNno"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="col-lg-12 form-group">
+                    <label
+                    ><span class="icon-hand-right"></span>&nbsp;Full Name</label
+                    >
+                  
+                    <input
+                      type="text"
+                      disabled
+                      readonly
+                      id="txtfullName"
+                      class="form-control"
+                    />
+                  </div>
+                 
+                </div>
+                <div class="col-lg-5 form-group">
+                  <div class="col-lg-12 form-group">
+                    <label
+                    ><span class="icon-hand-right"></span>&nbsp;Gender</label
+                    >
+                  
+                    <input
+                      type="text"
+                      disabled
+                      readonly
+                      id="txtGender"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="col-lg-12 form-group">
+                    <label
+                    ><span class="icon-hand-right"></span>&nbsp;Date of Birth</label
+                    >
+                  
+                    <input
+                      type="text"
+                     
+                      id="txtdateOfBirth"
+                      readonly class="form-control" 
+                    />
+                  </div>
+                  <div class="col-lg-12 form-group">
+                    <label
+                    ><span class="icon-hand-right"></span>&nbsp;Age</label
+                    >
+                  
+                    <input
+                      type="text"
+                      disabled
+                      readonly
+                      id="txtAge"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-2 form-group">
+                  <div class="col-lg-12 form-group" style="padding: 0;">
+                    <p>Patient Photo</p>
+                    <div class="input-file">
+                      <img id="file_upload" src="http://localhost/LaravelApiFile/storage/documents/useremprty.png"
+                        alt="your image" class="upload-img" />
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12 form-group" style="border-bottom: 4px solid;"></div>
+
+            <div class="col-lg-12 form-group">
+              <div class="row">
+                <div class="col-lg-6">
+                  <label
+                  ><span class="icon-hand-right"></span>&nbsp;Admission Type</label
+                >
+                
+               
+				<input
+                  type="text"
+                   id="drpAdmissionType"
+                  readonly class="form-control admissionpicker" 
+				  disabled
+                />
+                </div>
+               
+              </div>
+            </div>
+
+            <div class="col-lg-12 form-group">
+              <div class="row" style="text-align: right;">
+                <div class="col-lg-3">
+                  <label><span class="icon-hand-right"></span>&nbsp;BHT No</label>
+                
+                <input
+                  type="text"
+                   id="txtBHTNo"
+                  readonly class="form-control admissionpicker" 
+				  disabled
+                />
+                </div>
+                
+                <div class="col-lg-3">
+                  <label
+                  ><span class="icon-hand-right"></span>&nbsp;Admission Date</label
+                >
+                
+                <input
+                  type="text"
+                  
+                  id="txtAdmissionDate"
+                  readonly class="form-control admissionpicker" 
+				  disabled
+                />
+                </div>
+                <div class="col-lg-3">
+                  <label
+                  ><span class="icon-hand-right"></span>&nbsp;Admission Time</label
+                  >
+                
+                  <input
+                    type="text"
+                    readonly class="form-control" 
+                    id="txtAdmissionTime"
+                  disabled
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12 form-group">
+              <div class="row">
+                <div class="col-lg-6">
+                
+                      <label><span class="icon-hand-right"></span>&nbsp;Ward/Unit</label>
+                    
+                      
+					  
+					  <input
+                    type="text"
+                    readonly class="form-control" 
+                    id="drpWard2"
+                  disabled
+                  />
+                   
+                </div>
+                <div class="col-lg-6">
+                  <label><span class="icon-hand-right"></span>&nbsp;Consultant</label>
+                
+               
+				 <input
+                    type="text"
+                    readonly class="form-control" 
+                    id="drpConsultant2"
+                  disabled
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12 form-group">
+              <div class="row">
+                <div class="col-lg-6">
+                  <label
+                  ><span class="icon-hand-right"></span>&nbsp;Guardian Name</label
+                >
+                
+                <input
+                type="text"
+               
+                id="txtGuardianName"
+                class="form-control"
+				disabled
+                />
+                </div>
+                
+               
+              </div>
+            </div>
+
+            <div class="col-lg-12 form-group">
+              <div class="row">
+			   <div class="col-lg-6">
+                  <label
+                  ><span class="icon-hand-right"></span>&nbsp;Guardian Address</label
+                  >
+                
+                  <input
+                  type="text"
+                
+                  id="txtGuardianAddress"
+                  class="form-control"
+				  disabled
+                  />
+                </div>
+               
+                <div class="col-lg-6">
+                  <label
+                  ><span class="icon-hand-right"></span>&nbsp;Guardian Contact No</label
+                >
+                
+                <input
+                type="number"
+               
+                id="txtGuardianCtNo"
+                class="form-control"
+				disabled
+                />
+                </div>
+               
+               
+              </div>
+            </div>
+
+            <div class="col-lg-12 form-group">
+              <div class="row">
+                <div class="col-lg-6">
+                  <label
+                  ><span class="icon-hand-right"></span>&nbsp;Guardian NIC No</label
+                >
+                
+                <input
+                type="text"
+               
+                id="txtGuardianNICno"
+                class="form-control"
+				disabled
+                />
+                </div>
+                <div class="col-lg-6">
+                  <label
+                  ><span class="icon-hand-right"></span>&nbsp;Guardian Relationship</label
+                >
+                
+                <input
+                type="text"
+               
+                id="txtGuardianRelationship"
+                class="form-control"
+				disabled
+                />
+                </div>
+               
+               
+              </div>
+            </div>
+			
+			<div class="col-lg-12 form-group" style="border-bottom: 4px solid;"></div>
+			<div class="col-lg-12 form-group">
+              <div class="row">
+			  <div class="col-lg-3">
+                  <label
+                  ><span class="icon-hand-right"></span>&nbsp;Transfer Date</label
+                >
+                
+                <input
+                  type="text"
+                  
+                  id="txtTransferDate"
+                  readonly class="form-control admissionpicker" 
+				  
+                />
+                </div>
+                <div class="col-lg-3">
+                  <label
+                  ><span class="icon-hand-right"></span>&nbsp;Transfer Time</label
+                  >
+                
+                  <input
+                    type="text"
+                    readonly class="form-control" 
+                    id="txtTransferTime"
+                  
+                  />
+                </div>
+			  </div>
+			</div>
+			<div class="col-lg-12 form-group">
+                <div class="row">
+					<div class="col-lg-6">
+                
+                      <label><span class="icon-hand-right"></span>&nbsp;Ward/Unit</label>
+                    
+                      <select id="drpWard" class="form-control" >
+                        <option  selected value="">--Select--</option>
+                      </select>
+					  
+					  
+                   
+					</div>
+					<div class="col-lg-6">
+						<label><span class="icon-hand-right"></span>&nbsp;Consultant</label>
+                
+						<select id="drpConsultant" class="form-control" >
+							<option disabled selected value="">--Select--</option>
+                  
+						</select>
+					</div>
+			    </div>
+			 </div>
+			 <div class="col-lg-12 form-group">
+                <div class="row">
+				<div class="col-lg-6">
+				<label><span class="icon-hand-right"></span>&nbsp;Reason</label>
+					<textarea id="reason" class="col-5">
+					</textarea>
+					</div>
+				</div>
+				
+			</div>	
+			 <div class="col-lg-12 form-group">
+                <div class="row"> 
+				<div class="col-lg-4">
+                  <label><span class="icon-hand-right"></span>&nbsp;BHT Transferred</label>
+                
+                <select id="bhtTransferred" class="form-control">
+                  <option  selected value="">--Select--</option>
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                  
+                </select>
+                </div>
+				
+				<div class="col-lg-4">
+                  <label><span class="icon-hand-right"></span>&nbsp;Documents Handed Over</label>
+                
+                <select id="documentsHandedOver" class="form-control">
+                  <option  selected value="">--Select--</option>
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                  
+                </select>
+                </div>
+				</div>
+			 </div>
+           
+
+            <div class="col-lg-12 form-group row justify-content-center">
+                <div class="col-lg-2 form-group">
+                <button
+                  type="button"
+                  id="btnSubmit"
+                  class="btn btn-block submitButton confirm right focused"
+                  
+                >
+                  Save
+                </button>
+                </div>
+                <div class="col-lg-2 form-group">
+                <button
+                  type="button"
+                 
+                  id="btnCancel"
+                  class="btn btn-block cancel"
+                  onclick="closePage()"
+                >
+                  Cancel
+                </button>
+                </div>
+            </div>
+
+            <div class="modal fade" id="addNewTransferFrom" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header" style="align-items: center !important;">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Transfer From</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none; background: none; outline: none;">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <label><span class="icon-hand-right"></span>&nbsp;Transfer From</label>
+                        <input type="text" id="txtNewTransferFrom" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <div class="col-12 row justify-content-center">
+                      <div class="col-lg-4">
+                        <button type="button" class="btn btn-block cancel" data-dismiss="modal">Close</button>
+                      </div>
+                      <div class="col-lg-4">
+                        <button type="button" id="saveTransferFrom"
+                          class="btn btn-block submitButton confirm right focused">Save</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js" integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.js" integrity="sha512-OmBbzhZ6lgh87tQFDVBHtwfi6MS9raGmNvUNTjDIBb/cgv707v9OuBVpsN6tVVTLOehRFns+o14Nd0/If0lE/A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js" integrity="sha512-s5u/JBtkPg+Ff2WEr49/cJsod95UgLHbC00N/GglqdQuLnYhALncz8ZHiW/LxDRGduijLKzeYb7Aal9h3codZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/i18n/jquery-ui-timepicker-addon-i18n.min.js" integrity="sha512-t2ZIJH81Sh+SWSb4BuA9en4j6fwja+sYOEXbqoepD9lJ+efUGD94gSWqdmgQchGmPez2ojECq4Fm6bKMUAzIiQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>   
+
+  // $( function() {
+  //   $('#transferredFrom').select2();
+
+  // })
+  $(".admissionpicker").datepicker({          
+      dateFormat: 'yy-mm-dd',
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "-100:+2000",
+      //maxDate: 0
+  });
+  $('#txtAdmissionTime').timepicker();
+  $('#txtTransferTime').timepicker();
+  // $('.timepicker').timepicker({
+  //   timeFormat: 'h:mm p',
+  //   interval: 60,
+  //   dynamic: true,
+  //   dropdown: true,
+  //   scrollbar: true
+  // });
+
+function closePage(){
+
+  $("#txtPHNno").val(null);
+  $("#txtfullName").val(null);
+  $("#txtGender").val(null);
+  $("#txtdateOfBirth").val(null);
+  $("#txtAge").val(null);
+  $("#file_upload").val(null);
+  $("#drpAdmissionType").val(null);
+  $("#transferredFrom").val(null);
+  $("#drpReceivedTo").val(null);
+  $("#drpDocReceivedTo").val(null);
+  $("#txtAdmissionDate").val(null);
+  $("#txtAdmissionTime").val(null);
+  $("#drpWard").val(null);
+  $("#drpConsultant").val(null);
+  $("#txtBHtno").val(null);
+  $("#txtGuardianName").val(null);
+  $("#txtGuardianCtNo").val(null);
+  $("#txtGuardianNICno").val(null);
+  $("#txtGuardianRelationship").val(null);
+  $("#drpJudicialAction").val(null);
+  $("#drpInformed").val(null);
+  $("#txtGuardianAddress").val(null);
+
+}
+
+
+</script>
+
+  </body>
+</html>

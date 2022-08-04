@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>ViewClinicVisitSummery</title>
+    <!-- openmrs favicon -->
+    <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+    <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js">
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet"
+      href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+      type="text/css" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js" integrity="sha512-s5u/JBtkPg+Ff2WEr49/cJsod95UgLHbC00N/GglqdQuLnYhALncz8ZHiW/LxDRGduijLKzeYb7Aal9h3codZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/i18n/jquery-ui-timepicker-addon-i18n.min.js" integrity="sha512-t2ZIJH81Sh+SWSb4BuA9en4j6fwja+sYOEXbqoepD9lJ+efUGD94gSWqdmgQchGmPez2ojECq4Fm6bKMUAzIiQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+
+    <script>
+      $(document).ready(function () {
+        $("#Diagnose").DataTable({
+          width: '50%', float: 'left'
+        });
+        $("#LabTest").DataTable();
+        $("#radiologyTest").DataTable();
+        $("#precribing").DataTable();
+        $("#treat").DataTable();
+        $("#birth").datepicker();
+        $("#exaDate").datepicker();
+        $("#clinicDate").datepicker();
+        $('#exaTime').timepicker();
+        $('#clinicTime').timepicker();
+        
+      });
+    </script>
+
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark navigation">
+        <div class="logo">
+          <a href="../../">
+            <img src="img/openmrs-with-title-small.png" />
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto user-options">
+            <li class="nav-item logout">
+              <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+                Logout <i class="icon-signout small"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="clear"></div>
+
+    <ul id="breadcrumbs">
+      <li>
+        <a href="/openmrs/index.htm">
+          <i class="icon-home small"></i>
+        </a>
+      </li>
+      <li>
+        <a href="/openmrs/admin/index.htm">
+          <i class="icon-chevron-right link"></i> Administration
+        </a>
+      </li>
+      <li>
+        <a href="/openmrs/module/owa/manage.form">
+          <i class="icon-chevron-right link"></i> Manage Apps
+        </a>
+      </li>
+      <li>
+        <i class="icon-chevron-right link"></i> View Clini Visit Summery
+      </li>
+    </ul>
+
+    <div id="body-wrapper">
+      <div class="card" style="padding: 10px;border-radius: 5px;">
+        <h2 style="margin-bottom: 30px;">View Clinic Visit Summery</h2>
+
+        <div>
+          <div class="row">
+            <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Institute</label>
+            <div class="col-lg-4 form-group">
+              <input type="text" class="form-control" id="institute">
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;PHN No</label>
+            <div class="col-lg-4 form-group">
+              <input type="number" class="form-control" id="phnNo">
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Full Name</label>
+            <div class="col-lg-4 form-group">
+              <input type="text" class="form-control" id="name">
+            </div>
+            <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Date of Birth</label>
+            <div class="col-lg-4 form-group">
+              <input type="text" class="form-control" id="birth">
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Gender</label>
+            <div class="col-lg-4 form-group">
+              <input type="text" class="form-control" id="gender">
+            </div>
+            <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Age</label>
+            <div class="col-lg-4 form-group">
+              <input type="text" class="form-control" id="age">
+            </div>
+          </div>
+        </div>
+        <hr style="background-color:rgb(100, 164, 168);border: 1px solid rgb(100, 164, 168);">
+
+        <div class="row">
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Examination Date</label>
+          <div class="col-lg-4 form-group">
+            <input type="text" class="form-control" id="exaDate">
+          </div>
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Examination Time</label>
+          <div class="col-lg-4 form-group">
+            <input type="text" class="form-control" id="exaTime">
+          </div>
+        </div>
+        <div class="tableDiagnose"  style="width:70% ;float: left;">
+          <label style="margin-top: 10px; margin-bottom: 20px;"><u><b>Diagnose</b></u></label>
+          <table id="Diagnose">
+            <thead>
+              <tr>
+                <th>Probable Diagnosis</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div class="LabTest">
+          <label style="margin-top: 10px; margin-bottom: 20px;"><u><b>Lab Tests</b></u></label>
+          <table id="LabTest">
+            <thead>
+              <tr>
+                <th>Test</th>
+                <th>Priority</th>
+                <th>Laboratory</th>
+                <th>Special Notes</th>
+                <th>Antibiotic Given</th>
+                <th>Antibiotic Details</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div class="radiologyTest">
+          <label style="margin-top: 10px; margin-bottom: 20px;"><u><b>Radiology Tests</b></u></label>
+          <table id="radiologyTest">
+            <thead>
+              <tr>
+                <th>Test</th>
+                <th>Region</th>
+                <th>Localization</th>
+                <th>View Position</th>
+                <th>Comment</th>
+                <th>Priority</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div class="precribing">
+          <label style="margin-top: 10px; margin-bottom: 20px;"><u><b>Prescribing</b></u></label>
+          <table id="precribing">
+            <thead>
+              <tr>
+                <th>Drug Name + Strenght</th>
+                <th>Dose</th>
+                <th>Frequency</th>
+                <th>Dose Comment</th>
+                <th>Period</th>
+                <th>Pharmacy</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div class="treatments">
+          <label style="margin-top: 10px; margin-bottom: 20px;"><u><b>Treatments and Procedure</b></u></label>
+          <table id="treat">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Drug Name + Strenght</th>
+                <th>Dose</th>
+                <th>Frequency</th>
+                <th>Dose Comment</th>
+                <th>Period</th>
+                <th>Pharmacy</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-lg-12 form-group">
+          <div class="row">
+            <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Clinic Status</label>
+            <div class="col-lg-4 form">
+              <select class="form-control" id="clinicStatus">
+                <option disabled selected hidden>--Select--</option>
+                <option>Continue</option>
+                <option>Terminate</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 form-group">
+          <div class="row">
+            <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Next Clinic Date</label>
+            <div class="col-lg-4 form">
+              <input type="text" class="form-control" id="clinicDate">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 form-group">
+          <div class="row">
+            <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Next Clinic Time</label>
+            <div class="col-lg-4 form">
+              <input type="text" class="form-control" id="clinicTime">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12 form-group row justify-content-center" style="margin-top: 20px; margin-bottom: 10px;">
+          <div class="col-lg-2 form-group">
+            <button id="btnSubmit" class="btn btn-block btn-success" style="background: #28a745;">Approve</button>
+          </div>
+          <div class="col-lg-2 form-group">
+            <button id="btnLookup" type="button" class="btn btn-block btn-warning"
+              style="background: #e0a800; color: white;">Reject</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

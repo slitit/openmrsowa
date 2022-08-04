@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>RadiologyInward</title>
+    <!-- openmrs favicon -->
+    <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+    <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js">
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+
+    <link rel="stylesheet"
+      href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+      type="text/css" />
+
+    <script>
+      $(document).ready(function () {
+        $("#example").DataTable();
+        $("#example2").DataTable();
+      });
+
+    </script>
+
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark navigation">
+        <div class="logo">
+          <a href="../../">
+            <img src="img/openmrs-with-title-small.png" />
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto user-options">
+            <li class="nav-item logout">
+              <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+                Logout <i class="icon-signout small"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="clear"></div>
+
+    <ul id="breadcrumbs">
+      <li>
+        <a href="/openmrs/index.htm">
+          <i class="icon-home small"></i>
+        </a>
+      </li>
+      <li>
+        <a href="/openmrs/admin/index.htm">
+          <i class="icon-chevron-right link"></i> Administration
+        </a>
+      </li>
+      <li>
+        <a href="/openmrs/module/owa/manage.form">
+          <i class="icon-chevron-right link"></i> Manage Apps
+        </a>
+      </li>
+      <li>
+        <i class="icon-chevron-right link"></i> Radiology - Inward
+      </li>
+    </ul>
+
+    <div id="body-wrapper">
+      <div class="card" style="padding: 10px;border-radius: 5px;">
+
+        <h2 style="margin-top: 10px;margin-bottom: 20px;"> Radiology - Inward</h2>
+
+
+        <div class="row">
+          <div class="col-lg-4 form-group">
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Test</label>
+              <select class="form-control" id="txtTest">
+                <option disabled selected hidden>--Select--</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-3 form-group">
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Region</label>
+              <select class="form-control" id="txtRegion">
+                <option disabled selected hidden>--Select--</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-3 form-group">
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Localization</label>
+              <select class="form-control" id="txtLocal">
+                <option disabled selected hidden>--Select--</option>
+               
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 form-group">
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;View Position</label>
+              <select class="form-control" id="txtViewposition">
+                <option disabled selected hidden>--Select--</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-3 form-group">
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Comment</label>
+              <input type="text" id="txtComment" class="form-control" autocomplete="off" />
+            </div>
+          </div>
+          <div class="col-lg-3 form-group">
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Priority</label>
+              <select class="form-control" id="txtStatus">
+                <option disabled selected hidden>--Select--</option>
+                <option>Normal</option>
+                <option>Urgent</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-top:30px" class="col-lg-2 form-group">
+            <div class="col-lg-12 form-group">
+              <button class="btn btn-block btn-success" style="background: #288ea7;" id="btnAdd"><i
+                  class="fa fa-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="tableClass">
+          <table id="example">
+            <thead>
+              <tr>
+                <th>Test</th>
+                <th>Region</th>
+                <th>Localization</th>
+                <th>View Posistion</th>
+                <th>Comment</th>
+                <th>Priority</th>
+                <th data-orderable="false" style="background-color: rgb(15, 112, 119);"></th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-lg-12 form-group row justify-content-center" style="margin-top: 20px; margin-bottom: 10px;">
+          <div class="col-lg-2 form-group">
+            <button id="btnSubmit" class="btn btn-block btn-success" style="background: #28a745;">Save</button>
+          </div>
+          <div class="col-lg-2 form-group">
+            <button type="button" id="btnClear" class="btn btn-block btn-danger"
+              style="background: #dc3545;">Cancel</button>
+          </div>
+        </div>
+
+        <div class="tableClass">
+          <table id="example2">
+            <thead>
+              <tr>
+                <th>Test</th>
+                <th>Region</th>
+                <th>Localization</th>
+                <th>View Posistion</th>
+                <th>Comment</th>
+                <th>Priority</th>
+                <th data-orderable="false" style="background-color: rgb(15, 112, 119);"></th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </body>
+
+</html>

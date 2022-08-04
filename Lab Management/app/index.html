@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Lab Management</title>
+  <!-- openmrs favicon -->
+  <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+  <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/openmrs/ms/uiframework/resource/appui/styles/header.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet"
+    href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    .font15px {
+      font-size: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navigation">
+      <div class="logo">
+        <a href="../../">
+          <img src="img/openmrs-with-title-small.png" />
+        </a>
+      </div>
+
+      <ul class="navbar-nav ml-auto user-options">
+        <li class="nav-item" style="font-weight: bold;font-size: 1rem; position: relative; top: 3px;">
+          <span class="icon-hospital"></span><span id="lblInstituteName"></span>
+          <input id="txtinstituteuuid" type="text" class="form-control" style="display: none;" />
+        </li>
+      </ul>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto user-options">
+          <li class="nav-item logout" style="font-weight: bold; font-size: 1rem; position: relative; top: 2px;">
+            <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+              Logout <i class="icon-signout small"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="clear"></div>
+
+  <ul id="breadcrumbs">
+    <li>
+      <a href="/openmrs/index.htm">
+        <i class="icon-home small"></i>
+      </a>
+    </li>
+    <li>
+      <i class="icon-chevron-right link"></i> Lab Management
+    </li>
+  </ul>
+
+  <div id="body-wrapper">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 homeList">
+
+      <a id="referenceapplication-manageApps-app" href="/openmrs/owa/receivesamplefromlab/index.html"
+        class="btn btn-default btn-lg button app big align-self-center font15px" type="button">
+        <i
+          style='background-image: url("https://i.ibb.co/KDX9Ckg/imageedit-8-4487825912.png"); width: 50px; height: 50px; background-size: contain;'></i>
+        Receive Sample From Lab
+      </a>
+
+      <a id="referenceapplication-manageExtensions-app" href="/openmrs/owa/addresultsforlabtests/index.html"
+        class="btn btn-default btn-lg button app big align-self-center font15px" type="button">
+        <i
+          style='background-image: url("https://i.ibb.co/tYK1ktj/imageedit-1-9044183613.png"); width: 50px; height: 50px; background-size: contain;'></i>
+        Add Results For Lab Tests
+      </a>
+
+    </div>
+  </div>
+
+</body>
+
+</html>

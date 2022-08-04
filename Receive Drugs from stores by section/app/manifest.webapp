@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "name": "drugs",
+  "description": "Receive Drug from Stores by Section",
+  "launch_path": "index.html",
+  "icons": {
+    "48": "/img/omrs-button.png"
+  },
+  "developer": {
+    "name": "",
+    "url": "https://github.com//openmrs-owa-drugs"
+  },
+  "default_locale": "en",
+    "activities": {
+      "openmrs": {
+        "href": "*"
+      }
+    }
+}

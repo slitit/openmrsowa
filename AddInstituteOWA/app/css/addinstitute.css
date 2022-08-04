@@ -1,0 +1,127 @@
+/* * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+ * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+ *
+ * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+ * graphic logo is a trademark of OpenMRS Inc.
+ */
+body {
+    font-family: "OpenSans", Arial, sans-serif;
+    -webkit-font-smoothing: subpixel-antialiased;
+    max-width: 1000px;
+     background: #eeeeee;
+    color: #363463;
+    font-size: 16px;
+}
+
+
+.btnAdd1 {
+  background-color:  #540cdae3;
+  position: relative;
+  width: 38px;
+  height: 38px;
+  font-size: 13px;
+  display: inline-block;
+  color: blue;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+  padding: 1px 2px 1px;
+  margin: 2px;
+  box-shadow: #e90f95 3px;
+  border-radius: 3px;
+  -webkit-transition: all 0.1s;
+  -moz-transition: all 0.1s;
+  transition: all 0.1s;
+}
+
+
+header {
+    position: relative;
+    background-color: #00463f;
+    color: #CCC;
+    line-height: 1em;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    display: block;
+    min-height: 48px;
+}
+
+header .logo {
+    float: left;
+    margin: 4px;
+    display: block;
+}
+
+header .logo img {
+    width: 120px;
+}
+
+#body-wrapper {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: white;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    min-height: 500px;
+    justify-content: center;
+}
+
+.app-title {
+    display: block;
+    float: right;
+    color: #eeeeee;
+    font-size: 32px;
+    margin: 4px;
+    height: 100%;
+    padding-top: 12px;
+    padding-right: 5px;
+}
+
+.instructions {
+    align-self: center;
+}
+
+table{
+    border: grey;
+	width:30px;
+	
+  }
+  
+  thead {
+    background-color: rgb(15, 126, 83);
+    color:black;
+    text-align: center;
+    border: 0px rgb(35 135 143);
+    height: 40px;
+  }
+  
+  tbody {
+    background-color: rgb(126, 148, 126);
+    color: rgb(0, 0, 0);
+    text-align: center;
+    height: 30px;
+    border: 1px solid black;
+  }
+  
+  td {
+    border-left: 1px solid #23878f;
+    border-top: 1px solid #23878f;
+  }
+  tr {
+    line-height: 15px;
+    min-height: 15px;
+    height: 15px;
+    max-height: 20px;
+  }
+  

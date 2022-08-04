@@ -1,0 +1,311 @@
+/* * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+ * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+ *
+ * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+ * graphic logo is a trademark of OpenMRS Inc.
+ */
+body {
+  font-family: "OpenSans", Arial, sans-serif;
+  -webkit-font-smoothing: subpixel-antialiased;
+  max-width: 1000px;
+  margin: 10px auto;
+  background: #eeeeee;
+  color: #363463;
+  font-size: 16px;
+}
+
+header {
+  position: relative;
+  background-color: #0f457a;
+  color: #ccc;
+  line-height: 1em;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 1px;
+  display: block;
+  min-height: 35px;
+}
+
+header .logo {
+  float: left;
+  margin: 4px;
+  display: block;
+}
+
+header .logo img {
+  width: 120px;
+}
+
+#body-wrapper {
+  padding: 10px;
+  background-color: white;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  min-height: 500px;
+  justify-content: center;
+}
+
+.app-title {
+  display: block;
+  float: left;
+  color: #eeeeee;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 4px;
+  height: 100%;
+  padding-top: 7px;
+  padding-left: 5px;
+}
+
+.instructions {
+  align-self: center;
+}
+
+.formInput {
+  width: 250px;
+}
+.first {
+  display: grid;
+  grid-template-columns: 500px auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.first_one {
+  display: flex;
+  width: 1000px;
+}
+.first_two {
+  display: flex;
+  width: 1000px;
+}
+
+.second {
+  display: grid;
+  grid-template-columns: 500px auto;
+  margin-bottom: 10px;
+}
+.second_one {
+  display: flex;
+  width: 1000px;
+}
+.second_two {
+  display: flex;
+  width: 1000px;
+}
+.third {
+  display: flex;
+  margin-bottom: 10px;
+}
+.fourth {
+  display: flex;
+  margin-bottom: 10px;
+}
+.fifth {
+  display: grid;
+  grid-template-columns: 500px auto;
+  margin-bottom: 10px;
+}
+.fifth_one {
+  display: flex;
+  width: 1000px;
+}
+.fifth_two {
+  display: flex;
+  width: 1000px;
+}
+.sixth {
+  display: grid;
+  grid-template-columns: 500px auto;
+  margin-bottom: 20px;
+}
+.sixth_one {
+  display: flex;
+  width: 1000px;
+}
+.sixth_two {
+  display: flex;
+  width: 1000px;
+}
+.space {
+  width: 700px;
+}
+label {
+  width: 300px;
+}
+.buttons {
+  margin-top: 30px;
+  margin-left: 270px;
+}
+
+.buttonDisplay {
+  color: whitesmoke;
+  width: 100px;
+  height: 35px;
+  font-size: 15px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+.button-3d {
+  position: relative;
+  width: 100px;
+  height: 30px;
+  display: inline-block;
+  color: #ecf0f1;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px #ecf0f1;
+  text-align: center;
+  padding: 0px 1px 1px;
+  margin: 3px;
+
+  -webkit-transition: all 0.1s;
+  -moz-transition: all 0.1s;
+  transition: all 0.1s;
+}
+
+.btnSave {
+  background-color: rgb(82, 196, 82);
+  border: solid 1px #7fd793;
+  -webkit-box-shadow: 0px 6px 0px #54d300;
+  -moz-box-shadow: 0px 6px 0px #31d300;
+  box-shadow: 0px 6px 0px #00d358;
+}
+
+.btnSave:active {
+  -webkit-box-shadow: 0px 2px 0px #12d300;
+  -moz-box-shadow: 0px 2px 0px #12d300;
+  box-shadow: 0px 2px 0px #00d358;
+  position: relative;
+  border: solid 1px #7fd793;
+  top: 4px;
+}
+
+.btnCancel {
+  background-color: rgb(172, 164, 51);
+  border: solid 1px #ced77f;
+  -webkit-box-shadow: 0px 6px 0px #d3be00;
+  -moz-box-shadow: 0px 6px 0px #d3ac00;
+  box-shadow: 0px 6px 0px #cfd300;
+}
+
+.btnCancel:active {
+  -webkit-box-shadow: 0px 2px 0px #d3cf00;
+  -moz-box-shadow: 0px 2px 0px #cfd300;
+  box-shadow: 0px 2px 0px #c5d300;
+  position: relative;
+  border: solid 1px #d1d77f;
+  top: 4px;
+}
+
+.btnAdd {
+  background-color: rgb(51, 81, 177);
+  border: solid 1px #7fafd7;
+  -webkit-box-shadow: 0px 6px 0px #0074d3;
+  -moz-box-shadow: 0px 6px 0px #006dd3;
+  box-shadow: 0px 6px 0px #006dd3;
+}
+
+.btnAdd:active {
+  -webkit-box-shadow: 0px 2px 0px #0062d3;
+  -moz-box-shadow: 0px 2px 0px #0086d3;
+  box-shadow: 0px 2px 0px #005bd3;
+  position: relative;
+  border: solid 1px #7fb4d7;
+  top: 4px;
+}
+
+.btnLookup {
+  background-color: rgb(172, 65, 51);
+  border: solid 1px #d77f7f;
+  -webkit-box-shadow: 0px 6px 0px #d33100;
+  -moz-box-shadow: 0px 6px 0px #d30000;
+  box-shadow: 0px 6px 0px #d30012;
+}
+
+.btnLookup:active {
+  -webkit-box-shadow: 0px 2px 0px #d30700;
+  -moz-box-shadow: 0px 2px 0px #d3001c;
+  box-shadow: 0px 2px 0px #d34d00;
+  position: relative;
+  border: solid 1px #d77f7f;
+  top: 4px;
+}
+
+#example{
+  width: 100%;;
+}
+table{
+  border: grey;
+}
+thead {
+  background-color: rgb(15, 126, 83);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  border: 0px rgb(35 135 143);
+  height: 50px;
+}
+
+tbody {
+  background-color: rgb(126, 148, 126);
+  color: rgb(0, 0, 0);
+  text-align: center;
+  height: 150px;
+  border: 1px solid black;
+}
+
+td {
+  border-left: 1px solid #23878f;
+  border-top: 1px solid #23878f;
+}
+tr {
+  line-height: 15px;
+  min-height: 15px;
+  height: 15px;
+  max-height: 20px;
+}
+
+input[type="checkbox"] {
+  transform: scale(1.5);
+  margin-left: 10px;
+}
+.remarkSpace {
+  width: 130px;
+}
+
+.drug {
+  width: 300px;
+}
+
+.Quantity {
+  width: 100px;
+}
+.batchNo {
+  width: 100px;
+}
+.expDate {
+  width: 100px;
+}
+.issQty {
+  width: 150px;
+}
+.recQty {
+  width: 100px;
+}
+.remark {
+  width: 150px;
+}
+.tableInput {
+  width: 100px;
+  height: 20px;
+  border: 1px solid #23878f;
+}

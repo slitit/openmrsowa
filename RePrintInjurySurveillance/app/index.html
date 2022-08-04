@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Re-Print Injury Surveillance</title>
+  <!-- openmrs favicon -->
+  <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+  <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/openmrs/ms/uiframework/resource/appui/styles/header.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet"
+    href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css" type="text/css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    label.row.col-md-12 {
+      line-height: 1 !important;
+    }
+
+    .input-file {
+      padding: 0px;
+      margin: 0 auto;
+      background: #ffffff;
+      -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.04);
+      box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0);
+    }
+
+    .upload-img {
+      border-radius: 16px;
+      display: inline-block;
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      object-position: 50% 50%;
+      border: 3px solid #20e5bf;
+      margin-right: 15px;
+      vertical-align: middle;
+    }
+
+    .input-file-upload {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .input-file-upload input[type="file"] {
+      opacity: 0;
+      padding: 10px 0;
+      height: 36px;
+      width: 150px;
+    }
+
+    .upload-label {
+      width: 150px;
+      height: 36px;
+      background: #3b70f1;
+      text-align: center;
+      color: #ffffff;
+      display: block;
+      padding: 8px 0;
+      position: absolute;
+      line-height: normal;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .input-file-upload:hover .upload-label {
+      background: #eaf5fe;
+      color: #3b70f1;
+    }
+
+    .text-input {
+      width: 0px;
+    }
+
+    form select,
+    .form select {
+      min-width: 100% !important;
+    }
+
+    body,
+    .btn {
+      font-size: 12px !important;
+    }
+
+    .form-group {
+      margin-bottom: 10px !important;
+    }
+
+    .form-control {
+      height: 28px !important;
+      padding: 6px !important;
+      font-size: 12px !important;
+      line-height: 0;
+    }
+
+    body {
+      line-height: .8 !important;
+    }
+
+    form label,
+    .form label {
+      margin-bottom: 4px;
+    }
+
+    .top-btn {
+      all: unset;
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      cursor: pointer;
+      transform: scale(1.8);
+      opacity: 0;
+      transition: .3s;
+    }
+
+    .button-group#threeD .button {
+      /* background: linear-gradient(135deg, #39414E, #4C5363); */
+      background: linear-gradient(135deg, #549ee7, #36f1cf);
+      border: none;
+      width: 100%;
+      height: 45px;
+      padding: 8px 10px;
+      display: inline-block;
+      margin: 0 -2px 5px -3px;
+      /* color: #F89B72; */
+      color: #000;
+      font-size: 9px !important;
+      box-shadow: 0px 2px 15px #323A45;
+      position: relative;
+      font-weight: bolder;
+      display: flex;
+    }
+
+    .button-group#threeD .button img {
+      width: 32px !important;
+      height: 30px !important;
+      ;
+    }
+
+    .button-group#threeD .button p {
+      margin-left: 5px;
+    }
+
+    .button-group#threeD .button span {
+      text-align: center;
+      margin: 20px 0 20px 0;
+      display: block;
+      color: #fff;
+      text-shadow: 0 2px 30px #323A45;
+      font-size: 32px;
+    }
+
+    .button-group#threeD .button:hover {
+      background: linear-gradient(135deg, #4C5363, #39414E);
+    }
+
+    .button-group#threeD .button.active {
+      font-size: 14px;
+      text-shadow: 0 0 10px #fff;
+      background: linear-gradient(135deg, #4C5363, #39414E);
+      color: #fff;
+      vertical-align: bottom;
+    }
+
+    .button-group#threeD .button.active span {
+      text-shadow: 0 0 10px #fff;
+      margin-top: 10px;
+      font-size: 20px;
+    }
+
+    .button-group#threeD .button.next:before {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: -25px;
+      top: 0px;
+      line-height: 90px;
+      border-bottom: 20px solid #323A45;
+      border-left: 25px solid transparent;
+    }
+
+    .button-group#threeD .button.next:after {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: -25px;
+      top: 20px;
+      line-height: 90px;
+      border-top: 100px solid #323A45;
+      border-left: 25px solid transparent;
+    }
+
+    .button-group#threeD .button.prev:before {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: 100%;
+      top: 20px;
+      line-height: 90px;
+      border-top: 100px solid #323A45;
+      border-right: 25px solid transparent;
+    }
+
+    .button-group#threeD .button.prev:after {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: 100%;
+      top: 0px;
+      line-height: 90px;
+      border-bottom: 20px solid #323A45;
+      border-right: 25px solid transparent;
+    }
+
+    @media (max-width:765px) {
+      .button-group {
+        width: 100%;
+      }
+    }
+
+    .button-group {
+      display: inherit !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navigation">
+      <div class="logo">
+        <a href="../../">
+          <img src="img/openmrs-with-title-small.png" />
+        </a>
+      </div>
+
+      <ul class="navbar-nav ml-auto user-options">
+        <li class="nav-item" style="font-weight: bold;">
+          <span class="icon-hospital"></span><span id="lblInstituteName"></span>
+          <input id="txtinstituteuuid" type="text" class="form-control" style="display: none;" />
+        </li>
+      </ul>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto user-options">
+          <li class="nav-item logout">
+            <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+              Logout <i class="icon-signout small"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="clear"></div>
+
+  <ul id="breadcrumbs">
+    <li>
+      <a href="/openmrs/index.htm">
+        <i class="icon-home small"></i>
+      </a>
+    </li>
+    <li>
+      <i class="icon-chevron-right link"></i> Re-Print Injury Surveillance
+    </li>
+  </ul>
+
+  <div id="body-wrapper">
+    <div class="card">
+      <div class="card-body row">
+
+        <form class="container-fluid" id="drugDetailsgForm">
+
+          <div class="row mt-2">
+            <div class="col-md-3">
+              <label for="druglist" class="col-form-label"><span class="icon-hand-right"></span>&nbsp;PHN</label>
+              <input type="text" class="form-control" id="txtPhn" />
+            </div>
+            <div class="col-md-3">
+              <label for="txtGenericName" class="col-form-label"><span class="icon-hand-right"></span>&nbsp;Visit
+                Date</label>
+              <input type="text" class="form-control dppicker" id="txtVisitDate" />
+            </div>
+            <div class="col-lg-2 row form-group" style="align-items: flex-end;">
+              <button type="button" id="btnPrint"
+                class="btn btn-block submitButton confirm right focused">Print</button>
+            </div>
+            <div class="col-lg-2 row form-group" style="align-items: flex-end;">
+              <button type="button" id="btnClear" class="btn btn-block cancel">Cancel</button>
+            </div>
+          </div>
+
+          <style>
+            page[size="A4"] {
+              background: white;
+              width: 21cm;
+              height: 29.7cm;
+              display: block;
+              margin: 0 auto;
+              margin-bottom: 0.5cm;
+              box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+            }
+
+            page td,
+            th {
+              line-height: 1.2 !important;
+              padding: 2px !important;
+            }
+
+            td span {
+              font-weight: bold !important;
+            }
+
+            @media print {
+
+              body,
+              page[size="A4"] {
+                margin: 0;
+                box-shadow: 0;
+              }
+            }
+          </style>
+
+          <div id="containerPrint" style="display: s; font-size: 10px !important; margin-top: 50px;">
+            <page size="A4">
+              <div style="display: flex; padding: 0px 15px;">
+                <div style="width: 30%;">
+                  <p style="font-size: 11px; position: relative; top: 15px;">This information can be only used for the
+                    purpose of improving the quality of the system.</p>
+                </div>
+                <div style="width: 2%;"></div>
+                <div style="width: 40%;">
+                  <h1 style="font-size: 1.5rem;font-weight: bold;border: 4px solid;text-align: center;padding: 4px;">
+                    Information of Injury</h1>
+                </div>
+                <div style="width: 28%;"></div>
+              </div>
+              <div style="display: flex; padding: 0px 15px;">
+                <div style="width: 49.8%;">
+                  <table border="2">
+                    <tbody>
+                      <tr>
+                        <th width="40%">Health Institute:</th>
+                        <th id="tdInsname"></th>
+                      </tr>
+                      <tr>
+                        <th width="40%">OPD/BHT/PHN:</th>
+                        <th id="tdPhn"></th>
+                      </tr>
+                      <tr>
+                        <th width="40%">Name Of the injured:</th>
+                        <th id="tdName"></th>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table border="2" style="margin-top: 21px; text-align: center;">
+                    <tbody style="white-space: nowrap;">
+                      <tr>
+                        <th colspan="3" style="background: black; color: white;">Time of injury:</th>
+                        <th>am/pm/noon/midnight</th>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 01</th>
+                        <td>12.01am - 06.00am</td>
+                        <td id="td00106"></td>
+                      </tr>
+                      <tr>
+                        <th>2</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 02</th>
+                        <td>06.01am - 12.00noon</td>
+                        <td id="td6100"></td>
+                      </tr>
+                      <tr>
+                        <th>3</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 03</th>
+                        <td>12.01pm - 06.00pm</td>
+                        <td id="td12118"></td>
+                      </tr>
+                      <tr>
+                        <th>4</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 04</th>
+                        <td>06.01pm - 12.00noon</td>
+                        <td id="td18112"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div style="width: 0.2%;"></div>
+                <div style="width: 50%;">
+                  <table border="2">
+                    <tbody>
+                      <tr>
+                        <th width="40%">Age:</th>
+                        <th id="tdAge"></th>
+                      </tr>
+                      <tr>
+                        <th width="40%">Sex:</th>
+                        <th id="tdSex"></th>
+                      </tr>
+                      <tr>
+                        <th width="40%">Contact No:</th>
+                        <th id="tdContactNo"></th>
+                      </tr>
+                      <tr>
+                        <th width="40%">Date of injury:</th>
+                        <th id="tdDateOnSet"></th>
+                      </tr>
+                      <tr>
+                        <th width="40%">MOH Division:</th>
+                        <th id="tdMohDivision"></th>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table border="2">
+                    <tbody>
+                      <tr>
+                        <th>Location/ Address whwere the injury has taken place:<br><br><br>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table border="2">
+                    <tbody>
+                      <tr>
+                        <th width="40%" style="line-height: 0.9;">Date of Dead(For dead victims only):</th>
+                        <th style="color: #c0c4c7;">Y</th>
+                        <th style="color: #c0c4c7;">Y</th>
+                        <th style="color: #c0c4c7;">Y</th>
+                        <th style="color: #c0c4c7;">Y</th>
+                        <th style="color: #c0c4c7;">M</th>
+                        <th style="color: #c0c4c7;">M</th>
+                        <th style="color: #c0c4c7;">D</th>
+                        <th style="color: #c0c4c7;">D</th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div style="display: flex; padding: 4px 15px;">
+                <div style="width: 40%;">
+                  <table border="2" style="margin-top: 4px; text-align: center;">
+                    <tbody>
+                      <tr>
+                        <th style="background: black; color: white; text-align: left;">A</th>
+                        <th colspan="3" style="background: black; color: white; text-align: left;">Mechanism Of
+                          Injury(How
+                          was the injury
+                          occured)</th>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 05</th>
+                        <td style="text-align: left;">Transport Injuries</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="5"></td>
+                      </tr>
+                      <tr>
+                        <th>2</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 06</th>
+                        <td style="text-align: left;">Fall</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="6"></td>
+                      </tr>
+                      <tr>
+                        <th>3</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 07</th>
+                        <td style="text-align: left;">Stuck/ Hit By Object</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="7"></td>
+                      </tr>
+                      <tr>
+                        <th>4</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 08</th>
+                        <td style="text-align: left;">Stuck/ Hit By Person</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="8"></td>
+                      </tr>
+                      <tr>
+                        <th>5</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 09</th>
+                        <td style="text-align: left;">Stab Or Cut</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="9"></td>
+                      </tr>
+                      <tr>
+                        <th>6</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 10</th>
+                        <td style="text-align: left;">Firearm Injuries</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="10"></td>
+                      </tr>
+                      <tr>
+                        <th>7</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 11</th>
+                        <td style="text-align: left;">Blast Injuries</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="11"></td>
+                      </tr>
+                      <tr>
+                        <th>8</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 12</th>
+                        <td style="text-align: left;">Noise/ Vibration Injuries</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="12"></td>
+                      </tr>
+                      <tr>
+                        <th>9</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 13</th>
+                        <td style="text-align: left;">Animal Bite</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="13"></td>
+                      </tr>
+                      <tr>
+                        <th>10</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 14</th>
+                        <td style="text-align: left;">Animal Attack</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="14"></td>
+                      </tr>
+                      <tr>
+                        <th>11</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 15</th>
+                        <td style="text-align: left;">Animal/ Plant Sting (nonvenomous)</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="15"></td>
+                      </tr>
+                      <tr>
+                        <th>12</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 16</th>
+                        <td style="text-align: left;">Animal Sting (venomous)</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="16"></td>
+                      </tr>
+                      <tr>
+                        <th>13</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 17</th>
+                        <td style="text-align: left;">Plant Sting (venomous)</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="17"></td>
+                      </tr>
+                      <tr>
+                        <th>14</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 18</th>
+                        <td style="text-align: left;">Poisoning</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="18"></td>
+                      </tr>
+                      <tr>
+                        <th>15</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 19</th>
+                        <td style="text-align: left;">Drowning & Submersion</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="19"></td>
+                      </tr>
+                      <tr>
+                        <th>16</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 20</th>
+                        <td style="text-align: left;">Threats To Breathing</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="20"></td>
+                      </tr>
+                      <tr>
+                        <th>17</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 21</th>
+                        <td style="text-align: left;">Injuries Due To Forces Of Nature</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="21"></td>
+                      </tr>
+                      <tr>
+                        <th>18</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 22</th>
+                        <td style="text-align: left;">Exposure To Electric Current</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="22"></td>
+                      </tr>
+                      <tr>
+                        <th>19</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 23</th>
+                        <td style="text-align: left;">Exposure To Radiation</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="23"></td>
+                      </tr>
+                      <tr>
+                        <th>20</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 24</th>
+                        <td style="text-align: left;">Exposure To Excessive Cold/ Heat (man-made)</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="24"></td>
+                      </tr>
+                      <tr>
+                        <th>21</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 25</th>
+                        <td style="text-align: left;">Exposure To Smoke/ Fire/ Flame</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="25"></td>
+                      </tr>
+                      <tr>
+                        <th>22</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 26</th>
+                        <td style="text-align: left;">Exposure To Heat & Hot Substances</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="26"></td>
+                      </tr>
+                      <tr>
+                        <th>23</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 27</th>
+                        <td style="text-align: left;">Exposure To Acid/ Corrosives</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="27"></td>
+                      </tr>
+                      <tr>
+                        <th>24</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 28</th>
+                        <td style="text-align: left;">Others (Pl. mention) <span id="txt28Span"></span></td>
+                        <td style="padding: 0;" class="rowTd" attr-id="28"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <table border="2" style="margin-top: 4px; text-align: center;">
+                    <tbody>
+                      <tr>
+                        <th style="background: black; color: white; text-align: left;">B</th>
+                        <th colspan="3" style="background: black; color: white; text-align: left;">Place Of Occurence Of
+                          Injury</th>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 30</th>
+                        <td style="text-align: left;">Home</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="30"></td>
+                      </tr>
+                      <tr>
+                        <th>2</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 31</th>
+                        <td style="text-align: left;">Residential Institution</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="31"></td>
+                      </tr>
+                      <tr>
+                        <th>3</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 32</th>
+                        <td style="text-align: left;">Educational Institution</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="32"></td>
+                      </tr>
+                      <tr>
+                        <th>4</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 33</th>
+                        <td style="text-align: left;">Public Administrative Area</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="33"></td>
+                      </tr>
+                      <tr>
+                        <th>5</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 34</th>
+                        <td style="text-align: left;">Sports & Athletic Area</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="34"></td>
+                      </tr>
+                      <tr>
+                        <th>6</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 35</th>
+                        <td style="text-align: left;">Leisure/ Recreational Area</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="35"></td>
+                      </tr>
+                      <tr>
+                        <th>7</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 36</th>
+                        <td style="text-align: left;">Street/ Road/ Highway/ Rail Track</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="36"></td>
+                      </tr>
+                      <tr>
+                        <th>8</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 37</th>
+                        <td style="text-align: left;">Other Transport Area(Water/ Air)</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="37"></td>
+                      </tr>
+                      <tr>
+                        <th>9</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 38</th>
+                        <td style="text-align: left;">Trade & Service Area</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="38"></td>
+                      </tr>
+                      <tr>
+                        <th>10</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 39</th>
+                        <td style="text-align: left;">Occupational Setting (Pl. mention) <span id="txt39Span"></span>
+                        </td>
+                        <td style="padding: 0;" class="rowTd" attr-id="39"></td>
+                      </tr>
+                      <tr>
+                        <th>11</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 40</th>
+                        <td style="text-align: left;">Other Specified Places</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="40"></td>
+                      </tr>
+                      <tr>
+                        <th>12</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 41</th>
+                        <td style="text-align: left;">Unknown</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="41"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <table border="2" style="margin-top: 4px; text-align: center;">
+                    <tbody>
+                      <tr>
+                        <th style="background: black; color: white; text-align: left;">C</th>
+                        <th colspan="3" style="background: black; color: white; text-align: left;">Activity Done At The
+                          Time Of Injury</th>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 42</th>
+                        <td style="text-align: left;">Educational Activities</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="42"></td>
+                      </tr>
+                      <tr>
+                        <th>2</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 43</th>
+                        <td style="text-align: left;">Sports Activities</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="43"></td>
+                      </tr>
+                      <tr>
+                        <th>3</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 44</th>
+                        <td style="text-align: left;">Leisure Activities</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="44"></td>
+                      </tr>
+                      <tr>
+                        <th>4</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 45</th>
+                        <td style="text-align: left;">Working From Income</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="45"></td>
+                      </tr>
+                      <tr>
+                        <th>5</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 46</th>
+                        <td style="text-align: left;">Traveling</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="46"></td>
+                      </tr>
+                      <tr>
+                        <th>6</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 47</th>
+                        <td style="text-align: left;">House Hold Activities</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="47"></td>
+                      </tr>
+                      <tr>
+                        <th>7</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 48</th>
+                        <td style="text-align: left;">Resting, Sleeping, Eating or Engaging in Other Vital Activities
+                        </td>
+                        <td style="padding: 0;" class="rowTd" attr-id="48"></td>
+                      </tr>
+                      <tr>
+                        <th>8</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 49</th>
+                        <td style="text-align: left;">Others (Pl. mention) <span id="txt49Span"></span></td>
+                        <td style="padding: 0;" class="rowTd" attr-id="49"></td>
+                      </tr>
+                      <tr>
+                        <th>9</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 50</th>
+                        <td style="text-align: left;">Unknown</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="50"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div style="width: 0.2%;"></div>
+                <div style="width: 59.8%;">
+
+                  <table border="2" style="margin-top: 4px; text-align: center; width: 100%;">
+                    <tbody>
+                      <tr>
+                        <th style="background: black; color: white; text-align: left;">D</th>
+                        <th colspan="3" style="background: black; color: white; text-align: left;">Intent
+                          Injury</th>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 51</th>
+                        <td style="text-align: left;">Unintentional</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="51"></td>
+                      </tr>
+                      <tr>
+                        <th>2</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 52</th>
+                        <td style="text-align: left;">Other Intentional</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="52"></td>
+                      </tr>
+                      <tr>
+                        <th>3</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 53</th>
+                        <td style="text-align: left;">Deliberate Self - harm</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="53"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div style="display: flex; padding: 0px 0px;">
+                    <div style="width: 49.8%;">
+                      <table border="2" style="margin-top: 4px; text-align: center;">
+                        <tbody>
+                          <tr>
+                            <th style="background: black; color: white; text-align: left;">E</th>
+                            <th colspan="3" style="background: black; color: white; text-align: left;">Affected Body
+                              Region</th>
+                          </tr>
+                          <tr>
+                            <th>1</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 54</th>
+                            <td style="text-align: left;">Head</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="54"></td>
+                          </tr>
+                          <tr>
+                            <th>2</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 55</th>
+                            <td style="text-align: left;">Face</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="55"></td>
+                          </tr>
+                          <tr>
+                            <th>3</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 56</th>
+                            <td style="text-align: left;">ENT</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="56"></td>
+                          </tr>
+                          <tr>
+                            <th>4</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 57</th>
+                            <td style="text-align: left;">Eyes</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="57"></td>
+                          </tr>
+                          <tr>
+                            <th>5</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 58</th>
+                            <td style="text-align: left;">Oro Maxiliary Region</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="58"></td>
+                          </tr>
+                          <tr>
+                            <th>6</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 59</th>
+                            <td style="text-align: left;">Neck</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="59"></td>
+                          </tr>
+                          <tr>
+                            <th>7</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 60</th>
+                            <td style="text-align: left;">Spine</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="60"></td>
+                          </tr>
+                          <tr>
+                            <th>8</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 61</th>
+                            <td style="text-align: left;">Chest</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="61"></td>
+                          </tr>
+                          <tr>
+                            <th>9</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 62</th>
+                            <td style="text-align: left;">Back Of Chest</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="62"></td>
+                          </tr>
+                          <tr>
+                            <th>10</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 63</th>
+                            <td style="text-align: left;">Abdomen</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="63"></td>
+                          </tr>
+                          <tr>
+                            <th>11</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 64</th>
+                            <td style="text-align: left;">Genitalia</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="64"></td>
+                          </tr>
+                          <tr>
+                            <th>12</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 65</th>
+                            <td style="text-align: left;">Upper Limbs Including Shoulder Girdle, Palm & Fingers</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="65"></td>
+                          </tr>
+                          <tr>
+                            <th>13</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 66</th>
+                            <td style="text-align: left;">Lower Limbs Including Pelvic Girdle, Foot & Toes</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="66"></td>
+                          </tr>
+                          <tr>
+                            <th>14</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 67</th>
+                            <td style="text-align: left;">Any Other Region Affected (Pl. mention) <span
+                                id="txt67Span"></span></td>
+                            <td style="padding: 0;" class="rowTd" attr-id="67"></td>
+                          </tr>
+                          <tr>
+                            <th>15</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 68</th>
+                            <td style="text-align: left;">No External Injuries</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="68"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table border="2" style="margin-top: 4px; text-align: center;">
+                        <tbody>
+                          <tr>
+                            <th style="background: black; color: white; text-align: left;">H</th>
+                            <th colspan="3" style="background: black; color: white; text-align: left;">Evidence Of
+                              Substance Use </th>
+                          </tr>
+                          <tr>
+                            <th>1</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 85</th>
+                            <td style="text-align: left;">Yes</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="85"></td>
+                          </tr>
+                          <tr>
+                            <th>2</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 86</th>
+                            <td style="text-align: left;">No</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="86"></td>
+                          </tr>
+                          <tr>
+                            <th>3</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 87</th>
+                            <td style="text-align: left;">Unknown</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="87"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div style="width: 0.2%;"></div>
+                    <div style="width: 50%;">
+                      <table border="2" style="margin-top: 4px; text-align: center;">
+                        <tbody>
+                          <tr>
+                            <th style="background: black; color: white; text-align: left;">E</th>
+                            <th colspan="3" style="background: black; color: white; text-align: left;">Nature Of Injury
+                            </th>
+                          </tr>
+                          <tr>
+                            <th>1</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 70</th>
+                            <td style="text-align: left;">Superficial Injury</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="70"></td>
+                          </tr>
+                          <tr>
+                            <th>2</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 71</th>
+                            <td style="text-align: left;">Open Wound</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="71"></td>
+                          </tr>
+                          <tr>
+                            <th>3</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 72</th>
+                            <td style="text-align: left;">Fracture</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="72"></td>
+                          </tr>
+                          <tr>
+                            <th>4</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 73</th>
+                            <td style="text-align: left;">Dislocation, Sprain & Strain</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="73"></td>
+                          </tr>
+                          <tr>
+                            <th>5</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 74</th>
+                            <td style="text-align: left;">Injury To Nurve & Spinal Cord</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="74"></td>
+                          </tr>
+                          <tr>
+                            <th>6</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 75</th>
+                            <td style="text-align: left;">Injury To Blood Vesel</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="75"></td>
+                          </tr>
+                          <tr>
+                            <th>7</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 76</th>
+                            <td style="text-align: left;">Injury To Muscle & Tendon</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="76"></td>
+                          </tr>
+                          <tr>
+                            <th>8</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 77</th>
+                            <td style="text-align: left;">Crushing Injury</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="77"></td>
+                          </tr>
+                          <tr>
+                            <th>9</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 78</th>
+                            <td style="text-align: left;">Traumatic Amputation</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="78"></td>
+                          </tr>
+                          <tr>
+                            <th>10</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 79</th>
+                            <td style="text-align: left;">Injury To Internal Organs</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="79"></td>
+                          </tr>
+                          <tr>
+                            <th>11</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 80</th>
+                            <td style="text-align: left;">Other & Unspecified</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="80"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table border="2" style="margin-top: 4px; text-align: center;">
+                        <tbody>
+                          <tr>
+                            <th style="background: black; color: white; text-align: left;">G</th>
+                            <th colspan="3" style="background: black; color: white; text-align: left;">Evidence Of
+                              Alcohol
+                              Use</th>
+                          </tr>
+                          <tr>
+                            <th>1</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 82</th>
+                            <td style="text-align: left;">Yes</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="82"></td>
+                          </tr>
+                          <tr>
+                            <th>2</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 83</th>
+                            <td style="text-align: left;">No</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="83"></td>
+                          </tr>
+                          <tr>
+                            <th>3</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 84</th>
+                            <td style="text-align: left;">Unknown</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="84"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table border="2" style="margin-top: 4px; text-align: center;">
+                        <tbody>
+                          <tr>
+                            <th style="background: black; color: white; text-align: left;">I</th>
+                            <th colspan="3" style="background: black; color: white; text-align: left;"> Disablity At The
+                              Time Of Discharge</th>
+                          </tr>
+                          <tr>
+                            <th>1</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 88</th>
+                            <td style="text-align: left;">No Disablity</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="88"></td>
+                          </tr>
+                          <tr>
+                            <th>2</th>
+                            <th style="font-size: 10px;white-space: nowrap;">INJ 89</th>
+                            <td style="text-align: left;">Presence Of Disablity</td>
+                            <td style="padding: 0;" class="rowTd" attr-id="89"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                    </div>
+                  </div>
+
+                  <table border="2" style="margin-top: 4px; text-align: center;">
+                    <tbody>
+                      <tr>
+                        <th style="background: black; color: white; text-align: left;">J</th>
+                        <th colspan="3" style="background: black; color: white; text-align: left;">Patient's Outcome
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 90</th>
+                        <td style="text-align: left;">Treated & Sent Home</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="90"></td>
+                      </tr>
+                      <tr>
+                        <th>2</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 91</th>
+                        <td style="text-align: left;">Left Against Medicle Advice</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="91"></td>
+                      </tr>
+                      <tr>
+                        <th>3</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 92</th>
+                        <td style="text-align: left;">Death Before Admission</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="92"></td>
+                      </tr>
+                      <tr>
+                        <th>4</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 93</th>
+                        <td style="text-align: left;">Death After Admission</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="93"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <table border="2" style="margin-top: 4px; text-align: center;">
+                    <tbody>
+                      <tr>
+                        <th style="background: black; color: white; text-align: left;">K</th>
+                        <th colspan="3" style="background: black; color: white; text-align: left;">Tertiary Care</th>
+                      </tr>
+                      <tr>
+                        <th>1</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 96</th>
+                        <td style="text-align: left;">Not Reffered For Tertiary Care</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="96"></td>
+                      </tr>
+                      <tr>
+                        <th>2</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 97</th>
+                        <td style="text-align: left;">Reffered For Rehabilitation</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="97"></td>
+                      </tr>
+                      <tr>
+                        <th>3</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 98</th>
+                        <td style="text-align: left;">Reffered For Social Support</td>
+                        <td style="padding: 0;" class="rowTd" attr-id="98"></td>
+                      </tr>
+                      <tr>
+                        <th>4</th>
+                        <th style="font-size: 10px;white-space: nowrap;">INJ 99</th>
+                        <td style="text-align: left;">Others (Pl. mention) <span id="txt99Span"></span></td>
+                        <td style="padding: 0;" class="rowTd" attr-id="99"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <table border="2" style="margin-top: 4px; text-align: left;">
+                    <tbody>
+                      <tr>
+                        <th colspan="2">Signature Of Medical</td>
+                      </tr>
+                      <tr>
+                        <th>Officer</th>
+                        <th>....................................</th>
+                      </tr>
+                      <tr>
+                        <th>Name</th>
+                        <th>....................................</th>
+                      </tr>
+                      <tr>
+                        <th>Date</th>
+                        <th>....................................</th>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </page>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"></script>
+
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    $(".dppicker").datepicker({
+      dateFormat: 'yy-mm-dd',
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "-100:+100",
+    });
+  </script>
+
+</body>
+
+</html>

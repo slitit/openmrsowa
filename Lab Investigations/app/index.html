@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>Lab Investigations</title>
+  <!-- openmrs favicon -->
+  <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+  <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/openmrs/ms/uiframework/resource/appui/styles/header.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet"
+    href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css" type="text/css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navigation">
+      <div class="logo">
+        <a href="../../">
+          <img src="img/openmrs-with-title-small.png" />
+        </a>
+      </div>
+
+      <ul class="navbar-nav ml-auto user-options">
+        <li class="nav-item" style="font-weight: bold;">
+          <span class="icon-hospital"></span><span id="lblInstituteName"></span>
+          <input id="txtinstituteuuid" type="text" class="form-control" style="display: none;" />
+        </li>
+      </ul>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto user-options">
+          <li class="nav-item logout">
+            <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+              Logout <i class="icon-signout small"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="clear"></div>
+
+  <ul id="breadcrumbs">
+    <li>
+      <a href="/openmrs/index.htm">
+        <i class="icon-home small"></i>
+      </a>
+    </li>
+    <li>
+      <i class="icon-chevron-right link"></i> Lab Investigations
+    </li>
+  </ul>
+
+  <div id="body-wrapper">
+
+    <div class="card">
+      <div class="card-body row">
+
+        <div class="col-lg-12 form-group" style="padding: 0;">
+          <h2>Lab Investigations</h2>
+        </div>
+
+        <form class="container-fluid" id="investigationsForm">
+
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <input type="text" hidden id="investigationid" />
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <label for="TestType" class="col-form-label"><span class="icon-hand-right"></span>&nbsp;Test
+                Type</label>
+            </div>
+            <div class="col-md-7">
+              <select id="TestType" class="form-control" required>
+              </select>
+            </div>
+            <div class="col-md-1">
+              <label htmlFor="required" class="col-form-label" style="color: red;">*</label>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <label htmlFor="testGroup" class="col-form-label"><span class="icon-hand-right"></span>&nbsp;Test
+                Group</label>
+            </div>
+            <div class="col-md-7">
+              <select id="testGroup" class="form-control" required>
+              </select>
+            </div>
+            <div class="col-md-1">
+              <button type="button" id="btnNew1" style="background: #007bff; margin-top: 10px;"
+                class="btn btn-block btn-primary btn-sm" data-toggle="modal" data-target="#newtestgroup">New</button>
+            </div>
+          </div>
+
+          <div class="row mt-3" id="testIdRow">
+            <div class="col-md-3">
+              <label htmlFor="testID" class="col-form-label"><span class="icon-hand-right"></span>&nbsp;Test
+                ID</label>
+            </div>
+            <div class="col-md-7">
+              <input type="text" class="form-control" name="testID" id="testID" autoComplete="off"
+                placeholder="Enter Test ID" />
+
+              <select id="drpTestId" class="form-control" style="display: none;">
+              </select>
+            </div>
+            <div class="col-md-1">
+              <label htmlFor="required" class="col-form-label" style="color: red;">*</label>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <label htmlFor="testName" class="col-form-label"><span class="icon-hand-right"></span>&nbsp;Test
+                Name</label>
+            </div>
+            <div class="col-md-7">
+              <input type="text" class="form-control clr" name="testName" id="testName" autoComplete="off"
+                placeholder="Enter Test Name" required />
+            </div>
+            <div class="col-md-1">
+              <label htmlFor="required" class="col-form-label" style="color: red;">*</label>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <label htmlFor="specimanTypes" class="col-form-label"><span class="icon-hand-right"></span>&nbsp;Speciman
+                Type</label>
+            </div>
+            <div class="col-md-7">
+              <select id="specimanTypes" class="form-control clr" required>
+              </select>
+            </div>
+            <div class="col-md-1">
+              <button type="button" id="btnNew2" style="background: #007bff; margin-top: 10px;"
+                class="btn btn-block btn-primary btn-sm" data-toggle="modal" data-target="#newSampleType">New</button>
+            </div>
+            <div class="col-md-1">
+              <label htmlFor="required" class="col-form-label" style="color: red;">*</label>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <label htmlFor="testName" class="col-form-label"><span class="icon-hand-right"></span>&nbsp;No of
+                Samples</label>
+            </div>
+            <div class="col-md-7">
+              <input type="text" class="form-control clr" name="txtNoOfSamples" id="txtNoOfSamples" autoComplete="off" />
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <label for="drpLOINCCodes" class="col-form-label"><span class="icon-hand-right"></span>&nbsp;LOINC Code
+              </label>
+            </div>
+            <div class="col-md-7">
+              <select id="drpLOINCCodes" class="form-control clr" required>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <label htmlFor="status" class="col-form-label"><span class="icon-hand-right"></span>&nbsp;Status</label>
+            </div>
+            <div class="col-md-7">
+              <select id="status" class="form-control clr" required>
+                <option value="Active" selected>Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+            <div class="col-md-1">
+              <label htmlFor="required" class="col-form-label" style="color: red;">*</label>
+            </div>
+          </div>
+
+          <br></br>
+          <div class="col-lg-12 form-group row justify-content-center">
+
+            <div class="col-lg-2 form-group">
+              <button type="submit" id="btnSave" class="btn btn-block submitButton confirm right focused"><span
+                  id="nameBtn">Save</span></button>
+            </div>
+
+            <div class="col-lg-2 form-group">
+              <button type="button" id="btnCancel" class="btn btn-block cancel">Cancel</button>
+            </div>
+
+            <div class="col-lg-2 form-group">
+              <button type="button" id="btnLookup" style="background: #ffc107;"
+                class="btn btn-block bn-warning">Lookup</button>
+            </div>
+          </div>
+
+
+          <!-- Test Group New Button Modal -->
+          <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" id="newtestgroup"
+            aria-labelledby="newtestgroup" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+
+                <div class="modal-header">
+                  <h5 class="modal-title" id="createTestGroup">Create Test Group</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-body">
+                  <div class="row mt-3">
+                    <div class="col-md-3">
+                      <label htmlFor="testGroupName" class="col-form-label">
+                        <span class="icon-hand-right"></span>&nbsp;Test Group Name</label>
+                    </div>
+
+                    <div class="col-md-8">
+                      <input type="text" class="form-control" id="testGroupName" autoComplete="off"
+                        placeholder="Enter Test Group Name" />
+                    </div>
+
+                    <div class="col-md-1">
+                      <label for="testGroupName" class="col-form-label" style="color: red;">*</label>
+                    </div>
+                  </div>
+
+                  <div class="row mt-5 justify-content-center">
+                    <div class="col-lg-2 form-group">
+                      <button type="button" id="TestGroupSave"
+                        class="btn btn-block submitButton confirm right focused">Save</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Speciman Type New Button Modal -->
+          <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" id="newSampleType"
+            aria-labelledby="newSampleType" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+
+                <div class="modal-header">
+                  <h5 class="modal-title" id="createSampleType">Create Speciman Type</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-body">
+                  <div class="row mt-3">
+                    <div class="col-md-4">
+                      <label htmlFor="sampleTypeName" class="col-form-label"><span
+                          class="icon-hand-right"></span>&nbsp;Speciman Type Name</label>
+                    </div>
+
+                    <div class="col-md-7">
+                      <input type="text" class="form-control" name="sampleTypeName" id="sampleTypeName"
+                        autoComplete="off" placeholder="Enter Speciman Type Name" />
+                    </div>
+
+                    <div class="col-md-1">
+                      <label htmlFor="required" class="col-form-label" style="color: red;">*</label>
+                    </div>
+                  </div>
+
+                  <div class="row mt-5 justify-content-center">
+                    <div class="col-lg-2 form-group">
+                      <button type="button" id="sampleTypeSave"
+                        class="btn btn-block submitButton confirm right focused ">Save</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </form>
+
+      </div>
+    </div>
+
+
+  </div>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+  integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"
+  integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" crossorigin="anonymous"></script>
+
+
+<script>
+
+  // function deleteLaboratory(btn) {
+
+  //   if (confirm("Do you want to delete this row?"))
+  //     $(btn).closest("tr").remove();
+  // }
+
+  // function saveInvestigations() {
+
+  //   var institute = document.getElementById("institute_id").value;
+
+  //   var tbllaboratory = [];
+  //   $('#laboratoryDataBody tr').each(function () {
+  //     var tr = $(this);
+  //     var isLabId = tr.find('td:nth-child(1)').text().trim();
+  //     tbllaboratory.push(isLabId);
+
+  //   });
+
+  //   if (document.getElementById("investigationid").value.length == 0) {
+
+  //     var testType = document.getElementById("testType").value;
+  //     var testID = document.getElementById("testID").value;
+  //     var testGroup = document.getElementById("testGroup").value;
+  //     var testName = document.getElementById("testName").value;
+  //     var sampleType = document.getElementById("sampleType").value;
+  //     var Status = document.getElementById("status").value;
+
+  //     if (testType !== "--Select--" && testID !== "" && testName !== "" && sampleType !== "--Select--") {
+
+  //       if (tbllaboratory.length > 0) {
+
+  //         fetch("http://localhost:8086/investigation/addInvestigation", {
+  //           method: "POST",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+  //           body: JSON.stringify({
+  //             instituteID: institute,
+  //             testType: testType,
+  //             testGroup: testGroup,
+  //             testId: testID,
+  //             testName: testName,
+  //             sampleType: sampleType,
+  //             laboratory: tbllaboratory,
+  //             status: Status
+  //           }),
+  //         })
+  //           .then((response) => response.text())
+  //           .then((result) => {
+
+  //             if (result == "Successfully Saved") {
+  //               swal({
+  //                 title: "Success",
+  //                 text: result + "!",
+  //                 icon: "success",
+  //               });
+  //             } else {
+  //               swal({
+  //                 title: "Error",
+  //                 text: result,
+  //                 icon: "error",
+  //               });
+  //             }
+
+  //           }).catch((error) => {
+  //             console.log(error);
+  //           });
+  //         resetPage();
+  //       } else {
+  //         swal({
+  //           title: "Error",
+  //           text: "Please enter at least one laboratory!",
+  //           icon: "error",
+  //         });
+  //       }
+  //     } else {
+  //       swal({
+  //         title: "Error",
+  //         text: "Please enter the information required!",
+  //         icon: "error",
+  //       });
+  //     }
+
+  //   } else {
+  //     var updating_id = $('#investigationid').val();
+
+  //     var testType = document.getElementById("testType").value;
+  //     var testID = document.getElementById("testID").value;
+  //     var testGroup = document.getElementById("testGroup").value;
+  //     var testName = document.getElementById("testName").value;
+  //     var sampleType = document.getElementById("sampleType").value;
+  //     var Status = document.getElementById("status").value;
+
+  //     var tbllaboratory = [];
+  //     $('#laboratoryDataBody tr').each(function () {
+  //       var tr = $(this);
+  //       var isLabId = tr.find('td:nth-child(1)').text().trim();
+  //       tbllaboratory.push(isLabId);
+
+  //     });
+
+  //     fetch("http://localhost:8086/investigation/updateInvestigation", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         investigationId: document.getElementById("investigationid").value,
+  //         testType: testType,
+  //         testGroup: testGroup,
+  //         testId: testID,
+  //         testName: testName,
+  //         sampleType: sampleType,
+  //         laboratory: tbllaboratory,
+  //         status: Status,
+  //       }),
+  //     })
+  //       .then((response) => response.text())
+  //       .then((result) => {
+
+  //         if (result == "Successfully updated!") {
+  //           swal({
+  //             title: "Success",
+  //             text: result,
+  //             icon: "success",
+  //           });
+  //         } else {
+  //           swal({
+  //             title: "Error",
+  //             text: result,
+  //             icon: "error",
+  //           });
+  //         }
+
+  //       }).catch((error) => {
+  //         console.log(error);
+  //       });
+
+  //     resetPage();
+  //   }
+
+  // }
+
+  // $("#testIdAndName").change(function getInvestigationData() {
+
+  //   var selectedvalue = $("#testIdAndName").val();
+
+  //   fetch("http://localhost:8086/investigation/get_investigation_frm_test_id_and_name/" + selectedvalue, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((result) => {
+
+  //       $("#investigationid").val(result.investigationId);
+  //       $("#testType").val(result.testType.testTypeId);
+  //       $("#testGroup").val(result.testGroup.testGroupId);
+  //       $("#sampleType").val(result.sampleType.sampleTypeId);
+  //       $("#status").val(result.status);
+
+  //       $("#laboratoryDataBody").html("");
+  //       $(result.labs).each(function (k, lab) {
+  //         $("#laboratoryDataBody").append(
+  //           "<tr style='text-align: center; padding-top: 2px; padding-bottom: 4px;'><td  style='display:none;'>" +
+  //           lab.sectionid +
+  //           "</td><td>" +
+  //           lab.section_name +
+  //           "</td><td><button type='button' style='color:red;border:none;background:none;' onclick='deleteLaboratory(this)' class='btn btn-link'><span class='fa fa-close'></span></button></td></tr>"
+  //         );
+
+  //       });
+
+  //     });
+  // });
+
+  // $('#btnLookup').on('click', function (e) {
+
+  //   resetPage();
+  //   var institute = document.getElementById("institute_id").value;
+
+  //   $('#testIdRow').hide();
+  //   $('#TestNameRow').hide();
+  //   $('#TestIdAndNameRow').show();
+  //   $('#btnSave').html("Update");
+
+  //   fetch("http://localhost:8086/investigation/get_test_id_and_name_list/" + institute, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((result) => {
+
+  //       var data = "";
+  //       data += "<option disabled selected>--Select--</option>";
+  //       $(result).each(function (k, v) {
+  //         data += "<option value='" + v + "'>" + v + "</option>";
+
+  //       });
+
+  //       $("#testIdAndName").html("");
+  //       $("#testIdAndName").html(data);
+
+  //     });
+  // });
+
+
+
+</script>
+
+</html>

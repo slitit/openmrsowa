@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>PrescriptionInward</title>
+    <!-- openmrs favicon -->
+    <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+    <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js">
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet"
+      href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+      type="text/css" />
+
+    <script>
+      $(document).ready(function () {
+        $("#example").DataTable();
+        $('#drugGrop').select2({ width: '180px', placeholder: "", allowClear: true });
+        $('#drugname').select2({ width: '180px', placeholder: "", allowClear: true });
+        $('#dose').select2({ width: '100px', placeholder: "", allowClear: true });
+        $('#frequency').select2({ width: '150px', placeholder: "", allowClear: true });
+        $('#period').select2({ width: '150px', placeholder: "", allowClear: true });
+        $('#pharmacy').select2({ width: '180px', placeholder: "", allowClear: true });
+        $("#prescribing").DataTable();
+      });
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark navigation">
+        <div class="logo">
+          <a href="../../">
+            <img src="img/openmrs-with-title-small.png" />
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto user-options">
+            <li class="nav-item logout">
+              <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+                Logout <i class="icon-signout small"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="clear"></div>
+
+    <ul id="breadcrumbs">
+      <li>
+        <a href="/openmrs/index.htm">
+          <i class="icon-home small"></i>
+        </a>
+      </li>
+      <li>
+        <a href="/openmrs/admin/index.htm">
+          <i class="icon-chevron-right link"></i> Administration
+        </a>
+      </li>
+      <li>
+        <a href="/openmrs/module/owa/manage.form">
+          <i class="icon-chevron-right link"></i> Manage Apps
+        </a>
+      </li>
+      <li>
+        <i class="icon-chevron-right link"></i> Prescription - Inward
+      </li>
+    </ul>
+    <div id="body-wrapper">
+      <div class="card" style="padding: 10px;border-radius: 5px;">
+        <h2>Prescription - Inward</h2>
+        <div class="topTable">
+          <label style="margin-bottom: 20px;margin-top: 10px;"><u>Ordered Drugs</u></label>
+          <table id="example">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Drug Name + Strength</th>
+                <th>Dose</th>
+                <th>Frequency</th>
+                <th>Dose Comment</th>
+                <th>Period</th>
+                <th>Pharmacy</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div class="middle_1">
+          <label style="text-align: left;"><u>Prescribing</u></label>
+          <div style="float: right;">
+            <label>Load From Drug Group</label>
+            <select id="drugGrop">
+              <option></option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <div
+            style="display: grid; grid-template-columns: 180px 130px 165px 150px 180px 200px 50px;margin-top: 20px;margin-bottom: 20px;">
+            <div>
+              <label>Drug Name + Strength</label>
+              <select id="drugname">
+                <option></option>
+              </select>
+            </div>
+            <div class="col-lg-2 form-group">
+              <label style="margin-left: 25px;">Dose</label>
+              <select id="dose">
+                <option></option>
+              </select>
+            </div>
+            <div>
+              <label style="margin-left: 25px;">Frequency</label>
+              <select id="frequency">
+                <option></option>
+              </select>
+            </div>
+            <div>
+              <label style="margin-left: 15px;">Dose Comment</label>
+              <input class="form-control form-control-sm" id="doseComment"
+                style="width: 150px;height: 30px;margin-right: 20;border: 1px solid #aaaaaa;" />
+            </div>
+            <div class="col-lg-2 form-group">
+              <label style="margin-left: 45px;">Period</label>
+              <select id="period">
+                <option></option>
+                <option>Once</option>
+                <option>Regular</option>
+                <option>As Required</option>
+              </select>
+            </div>
+            <div>
+              <label style="margin-left: 45px;">Pharmacy</label>
+              <select id="pharmacy">
+                <option></option>
+                <option>Indoor</option>
+                <option>Outdoor</option>
+              </select>
+            </div>
+            <div style="margin-top: 20px;">
+              <button class="btn btn-primary" style="background: #288ea7;"><b>+</b></button>
+            </div>
+          </div>
+        </div>
+        <div class="table_2">
+          <table id="prescribing">
+            <thead>
+              <tr>
+                <th>Drug Name + Strength</th>
+                <th>Dose</th>
+                <th>Frequency</th>
+                <th>Dose Comment</th>
+                <th>Period</th>
+                <th>Pharmacy</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <div>
+            <div style="float: right;" class="col-lg-3 form-group">
+              <button id="btnSubmit" class="btn btn-block btn-success" style="background: #28a745;">Save Drug
+                Group</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;" class="col-lg-12 form-group row justify-content-center">
+          <div class="col-lg-2 form-group">
+            <button id="btnSubmit" class="btn btn-block btn-success" style="background: #28a745;">Save</button>
+          </div>
+          <div class="col-lg-2 form-group">
+            <button type="button" id="btnClear" class="btn btn-block btn-danger"
+              style="background: #dc3545;">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </body>
+
+</html>

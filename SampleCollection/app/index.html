@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Sample Collection Room</title>
+  <!-- openmrs favicon -->
+  <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+  <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js">
+  </script>
+  <link rel="stylesheet"
+    href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css"
+    integrity="sha512-LT9fy1J8pE4Cy6ijbg96UkExgOjCqcxAC7xsnv+mLJxSvftGVmmc236jlPTZXPcBRQcVOWoK1IJhb1dAjtb4lQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"
+    integrity="sha512-s5u/JBtkPg+Ff2WEr49/cJsod95UgLHbC00N/GglqdQuLnYhALncz8ZHiW/LxDRGduijLKzeYb7Aal9h3codZA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <style>
+    .input-file {
+      padding: 0px;
+      margin: 0 auto;
+      background: #ffffff;
+      -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.04);
+      box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0);
+    }
+
+    .SelectedRowMain,
+    .SelectedRow {
+      background-color: #e0a800 !important;
+    }
+
+    .upload-img {
+      border-radius: 16px;
+      display: inline-block;
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      object-position: 50% 50%;
+      border: 3px solid #20e5bf;
+      margin-right: 15px;
+      vertical-align: middle;
+    }
+
+    .input-file-upload {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .input-file-upload input[type="file"] {
+      opacity: 0;
+      padding: 10px 0;
+      height: 36px;
+      width: 150px;
+    }
+
+    .upload-label {
+      width: 150px;
+      height: 36px;
+      background: #3b70f1;
+      text-align: center;
+      color: #ffffff;
+      display: block;
+      padding: 8px 0;
+      position: absolute;
+      line-height: normal;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .input-file-upload:hover .upload-label {
+      background: #eaf5fe;
+      color: #3b70f1;
+    }
+
+    .text-input {
+      width: 0px;
+    }
+
+    form select,
+    .form select {
+      min-width: 100% !important;
+    }
+
+    body,
+    .btn {
+      font-size: 12px !important;
+    }
+
+    .form-group {
+      margin-bottom: 10px !important;
+    }
+
+    .form-control {
+      height: 28px !important;
+      padding: 6px !important;
+      font-size: 12px !important;
+      line-height: 0;
+    }
+
+    body {
+      line-height: .8 !important;
+    }
+
+    form label,
+    .form label {
+      margin-bottom: 4px;
+    }
+
+    .top-btn {
+      all: unset;
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      cursor: pointer;
+      transform: scale(1.8);
+      opacity: 0;
+      transition: .3s;
+    }
+
+    .button-group#threeD .button {
+      /* background: linear-gradient(135deg, #39414E, #4C5363); */
+      background: linear-gradient(135deg, #549ee7, #36f1cf);
+      border: none;
+      width: 100%;
+      height: 45px;
+      padding: 8px 10px;
+      display: inline-block;
+      margin: 0 -2px 5px -3px;
+      /* color: #F89B72; */
+      color: #000;
+      font-size: 9px !important;
+      box-shadow: 0px 2px 15px #323A45;
+      position: relative;
+      font-weight: bolder;
+      display: flex;
+    }
+
+    .button-group#threeD .button img {
+      width: 32px !important;
+      height: 30px !important;
+      ;
+    }
+
+    .button-group#threeD .button p {
+      margin-left: 5px;
+    }
+
+    .button-group#threeD .button span {
+      text-align: center;
+      margin: 20px 0 20px 0;
+      display: block;
+      color: #fff;
+      text-shadow: 0 2px 30px #323A45;
+      font-size: 32px;
+    }
+
+    .button-group#threeD .button:hover {
+      background: linear-gradient(135deg, #4C5363, #39414E);
+    }
+
+    .button-group#threeD .button.active {
+      font-size: 14px;
+      text-shadow: 0 0 10px #fff;
+      background: linear-gradient(135deg, #4C5363, #39414E);
+      color: #fff;
+      vertical-align: bottom;
+    }
+
+    .button-group#threeD .button.active span {
+      text-shadow: 0 0 10px #fff;
+      margin-top: 10px;
+      font-size: 20px;
+    }
+
+    .button-group#threeD .button.next:before {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: -25px;
+      top: 0px;
+      line-height: 90px;
+      border-bottom: 20px solid #323A45;
+      border-left: 25px solid transparent;
+    }
+
+    .button-group#threeD .button.next:after {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: -25px;
+      top: 20px;
+      line-height: 90px;
+      border-top: 100px solid #323A45;
+      border-left: 25px solid transparent;
+    }
+
+    .button-group#threeD .button.prev:before {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: 100%;
+      top: 20px;
+      line-height: 90px;
+      border-top: 100px solid #323A45;
+      border-right: 25px solid transparent;
+    }
+
+    .button-group#threeD .button.prev:after {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: 100%;
+      top: 0px;
+      line-height: 90px;
+      border-bottom: 20px solid #323A45;
+      border-right: 25px solid transparent;
+    }
+
+    @media (max-width:765px) {
+      .button-group {
+        width: 100%;
+      }
+    }
+
+    .button-group {
+      display: inherit !important;
+    }
+
+    .ui_tpicker_unit_hide {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navigation">
+      <div class="logo">
+        <a href="../../">
+          <img src="img/openmrs-with-title-small.png" />
+        </a>
+      </div>
+
+      <ul class="navbar-nav ml-auto user-options">
+        <li class="nav-item" style="font-weight: bold;font-size: 1rem; position: relative; top: 3px;">
+          <span class="icon-hospital"></span><span id="lblInstituteName"></span>
+          <input id="txtinstituteuuid" type="text" class="form-control" style="display: none;" />
+        </li>
+      </ul>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto user-options">
+          <li class="nav-item logout" style="font-weight: bold; font-size: 1rem; position: relative; top: 2px;">
+            <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+              Logout <i class="icon-signout small"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="clear"></div>
+
+  <ul id="breadcrumbs">
+    <li>
+      <a href="/openmrs/index.htm">
+        <i class="icon-home small"></i>
+      </a>
+    </li>
+    <li>
+      <i class="icon-chevron-right link"></i> Sample Collection Room
+    </li>
+  </ul>
+
+  <div id="body-wrapper">
+    <div class="card" style="padding: 10px;border-radius: 5px;">
+
+      <form id="procedureRoom">
+
+        <div style="overflow: auto;">
+          <table class="table table-bordered table-hover table-stripped" style="white-space: nowrap;">
+            <thead>
+              <tr>
+                <th>Section</th>
+                <th>PHN</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Ordered By</th>
+                <th>Ordered Date/Time</th>
+                <th>Test Name</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tblSampleCollectionMainContent">
+
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row" style="margin-top: 30px;">
+          <div class="col-lg-5 form-group">
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Full Name</label>
+              <input type="text" readonly id="txtFullName" class="form-control" />
+            </div>
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;PHN</label>
+              <input type="text" readonly id="txtPhn" class="form-control" />
+            </div>
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Age</label>
+              <input type="text" readonly id="txtAge" class="form-control" />
+            </div>
+          </div>
+          <div class="col-lg-5 form-group">
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Section</label>
+              <input type="text" readonly id="txtSection" class="form-control" />
+            </div>
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Gender</label>
+              <input type="text" readonly id="txtGender" class="form-control" />
+            </div>
+          </div>
+          <div class="col-lg-2 form-group">
+            <div class="col-lg-12 form-group" style="padding: 0;">
+              <div class="input-file">
+                <img id="file_upload" src="http://localhost/LaravelApiFile/storage/documents/useremprty.png"
+                  alt="your image" class="upload-img" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px; overflow: auto;">
+          <table class="table table-bordered table-hover table-stripped" style="white-space: nowrap;">
+            <thead>
+              <tr>
+                <th>Test Name</th>
+                <th>Priority</th>
+                <th>Specimen</th>
+                <th>Special Notes</th>
+                <th>Ordered By</th>
+                <th>Ordered Date/Time</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="procConTbody">
+              <tr>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row" style="margin-top: 30px;">
+          <div class="col-lg-5 form-group">
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Test Name</label>
+              <input type="text" readonly id="txtTestName" class="form-control" />
+            </div>
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Priority</label>
+              <input type="text" readonly id="txtPriority" class="form-control" />
+            </div>
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Specimen</label>
+              <input type="text" readonly id="txtSpecimen" class="form-control" />
+            </div>
+          </div>
+          <div class="col-lg-5 form-group">
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Order By</label>
+              <input type="text" disabled readonly id="txtOrderBy" class="form-control" />
+            </div>
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Order Date/ Time</label>
+              <input type="text" disabled readonly id="txtOrderDate" class="form-control" />
+            </div>
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Special Notes</label>
+              <input type="text" readonly id="txtSpecNotes" class="form-control" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; border-bottom: 2px solid black;">
+        </div>
+
+        <div class="row" style="margin-top: 30px;">
+          <div class="col-lg-5 form-group">
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Date</label>
+              <input type="text" class="form-control dppicker" id="txtDate">
+            </div>
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Collection Status</label>
+              <select class="form-control" id="drpStatus">                
+                <option selected>Done</option>
+                <option>Not Done</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-5 form-group">
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Time</label>
+              <input type="text" class="form-control timePicker" id="txtTime">
+            </div>
+            <div class="col-lg-12 form-group">
+              <label><span class="icon-hand-right"></span>&nbsp;Remarks</label>
+              <textarea id="txtRemarks" style="width: 100%; height: 60px;"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12 form-group row justify-content-center">
+          <div class="col-lg-2 form-group">
+            <button id="btnSaveForm" type="button"
+              class="btn btn-block submitButton confirm right focused">Save</button>
+          </div>
+          <div class="col-lg-2 form-group">
+            <button type="button" id="btnClear" class="btn btn-block cancel">Cancel</button>
+          </div>
+        </div>
+
+
+      </form>
+
+
+    </div>
+  </div>
+
+  <script>
+    $(".dppicker").datepicker({
+      dateFormat: 'yy-mm-dd',
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "-100:+100",
+    });
+
+    $(".timePicker").timepicker({
+      timeFormat: "HH:mm"
+    });
+  </script>
+
+</body>
+
+</html>

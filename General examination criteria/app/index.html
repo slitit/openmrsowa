@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>General Examination Criteria</title>
+  <!-- openmrs favicon -->
+  <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+  <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/openmrs/ms/uiframework/resource/appui/styles/header.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet"
+    href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css" type="text/css" />
+
+</head>
+
+<body onload="resetpage();">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navigation">
+
+      <div class="logo">
+        <a href="../../">
+          <img src="img/openmrs-with-title-small.png" />
+        </a>
+      </div>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto user-options">
+          <li class="nav-item logout">
+            <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+              Logout <i class="icon-signout small"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </nav>
+  </header>
+
+  <div class="clear"></div>
+
+  <ul id="breadcrumbs">
+    <li>
+      <a href="/openmrs/index.htm">
+        <i class="icon-home small"></i>
+      </a>
+    </li>
+    <li>
+      <i class="icon-chevron-right link"></i> General Examination Criteria
+    </li>
+  </ul>
+
+  <div id="body-wrapper">
+
+    <div class="card">
+      <div class="card-body row">
+
+        <div class="col-lg-12 form-group" style="padding: 0;">
+          <h2>General Examination Criteria</h2>
+        </div>
+
+        <form class="container-fluid" id="generalexaminationForm">
+
+          <div class="row mt-3" hidden>
+            <input type="text" id="update_criteria_id"></label>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <label htmlFor="institute" class="col-form-label"><span
+                  class="icon-hand-right"></span>&nbsp;Institute</label>
+            </div>
+            <div class="col-md-7">
+              <select id="institute" class="form-control">
+                <option value="selectoption">--Select--</option>
+              </select>
+            </div>
+            <div class="col-md-1">
+              <label htmlFor="required" class="col-form-label" style="color: red;">*</label>
+            </div>
+          </div>
+
+          <div class="row mt-3" id="selectcriteria">
+            <div class="col-md-3">
+              <label htmlFor="criterialist" class="col-form-label"><span
+                  class="icon-hand-right"></span>&nbsp;Criteria</label>
+            </div>
+            <div class="col-md-7">
+              <select id="criterialist" class="form-control">
+                <option disabled selected value="selectoption">--Select--</option>
+              </select>
+            </div>
+            <div class="col-md-1">
+              <label htmlFor="required" class="col-form-label" style="color: red;">*</label>
+            </div>
+          </div>
+
+          <div class="row mt-3" id="newcriteria">
+            <div class="col-md-3">
+              <label htmlFor="criteria" class="col-form-label"><span
+                  class="icon-hand-right"></span>&nbsp;Criteria</label>
+            </div>
+            <div class="col-md-7">
+              <input type="text" class="form-control" name="criteria" id="criteria" autoComplete="off"
+                placeholder="Criteria" />
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <label htmlFor="status" class="col-form-label"><span class="icon-hand-right"></span>&nbsp;Status</label>
+            </div>
+            <div class="col-md-7">
+              <select id="status" class="form-control">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
+          </div>
+
+
+
+          <br></br>
+          <div class="col-lg-12 form-group row justify-content-center">
+
+            <div class="col-lg-2 form-group">
+              <button type="button" id="btnSave" class="btn btn-block submitButton confirm right focused"
+                onclick="save();">Save</button>
+            </div>
+
+            <div class="col-lg-2 form-group">
+              <button type="button" id="btnCancel" style="background: #ffc107;" class="btn btn-block bn-warning"
+                onclick="resetpage();">Cancel</button>
+            </div>
+
+            <div class="col-lg-2 form-group">
+              <button type="button" id="btnLookup" class="btn btn-block cancel" onclick="lookup();">Lookup</button>
+            </div>
+          </div>
+
+        </form>
+
+        <div class="col-lg-12 form-group">
+          <div class="col-md-10">
+            <table class="table table-bordered">
+              <thead>
+                <tr class="table-info">
+                  <th style="text-align: center; padding-top: 2px; padding-bottom: 4px; background: #719095;">Criteria
+                  </th>
+                  <th
+                    style="text-align: center; padding-top: 2px; padding-bottom: 4px; background: #719095; width: 100px;">
+                    Status</th>
+                </tr>
+              </thead>
+              <tbody id="examination_list_table_body">
+                <!-- <tr class="table-active">
+                  <td></td>
+                  <td></td>
+                </tr>
+
+                <tr class="table-active">
+                  <td></td>
+                  <td></td>
+                </tr> -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"></script>
+
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  <script type="text/javascript" src="vendor.bundle.js"></script>
+  <script type="text/javascript" src="css.bundle.js"></script>
+  <script type="text/javascript" src="app.bundle.js"></script>
+
+  <script>
+    //Save Examination criteria{
+    function save() {
+
+      let institute = $('#institute').val();
+      let criteriaName = $('#criteria').val();
+      let status = $('#status').val();
+      // let updatingID = $('#update_criteria_id').val();
+
+
+      if ($('#update_criteria_id').val().length == 0) {
+        if (institute != null) {
+          if (criteriaName != "") {
+
+            fetch("http://localhost:8086/genaralExamination/save", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                institute: institute,
+                criteria: criteriaName,
+                status: status
+              })
+            })
+              .then((response) => response.text())
+              .then((result) => {
+                if (result == "Successfully Saved!") {
+                swal({
+                  title: "Success",
+                  text: result,
+                  icon: "success",
+                });
+              } else {
+                swal({
+                  title: "Error",
+                  text: result,
+                  icon: "error",
+                });
+              }
+                resetpage();
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+
+          } else {
+            //Enter criteria name
+            swal({
+              title: "Error",
+              text: "Please Enter criteria name!",
+              icon: "error",
+            });
+          }
+        } else {
+          //Select a institute
+          swal({
+            title: "Error",
+            text: "Please select a institute!",
+            icon: "error",
+          });
+        }
+      } else {
+        if (institute != null) {
+
+          fetch("http://localhost:8086/genaralExamination/update", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              examinationid: $('#criterialist').val(),
+              institute: institute,
+              criteria: criteriaName,
+              status: status
+            })
+          })
+            .then((response) => response.text())
+            .then((result) => {
+              if (result == "Successfully updated!") {
+                swal({
+                  title: "Success",
+                  text: result,
+                  icon: "success",
+                });
+              } else {
+                swal({
+                  title: "Error",
+                  text: result,
+                  icon: "error",
+                });
+              }
+              resetpage();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
+        } else {
+          swal({
+            title: "Error",
+            text: "Please select a institute!",
+            icon: "error",
+          });
+        }
+
+      }
+    }
+
+    //Reset page
+    function resetpage() {
+      $('#institute').val(null);
+      $('#criteria').val(null);
+      $('#criterialist').val(null);
+      $('#criterialist').html("");
+      $('#status').val('active');
+
+      $('#selectcriteria').hide();
+      $('#newcriteria').show();
+
+      $('#btnSave').html("Save");
+      $('#update_criteria_id').val("");
+      getAllEexaminationCriterias();
+    }
+
+    //LookUp
+    function lookup() {
+      $('#selectcriteria').show();
+      $('#newcriteria').hide();
+      $('#btnSave').html("Update");
+    }
+
+    //getupdating Details
+    $('#criterialist').change(function getupdatingID() {
+
+      let examinationid = $('#criterialist').val();
+      $('#update_criteria_id').val(examinationid);
+
+      fetch(
+        "http://localhost:8086/genaralExamination/getExamination_status/" + examinationid, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((response) => response.text())
+        .then((result) => {
+
+          $('#status').val(result);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+
+    });
+
+    //Load criteria when institute is selected
+    $('#institute').change(function getCriteriasForInstitute() {
+
+      let Institute = $('#institute').val();
+      fetch(
+        "http://localhost:8086/genaralExamination/getCriteriasForInstitute/" + Institute, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((response) => response.json())
+        .then((result) => {
+
+          let data = "";
+          data += "<option disabled selected>--Select--</option>";
+          $.each(result, function (index, value) {
+            data += "<option value='" + value.examinationid + "'>" + value.criteria + "</option>";
+          });
+
+          $('#criterialist').html("");
+          $('#criterialist').html(data);
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+
+    //load all examinations
+    function getAllEexaminationCriterias() {
+      fetch(
+        "http://localhost:8086/genaralExamination/get_all_examination_criterias/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((response) => response.json())
+        .then((result) => {
+
+          let data = "";
+
+          $.each(result, function (index, value) {
+            data += "<tr  class='table-active'><td style='text-align:center;'>" + value.criteria + "</td><td style='text-align:center;'>" + value.status + "</td></tr>";
+          });
+
+          $('#examination_list_table_body').empty();
+          $('#examination_list_table_body').append(data);
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "name": "PatientExamination",
+  "description": "Patient Examination OWA",
+  "launch_path": "index.html",
+  "icons": {
+    "48": "/img/omrs-button.png"
+  },
+  "developer": {
+    "name": "",
+    "url": "https://github.com//openmrs-owa-patientexamination"
+  },
+  "default_locale": "en",
+    "activities": {
+      "openmrs": {
+        "href": "*"
+      }
+    }
+}

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Patient Register App</title>
+  <!-- openmrs favicon -->
+  <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+  <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/openmrs/ms/uiframework/resource/appui/styles/header.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet"
+    href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <style>
+    .demo-wrap {
+      position: relative;
+    }
+
+    .demo-wrap:before {
+      content: ' ';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.2;
+      background-image: url('img/logo.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: auto 160px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navigation">
+      <div class="logo">
+        <a href="../../">
+          <img src="img/openmrs-with-title-small.png" />
+        </a>
+      </div>
+
+      <ul class="navbar-nav ml-auto user-options">
+        <li class="nav-item" style="font-weight: bold;">
+          <span class="icon-hospital"></span><span id="lblInstituteName"></span>
+          <input id="txtinstituteuuid" type="text" class="form-control" style="display: none;" />
+        </li>
+      </ul>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto user-options">
+          <li class="nav-item logout">
+            <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+              Logout <i class="icon-signout small"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="clear"></div>
+
+  <ul id="breadcrumbs">
+    <li>
+      <a href="/openmrs/index.htm">
+        <i class="icon-home small"></i>
+      </a>
+    </li>
+    <li>
+      <i class="icon-chevron-right link"></i> Patient Register
+    </li>
+  </ul>
+
+  <div id="body-wrapper">
+
+    <div class="card">
+      <div class="card-body row">
+
+        <div class="col-lg-12 form-group" style="padding: 0;">
+          <h2>Register Patient</h2>
+        </div>
+
+        <form class="row" id="registerPatientForm">
+
+          <div class="col-lg-12 form-group">
+            <div class="row">
+              <div class="col-lg-5 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;PHN (Note : PHN generate after save)</label>
+                <input id="txtPhnno" type="text" class="form-control uuidfind" disabled
+                  style="cursor: not-allowed; pointer-events: none;" attr-uuid-find="PHN" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group">
+            <div class="row">
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Title</label>
+                <select id="drpTitle" class="form-control uuidfind" attr-uuid-find="Title">
+                  <option value="Mr">Mr</option>
+                  <option value="Mrs">Mrs</option>
+                  <option value="Miss">Miss</option>
+                  <option value="Ms">Ms</option>
+                  <option value="Dr">Dr</option>
+                  <option value="Rev">Rev</option>
+                </select>
+              </div>
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Name</label>
+                <input type="text" id="txtFirstName" class="form-control" required />
+              </div>
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Full Name</label>
+                <input type="text" id="txtLastName" class="form-control" required />
+              </div>
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;NIC No</label>
+                <input type="text" id="txtNICNo" class="form-control uuidfind" attr-uuid-find="NIC No" />
+              </div>
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Date Of Birth</label>
+                <input type="text" id="txtDob" readonly class="form-control dppicker" />
+              </div>
+              <div class="col-lg-8 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Age</label>
+                <div class="row">
+                  <div class="col-lg-4 form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">Years</div>
+                      </div>
+                      <input type="text" id="txtYears" class="form-control uuidfind" attr-uuid-find="Years"
+                        style="margin-top: 0;" />
+                    </div>
+                  </div>
+                  <div class="col-lg-4 form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">Months</div>
+                      </div>
+                      <input type="text" id="txtMonths" class="form-control uuidfind" attr-uuid-find="Months"
+                        style="margin-top: 0;" />
+                    </div>
+                  </div>
+                  <div class="col-lg-4 form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">Days</div>
+                      </div>
+                      <input type="text" id="txtDays" class="form-control uuidfind" attr-uuid-find="Days"
+                        style="margin-top: 0;" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group">
+            <div class="row">
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Gender</label>
+                <select id="drpGender" class="form-control">
+                  <option value="M">Male</option>
+                  <option value="F">Female</option>
+                  <option value="O">Other</option>
+                </select>
+              </div>
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Civil Status</label>
+                <select id="drpCivilStatus" class="form-control uuidfind" attr-uuid-find="Civil Status">
+                  <option value="Single">Single</option>
+                  <option value="Married">Married</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group">
+            <div class="row">
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Profile Image (jpg, png only)</label>
+                <div class="input-file">
+
+                  <style>
+                    .input-file {
+                      padding: 10px;
+                      margin: 0 auto;
+                      background: #ffffff;
+                      -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.04);
+                      box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0);
+                    }
+
+                    .upload-img {
+                      border-radius: 100%;
+                      display: inline-block;
+                      width: 150px;
+                      height: 150px;
+                      object-fit: cover;
+                      object-position: 50% 50%;
+                      border: 3px solid #20e5bf;
+                      margin-right: 15px;
+                      vertical-align: middle;
+                    }
+
+                    .input-file-upload {
+                      position: relative;
+                      display: inline-block;
+                      vertical-align: middle;
+                    }
+
+                    .input-file-upload input[type="file"] {
+                      opacity: 0;
+                      padding: 10px 0;
+                      height: 36px;
+                      width: 150px;
+                    }
+
+                    .upload-label {
+                      width: 150px;
+                      height: 36px;
+                      background: #3b70f1;
+                      text-align: center;
+                      color: #ffffff;
+                      display: block;
+                      padding: 8px 0;
+                      position: absolute;
+                      line-height: normal;
+                      font-size: 14px;
+                      font-weight: 700;
+                      transition: all 0.3s ease-in-out;
+                    }
+
+                    .input-file-upload:hover .upload-label {
+                      background: #eaf5fe;
+                      color: #3b70f1;
+                    }
+                  </style> 
+
+                  <img id="file_upload" src="http://localhost/LaravelApiFile/storage/documents/useremprty.png"
+                    alt="your image" class="upload-img" />
+
+                  <div class="input-file-upload">
+                    <span class="upload-label">Upload Image</span>
+                    <input type='file' class="uuidfind" attr-uuid-find="ProfileImage" id="fileUp"
+                      onchange="readURL(this);" accept=".png, .jpg, .jpeg" />
+
+                    <script>
+                      function readURL(input) {
+                        const fileSize = input.files[0].size / 1024 / 1024;
+                        if (fileSize <= 2) {
+                          if (input.files && input.files[0]) {
+                            var reader = new FileReader();
+
+                            reader.onload = function (e) {
+                              $('#file_upload').attr('src', e.target.result);
+                            };
+                            reader.readAsDataURL(input.files[0]);
+                          }
+                        } else {
+                          alert('Exceeding Maximum file size. Please upload less than 2mb file.');
+                          document.getElementById('fileUp').value = "";
+                        }
+                      }
+                    </script>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group">
+            <div class="row">
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Religion</label>
+                <input type="text" id="txtEthnicity" class="form-control uuidfind" attr-uuid-find="Ethnicity" />
+              </div>
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Race</label>
+                <input type="text" id="txtRace" class="form-control uuidfind" attr-uuid-find="Race" />
+              </div>
+            </div>
+          </div>
+          <!--
+          <div class="col-lg-12 form-group">
+            <div class="row">
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Date Of Birth</label>
+                <input type="text" id="txtDob" readonly class="form-control dppicker" />
+              </div>
+              <div class="col-lg-8 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Age</label>
+                <div class="row">
+                  <div class="col-lg-4 form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">Years</div>
+                      </div>
+                      <input type="text" id="txtYears" class="form-control uuidfind" attr-uuid-find="Years"
+                        style="margin-top: 0;" />
+                    </div>
+                  </div>
+                  <div class="col-lg-4 form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">Months</div>
+                      </div>
+                      <input type="text" id="txtMonths" class="form-control uuidfind" attr-uuid-find="Months"
+                        style="margin-top: 0;" />
+                    </div>
+                  </div>
+                  <div class="col-lg-4 form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">Days</div>
+                      </div>
+                      <input type="text" id="txtDays" class="form-control uuidfind" attr-uuid-find="Days"
+                        style="margin-top: 0;" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+-->
+          <div class="col-lg-12 form-group">
+            <div class="row">
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Blood Group</label>
+                <select id="drpBloodGroup" class="form-control uuidfind" attr-uuid-find="Blood Group">
+                  <option selected disabled>--Select--</option>
+                  <option>A Positive</option>
+                  <option>A Negative</option>
+                  <option>B Positive</option>
+                  <option>B Negative</option>
+                  <option>AB Positive</option>
+                  <option>AB Negative</option>
+                  <option>O Positive</option>
+                  <option>O Negative</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group">
+            <div class="row">
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Telephone (Residence)</label>
+                <input type="text" id="txtTelephoneHome" class="form-control uuidfind tel"
+                  attr-uuid-find="Telephone Home" />
+              </div>
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Telephone (Mobile)</label>
+                <input type="text" id="txtTelephoneMobile" class="form-control uuidfind tel"
+                  attr-uuid-find="Telephone Number" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group">
+            <div class="row">
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Address Line 1</label>
+                <input type="text" id="txtAddress" class="form-control" />
+              </div>
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Address Line 2</label>
+                <input type="text" id="txtAddressLine2" class="form-control" />
+              </div>
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;City</label>
+                <input type="text" id="txtCity" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group">
+            <div class="row">
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Province</label>
+                <select id="drpProvince" class="form-control uuidfind selectTo" attr-uuid-find="Province">
+                  <option selected disabled value="">--Select--</option>
+                </select>
+              </div>
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;District</label>
+                <select id="drpDistrict" class="form-control uuidfind selectTo" attr-uuid-find="District">
+                  <option selected disabled value="">--Select--</option>
+                </select>
+              </div>
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;DS Office</label>
+                <select id="drpDSOffice" class="form-control uuidfind selectTo" attr-uuid-find="DS Office">
+                  <option selected disabled value="">--Select--</option>
+                </select>
+              </div>
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;GN Division</label>
+                <select id="drpGNDivision" class="form-control uuidfind selectTo" attr-uuid-find="GN Division">
+                  <option selected disabled value="">--Select--</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group">
+            <div class="row">
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Guardian Name
+                  <span data-toggle="modal" data-target="#SearchModal"
+                    style="background: gold; border: 2px solid; padding: 1px 20px; border-radius: 20px; margin-left: 30px; ">
+                    Search</span>
+                </label>
+                <div class="modal fade" id="SearchModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Search</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                          style="background: none; outline: none; border: none;">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="col-lg-12 form-group">
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <label><span class="icon-hand-right"></span>&nbsp;Search</label>
+                              <input type="text" class="form-control" id="txtSearch">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-12 form-group">
+                          <div class="row">
+                            <div class="col-lg-12" id="tableont">
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <div class="col-12 row justify-content-center">
+                          <div class="col-lg-4">
+                            <button type="button" class="btn btn-block cancel" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <input type="text" id="txtGuardianName" class="form-control uuidfind" attr-uuid-find="Guardian Name" />
+              </div>
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Guardian Relationship</label>
+                <select id="drpGardienRel" class="form-control uuidfind" attr-uuid-find="Guardian Relationship">
+                  <option selected disabled>--Select--</option>
+                  <option>Mother</option>
+                  <option>Father</option>
+                  <option>Brother</option>
+                  <option>Sister</option>
+                  <option>Son</option>
+                  <option>Daughter</option>
+                  <option>Husband</option>
+                  <option>Wife</option>
+                  <option>Grandfather</option>
+                  <option>Grandmonther</option>
+                  <option>Grandson</option>
+                  <option>Uncle</option>
+                  <option>Aunt</option>
+                  <option>Nephew</option>
+                  <option>Cousin</option>
+                  <option>Niece</option>
+                </select>
+              </div>
+              <div class="col-lg-4 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Guardian Contact No</label>
+                <input type="text" id="txtGuardianContactNo" class="form-control uuidfind"
+                  attr-uuid-find="Guardian Contact No" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group">
+            <div class="row">
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Patient History</label>
+                <input type="text" name="tags" id="txtPatientHistory" attr-uuid-find="Patient History">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group row justify-content-center">
+            <div class="col-lg-2 form-group">
+              <button type="button" id="btnClear" class="btn btn-block cancel">Cancel</button>
+            </div>
+            <div class="col-lg-2 form-group">
+              <button id="btnSubmit" class="btn btn-block submitButton confirm right focused">Save</button>
+            </div>
+          </div>
+
+
+
+          <div class="col-md-12" id="printableContent" style="display: none;">
+            <div class="demo-wrap"
+              style="width: 85.6mm; height: 53.98mm; max-width: 85.6mm; max-height: 53.98mm; border: 1px solid; border-radius: 20px; padding: 2px 10px; font-size: 8px;">
+              <div>
+                <div>
+                  <h3 id="placeHolderInstituteName"
+                    style="text-decoration: underline; font-weight: 900; color: black; font-size: 12px;"> - </h3>
+
+                  <p style="margin-bottom: 5px;font-size: 10px;"><b>Name : </b><span id="placeHolderPatientName"> -
+                    </span></p>
+                  <p style="margin-bottom: 0px;font-size: 10px;"><b>PHN : </b><span id="placeHolderPHN"> - </span></p>
+
+                  <div style="display: flex;justify-content: center;">
+                    <div id="barcodeContainer"></div>
+                  </div>
+
+                  <p style="margin-bottom: 5px;font-size: 7px; text-align: center;"><b id="phnTextSinhala">රෝහලට පැමිණෙන
+                      සෑම විටම මෙම කාඩ්පත
+                      ‍රැගෙන එන්න</b></p>
+                  <p style="margin-bottom: 5px;font-size: 7px; text-align: center;"><b id="phnTextTamil">மருத்துவமனைக்கு
+                      ஒவ்வொரு
+                      வருகையிலும் இந்த அட்டையை உங்களுடன் கொண்டு வாருங்கள்</b></p>
+                  <p style="margin-bottom: 5px;font-size: 7px; text-align: center;"><b id="phnTextEnglish">Bring this
+                      card with you on every
+                      visit to the Hospital</b></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" crossorigin="anonymous"></script>
+  <script>
+    $(".dppicker").datepicker({
+      dateFormat: 'yy-mm-dd',
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "-100:+100",
+      maxDate: 0
+    });
+
+    $('.selectTo').select2({
+      dropdownAutoWidth: true,
+      width: '100%'
+    });
+  </script>
+
+</body>
+
+</html>

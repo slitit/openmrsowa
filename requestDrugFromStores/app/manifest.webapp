@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "name": "requestDrugFromStores",
+  "description": "Request Drug From Stores",
+  "launch_path": "index.html",
+  "icons": {
+    "48": "/img/omrs-button.png"
+  },
+  "developer": {
+    "name": "",
+    "url": "https://github.com//openmrs-owa-requestdrugfromstores"
+  },
+  "default_locale": "en",
+    "activities": {
+      "openmrs": {
+        "href": "*"
+      }
+    }
+}

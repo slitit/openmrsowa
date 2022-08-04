@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Procedure Order List</title>
+    <!-- openmrs favicon -->
+    <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+    <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js">
+    </script>
+    <link rel="stylesheet"
+      href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+      type="text/css" />
+    <script>
+      $(document).ready(function () {
+        $("#example").DataTable({
+		"scrollX": true,
+		"bDestroy": true
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark navigation">
+        <div class="logo">
+          <a href="../../">
+            <img src="img/openmrs-with-title-small.png" />
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto user-options">
+            <li class="nav-item logout">
+              <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+                Logout <i class="icon-signout small"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="clear"></div>
+
+    <ul id="breadcrumbs">
+      <li>
+        <a href="/openmrs/index.htm">
+          <i class="icon-home small"></i>
+        </a>
+      </li>
+      <li>
+        <a href="/openmrs/admin/index.htm">
+          <i class="icon-chevron-right link"></i> Administration
+        </a>
+      </li>
+      <li>
+        <a href="/openmrs/module/owa/manage.form">
+          <i class="icon-chevron-right link"></i> Manage Apps
+        </a>
+      </li>
+      <li>
+        <i class="icon-chevron-right link"></i> Procedure Order List
+      </li>
+    </ul>
+    <div id="body-wrapper">
+      <div class="card" style="padding: 10px;border-radius: 5px;">
+        <h2 style="margin-bottom: 50px;">Procedure Order List</h2>
+
+        <div class="tableprocedure">
+          <table id="example" class="display nowrap" style="width:100%" >
+            <thead>
+              <tr>
+                <th>Section</th>
+                <th>BHT No</th>
+                <th>PHN</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Admitted Date</th>
+                <th>Ordered By</th>
+                <th>Ordered Date/Time</th>
+                <th>Procedure Name</th>
+                <th>Injection</th>
+                <th>Remark</th>
+                <th data-orderable="false" style="background-color: rgb(15, 112, 119);"></th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

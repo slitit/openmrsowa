@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LabInvestigationsParameters</title>
+    <!-- openmrs favicon -->
+   	
+	<link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+  <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/openmrs/ms/uiframework/resource/appui/styles/header.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet"
+    href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css" type="text/css" />
+	 <link rel="stylesheet"
+    href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css"
+    type="text/css" />
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" integrity="sha512-O03ntXoVqaGUTAeAmvQ2YSzkCvclZEcPQu1eqloPaHfJ5RuNGiS4l+3duaidD801P50J28EHyonCV06CUlTSag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
+	<style>
+	#tableLIP2{
+	width:100%;
+	}
+	</style>
+	
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+          <a href="../../">
+              <img src="img/openmrs-with-title-small.png"/>
+          </a>
+      </div>
+      <span class="app-title">Lab Investigations Parameters</span>
+    </header>
+    <div class="clear"></div>
+    <div id="body-wrapper">
+     <div class="card">
+      <div class="card-body row">
+        <div class="col-lg-12 form-group">
+          <h2>Lab Investigations Parameters</h2>
+        </div>
+
+        <form class="col-lg-12 row" id="registerPatientForm">
+
+
+			
+		  <div class="col-lg-12 form-group">
+            <div class="row">
+              <div class="col-lg-5 form-group">
+				<label><span class="icon-hand-right"></span>&nbsp;Test Type</label>
+                <select id="testType" class="form-control">
+                  <option value="">--Select--</option>
+				  
+				 </select>
+              </div>
+			  <div class="col-lg-5 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Test Name</label>
+                 <select id="testName" class="form-control">
+                  <option value="">--Select--</option>
+				
+				 </select>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group">
+            <div class="row">
+             <div class="col-lg-3 form-group">
+                <label><span class="icon-hand-right"></span>Parameter Name</label>
+				<div class="input-group" style="margin-top: 5px;">
+                <input id="parameterName" type="text" class="form-control" style="margin: 0;"/>
+				</div>
+              </div>
+			  <div class="col-lg-2 form-group">
+                <label><span class="icon-hand-right"></span>Unit</label>
+				<div class="input-group" style="margin-top: 5px;">
+                <input id="unit" type="text" class="form-control" style="margin: 0;"/>
+				</div>
+              </div>
+           
+			  <div class="col-lg-3 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Print on Report</label>
+                 <select id="printOnReport" class="form-control">
+                  <option value="">--Select--</option>
+				  <option value="Yes">Yes</option>
+				  <option value="No">No</option>
+			     </select>
+			   </div>
+			   <div class="col-lg-2 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Apply To</label>
+                <div class="form-check">
+				<input type="checkbox" class="form-check-input" id="Male">
+				<label class="form-check-label" name="Gender" for="Gender">Male</label>
+				</div>
+				<div class="form-check">
+				<input type="checkbox" class="form-check-input" id="Female">
+				<label class="form-check-label" name="Gender" for="Gender">Female</label>
+				</div>
+				<div class="form-check">
+				<input type="checkbox" class="form-check-input" id="Child">
+				<label class="form-check-label" name="Gender" for="Gender">Child</label>
+				</div>
+				</div>
+				<div class="col-lg-2 form-group" style="padding-top: 4%;">
+			  	 <button id="btnIssue" class="btn btn-success" type="button" style="background: #28a745;">+</button>
+				</div>
+			   
+            </div>
+           
+          </div>
+		  <div class="col-lg-12 form-group">
+           <table class="table col-lg-12" id="tableLIP">
+					<thead class="thead-dark col-lg-12 ">
+						<tr>
+							<th style="display:none;">#</th>
+							<th scope="col">Parameter Name</th>
+							<th scope="col">Unit</th>
+							<th scope="col">Print on Report</th>
+							<th scope="col">Male</th>
+							<th scope="col">Feale</th>
+						    <th scope="col">Child</th>
+							<th scope="col"></th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+				<tbody id="tableLIP_Body" class="col-lg-12">
+					
+				</tbody>
+			</table>
+		 </div>
+		  <div class="col-lg-12 form-group row justify-content-center">
+           
+			<div class="col-lg-2 form-group">
+              <button id="btnSave" type="button" class="btn btn-block submitButton confirm right focused">Save</button>
+            </div>
+            <div class="col-lg-2 form-group">
+              <!-- <button id="btnCancel" type="button" class="btn btn-block submitButton confirm right focused">Cancel</button> -->
+			  <button type="button" id="btnCancel" style="background: #ffc107;" class="btn btn-block bn-warning">Cancel</button>
+			</div>
+            <div class="col-lg-2 form-group">
+              <button type="button" id="btnLookup" class="btn btn-block cancel">Lookup</button>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+    </div>
+	
+	
+	
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+		
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+	  <div class="col-lg-12 form-group">
+            <div class="row">
+              <div class="col-lg-2 form-group">
+				<label>Apply To</label>
+                <select id="applyTo" class="form-control">
+                  <option value="">--Select--</option>
+				  <option value="Male">Male</option>
+				  <option value="Female">Female</option>
+				  <option value="Child">Child</option>
+			      <option value="Other">Other</option>
+
+				  
+				 </select>
+				 <input type="hidden" id="hiddenKey">
+              </div>
+			  <div class="col-lg-2 form-group">
+                <label>Age Range</label>
+                 <input type="text" id="ageRange" class="form-control"/>
+              </div>
+			  <div class="col-lg-2 form-group">
+                 <label>Reference</label>
+                 <input type="text" id="reference" class="form-control"/>
+              </div>
+			  <div class="col-lg-4 form-group">
+			      <label>Reference Range</label>
+				  <div class="row">
+				    <div class="col-6">
+				   <input type="text" id="high" placeholder="High" class="form-control"/>
+				   </div>
+				   <div class="col-6">
+				   <input type="text" id="low" placeholder="Low" class="form-control"/>
+				   </div>
+				 </div>
+			  </div>
+			   <div class="col-lg-2 form-group">
+			   <br>
+			   
+			   <button id="btnAddOther" class="btn btn-success mt-2" type="button" style="background: #28a745;">+</button>
+			   </div>
+			  
+			</div>
+		</div>
+	   <div class="col-lg-12 form-group">
+        <table class="table" id="tableLIP2" style="width:100% !important">
+					<thead class="thead-dark col-lg-12">
+						<tr>
+							<th rowspan="2"  style="display:none;">#</th>
+							<th rowspan="2">Apply To</th>
+							<th rowspan="2">Age Range</th>
+							<th rowspan="2">Reference</th>
+							<th colspan="2">Reference Range</th>
+							<th rowspan="2"  scope="col"></th>
+						</tr>
+						<tr>
+							<th scope="col">High</th>
+							<th scope="col">Low</th>
+							
+						</tr>
+						
+					</thead>
+				<tbody class="col-lg-12" id="tableLIP2_body">
+					
+					
+				</tbody>
+			</table>
+			</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+	
+	
+	
+	
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js" integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+  
+ <script> 
+  var MainArray=[];
+		
+	function OpenModal(AssingRowCountNumber){ 
+	  
+	$('#tableLIP2').DataTable().destroy();
+	$('#tableLIP2_body').html("");
+	
+	 var html2="";
+	 for(var i=0;i<MainArray.length;i++){
+		  if(MainArray[i].hiddenKey == AssingRowCountNumber){
+		   html2+='<tr>';
+		   html2+='<td style="display:none;">'+MainArray[i].hiddenKey+'</td>';
+	       html2+='<td>'+MainArray[i].applyTo+'</td>';
+	       html2+='<td>'+MainArray[i].ageRange+'</td>';
+	       html2+='<td>'+MainArray[i].reference+'</td>';
+	       html2+='<td>'+MainArray[i].high+'</td>';
+	       html2+='<td>'+MainArray[i].low+'</td>';
+	       html2+='<td><button id="btnRemoveRow2" class="btn btn-danger btn-sm " onclick="removeRow2(this,'+i+')" type="button" style="background: #fc080c;"><span  style="font-size: 1.5em; color: white;" ><i class="fa fa-times"></i></button></td>';
+	       html2+='</tr>';
+		   }
+	 }
+	  $('#tableLIP2_body').append(html2);
+	
+	
+	$('#hiddenKey').val("");
+	if(AssingRowCountNumber!=null){
+	$('#hiddenKey').val(AssingRowCountNumber);
+	
+	
+	$('#myModal').modal('toggle');
+	
+	 
+   	 $('#tableLIP2').DataTable();
+	}
+	
+	}
+
+	
+
+     function removeRow(btn,RemoveIndex){
+	 for(var i=0;i<MainArray.length;i++){ 
+	 if(RemoveIndex==MainArray[i].hiddenKey)
+	    MainArray.splice(i,1);
+	 }
+	  $('#tableLIP').DataTable().destroy();
+	  $(btn).closest("tr").remove().remove();
+	  $('#tableLIP').DataTable();
+	}	
+	  
+	//function removeRow2(btn,uniqnumber){
+	     // $('#tableLIP2').DataTable().destroy();
+		 // $(btn).closest("tr").remove().remove();
+		 
+		 // var spliceIndex= MainArray.map(function(item) { return item.uniqNo; }).indexOf(uniqnumber);
+		//  MainArray.splice(spliceIndex, 1);
+		  
+		//  $('#tableLIP2').DataTable();
+		  
+	//}
+	
+	function removeRow2(btn,realIndex){
+	  $('#tableLIP2').DataTable().destroy();
+	  $(btn).closest("tr").remove().remove();
+	  $('#tableLIP2').DataTable();
+	  MainArray.splice(realIndex,1);
+	}
+
+  </script>
+  
+  </body>
+</html>

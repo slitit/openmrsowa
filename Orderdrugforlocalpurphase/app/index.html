@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Order drug for local purphase</title>
+    <link
+      rel="shortcut icon"
+      type="image/ico"
+      href="../../images/openmrs-favicon.ico"
+    />
+    <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="/openmrs/ms/uiframework/resource/appui/styles/header.css?cache=1625626794012"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+      href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+      href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css"
+      type="text/css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <style>
+      .demo-wrap {
+        position: relative;
+      }
+
+      .demo-wrap:before {
+        content: " ";
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.2;
+        background-image: url("img/logo.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: auto 160px;
+      }
+    </style>
+
+  </head>
+  <body onload="closePage()">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark navigation">
+        <div class="logo">
+          <a href="../../">
+            <img
+              src="data:image/png;base64,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"
+            />
+          </a>
+        </div>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto user-options">
+            <li class="nav-item logout">
+              <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+                Logout <i class="icon-signout small"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="clear"></div>
+    <ul id="breadcrumbs">
+      <li>
+        <a href="/openmrs/index.htm">
+          <i class="icon-home small"></i>
+        </a>
+      </li>
+      <li><i class="icon-chevron-right link"></i>Order drug for local purphase</li>
+    </ul>
+    <div id="body-wrapper">
+      <div class="card">
+        <div class="card-body">
+          <div class="col-lg-12 form-group" style="padding: 0">
+            <h2>Order drug for local purphase</h2>
+          </div>
+          <form class="row" id="OrderDrugForm">
+
+            <div class="row mt-3" hidden>
+              <input type="text" id="update_criteria_id"></label>
+            </div>
+
+            <div class="col-lg-12 form-group">
+              <div class="row">
+                <div class="col-lg-6">
+                  <label
+                    ><span class="icon-hand-right"></span>&nbsp;Institute</label
+                  >
+                  
+                  <input
+                    type="text"
+                    disabled
+                    readonly
+                    id="txtInstitute"
+                    class="form-control"
+                  />
+                  
+                </div>
+                <div class="col-lg-6">
+                  <label
+                  ><span class="icon-hand-right"></span>&nbsp;Order Date</label
+                  >
+                  <input
+                  type="text"
+                 
+                  id="txtOrderDate"
+                  readonly class="form-control dppicker"
+                />
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 form-group">
+              <div class="row">
+                <div class="col-lg-6">
+                  <!-- <label
+                  ><span class="icon-hand-right"></span>&nbsp;Supplier</label
+                  >
+                  <input
+                  type="text"
+                
+                  id="txtSupplier"
+                  class="form-control"
+                /> -->
+                <div class="ui-widget">
+                  <label for="txtSupplier"><span class="icon-hand-right"></span>&nbsp;Supplier</label>
+                  <input type="text" id="txtSupplier"  class="form-control">
+                </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="row">
+                    <div class="col-md-12" hidden>
+                        <label
+                        ><span class="icon-hand-right"></span>&nbsp;Order NO</label
+                        >
+                      
+                        <input
+                          type="text"
+                        
+                          id="txtOrderNo"
+                          class="form-control"
+                        />
+                    </div>
+                   
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 orderTag" style="display: none">
+                      <label><span class="icon-hand-right"></span>Order NO</label>
+                      <select id="drpOrderNo" class="form-control">
+                      <option disabled selected value="">--Select--</option>
+                      </select>
+                    </div>
+                  </div>
+                 
+                  
+                </div>
+                
+              </div>
+            </div>
+            <div class="col-lg-12 form-group">
+              <div class="row">
+                <div class="col-lg-4">
+                  <label
+                    ><span class="icon-hand-right"></span>&nbsp;Drug Name</label
+                    >
+                    <select id="drpDrugName" class="form-control">
+                      <option disabled selected value="">--Select--</option>
+                    
+                    </select>
+                </div>
+                <div class="col-lg-2">
+                  <label
+                  ><span class="icon-hand-right"></span>&nbsp;Quantity</label
+                  >
+                  <input
+                    type="number"
+                  
+                    id="txtQuantity"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-lg-2">
+                  <label
+                  ><span class="icon-hand-right"></span>&nbsp;Unit Price</label
+                  >
+                  <input
+                    type="number"
+                  
+                    id="txtUnitPrice"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-lg-3">                  
+                    <label
+                    ><span class="icon-hand-right"></span>&nbsp;Remarks</label
+                    >
+                    <input
+                      type="text"
+                    
+                      id="txtRemarks"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="col-lg-1">
+                    <button
+                        type="button"
+                        style="background: blue; margin-top: 3px; text-align: center; position: relative; top: 30px;"
+                        id="btnAdd"
+                        class="btn btn-block btn-primary"
+                        onclick="loadDatatoTable()"
+                      >
+                        <span class="fa fa-plus"></span>
+                      </button>
+                  </div>
+
+              </div>
+            </div>
+            
+            <div class="col-lg-12 form-group">
+              <div class="row">
+                <table class="table table-bordered">
+                  <thead>
+                  <tr>
+                    <th scope="col">Drug Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Unit Price</th>
+                    <th scope="col">Remarks</th>
+                    <th scope="col">Total Price</th>
+                    
+                  </tr>
+                  </thead>
+                  <tbody id="orderDrugdataBody">
+                  
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="col-lg-12 form-group text-align:right;">
+              <div class="row">
+                <label
+                ><span class="icon-hand-right col-md-2"></span><b>&nbsp;Sub Total</b></label
+                >
+                <div class="col-md-2 ">
+                  <input type="text" disabled readonly id="subtotalId" class="form-control offset-md-1" value="00.00" style="font-weight: 4px;"/>
+                </div>
+                  <label style="font-size: large; padding-top: 12px;">Rs</label>
+              </div>
+            </div>
+
+					<div class="col-lg-12 form-group row justify-content-center">
+					  
+					  <div class="col-lg-2 form-group">
+						<button
+						  type="button"
+						  id="btnSubmit"
+						  class="btn btn-block submitButton confirm right focused"
+						  onclick="insertData()"
+						>
+						  Save
+						</button>
+					  </div>
+					  <div class="col-lg-2 form-group">
+						<button
+						  type="button"
+						 
+						  id="btnCancel"
+						  class="btn btn-block cancel"
+						  onclick="closePage()"
+						>
+						  Cancel
+						</button>
+					  </div>
+					  <div class="col-lg-2 form-group">
+						<button
+						  type="button"
+						  style="background: #ffc107"
+						  id="btnLookup"
+						  class="btn btn-block btn-warning"
+						  onclick="updateData()"
+						>
+						  Look Up
+						</button>
+						</div>
+					</div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+  ></script>
+  <script
+    src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+    crossorigin="anonymous"
+  ></script>
+
+  <script>
+    $(".dppicker").datepicker({
+      dateFormat: 'yy-mm-dd',
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "-100:+100",
+      maxDate: 0
+    });
+  </script>
+
+    <script>
+    //load suppliers using autocomplete
+    loadSuppliers()
+    function loadSuppliers(){
+      fetch("http://localhost:8086/orderDrug/selectSupplierFromOrder",{
+        method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+      })
+      .then((response) => response.json())
+      .then((result) => {
+       
+        $( "#txtSupplier" ).autocomplete({
+          source: result
+        });
+      })
+    }
+
+    //Close the entire page
+      function closePage(){
+
+        $("#btnSubmit").html("Save").show();
+        $(".orderTag").hide();
+        $("#update_criteria_id").val(null);
+        $("#txtOrderDate").val(null);
+        $("#txtSupplier").val(null);
+        $("#drpOrderNo").val(null);
+        $("#orderDrugdataBody").empty();
+        $("#subtotalId").val("0.00");
+      }
+
+      //When click the look up button load the order no
+      function loadOrderNo(){
+
+        let institute = $("#txtInstitute").attr("insuuid");
+        fetch("http://localhost:8086/order/getOrderDataFromInstitute?instituteid=" + institute,{
+          method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+        })
+        .then((response) => response.json())
+        .then((result) => {
+        
+
+          var data = "";
+          data += "<option disabled selected>--Select--</option>";
+
+          $(result).each(function (k, v) {
+          
+            data +=
+            "<option value='" + v.id + "'>" + v.orderNo + "</option>";
+                    
+          });
+          $("#drpOrderNo").html("");
+          $("#drpOrderNo").html(data);
+        })
+      }
+      //Load textfields data to table
+      function loadDatatoTable(){
+
+        let drugid = $("#drpDrugName").val();
+      
+        let drugName = $("#drpDrugName :selected").text();
+       
+        let qty = $("#txtQuantity").val();
+      
+        let unitPrice = $("#txtUnitPrice").val();
+       
+        let remark = $("#txtRemarks").val();
+       
+        if (drugid == null || drugid == "--Select--"){
+          swal("Please select drug name!");
+        }else if( qty == ""){
+          swal("Please enter quantity!");
+        }else if(unitPrice == ""){
+          swal("Please enter unitPrice!");
+        }else{
+        
+          var bool = true;
+          $("#orderDrugdataBody tr").each(function () {
+				
+            var $tds = $(this).find('td'),
+            
+            drug = $tds.eq(1).text();
+            
+            if (drugName == drug) {
+              //bool = false;
+              qty = parseInt(qty) + parseInt($tds.eq(2).text());
+              $(this).remove();
+            }
+				  });
+         
+            let total = qty * unitPrice
+            $("#orderDrugdataBody").append(
+            "<tr><td style='display:none'>" +
+              drugid + "</td><td>" + drugName +
+              "</td><td>" +qty + 
+              "</td><td>" +unitPrice + 
+              "</td><td>" +remark + 
+              "</td><td>" +total + 
+              "</td><td><span class='fa fa-close' onclick='DeleteTableData(this)' style='color: red; font-size: 1.5rem;'></span></td></tr>"
+              
+            );
+          
+          loadSubTotal();
+          resetfields();
+        }
+        
+      }
+
+      //Load sub total to the text field
+      function loadSubTotal(){
+        var total = 0.00; 
+        $("#orderDrugdataBody tr").each(function () {
+          var tr = $(this);
+         
+          total = parseFloat(total) + parseFloat($(tr).find('td:nth-child(6)').html()); 
+          
+        })
+        $("#subtotalId").val(total);
+      }
+      
+      //reset the text fields
+      function resetfields(){
+
+        $("#drpDrugName").val("--Select--");
+        $("#txtQuantity").val(null);
+        $("#txtUnitPrice").val(null);
+        $("#txtRemarks").val(null);
+        
+      }
+
+    //Delete data from table
+		function DeleteTableData(btn) {
+			swal({
+			title: "Are you sure want to delete this row?",
+			text: "Once deleted, you will not be able to recover this row!",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true,
+			}).then((willDelete) => {
+			if (willDelete) {
+				$(btn).closest("tr").remove();
+				swal("This row has been deleted!", {
+				icon: "success",
+				});
+        loadSubTotal();
+			}
+			});
+     
+    }
+
+    
+    function insertData(){
+      //Insert data to the database
+      if($('#update_criteria_id').val().length == 0){
+
+        let year = new Date().getFullYear();
+        
+        let locationID = $("#txtInstitute").attr("locationid");
+       
+        let orderNo = locationID + year;
+      
+
+        let instituteID = $("#txtInstitute").attr("insuuid");
+      
+        let orderDate = $("#txtOrderDate").val();
+      
+
+        let orderNumber = $("#txtOrderNo").val(orderNo);
+        let order_number =  $("#txtOrderNo").val();
+      
+        let supplier = $("#txtSupplier").val();
+      
+
+        if(order_number == null){
+          swal("Order No is required!");
+        }
+        else if(orderDate == ""){
+          swal("Please enter order date!");
+        }else if(supplier == ""){
+          swal("Please enter supplier!");
+        }else if($('#orderDrugdataBody tr').length != 0){
+          var data = [];
+          $('#orderDrugdataBody tr').each(function (i, el) {
+            var Array = [];
+
+            var $tds = $(this).find('td'),
+            
+            drugID = $tds.eq(0).text();
+            drug = $tds.eq(1).text();
+            quantity = $tds.eq(2).text();
+            price = $tds.eq(3).text();
+            remarks = $tds.eq(4).text();
+            total =  $tds.eq(5).text();
+            
+            Array.push(drugID);
+            Array.push(drug);
+            Array.push(quantity);
+            Array.push(price);
+            Array.push(remarks);
+            Array.push(total);
+            data.push(Array);
+          });
+          
+              fetch("http://localhost:8086/orderDrug/insertTableDta", {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        instituteid: instituteID,
+                        order_date: orderDate,
+                        order_no: order_number,
+                        supplier: supplier,
+                        data
+                      }),
+                    })
+            .then(response => response.text())
+                    
+            .then(data => {
+            
+              swal({
+                title: "Order No is: "+data,
+                text: "Saved Successfully!",
+                icon: "success",
+              
+              });
+              
+
+            })
+            closePage();
+            
+          
+          
+        }else{
+          swal("Cannot save order no!", "Please order drugs", "error");
+        }
+
+      }else{
+        //Update the database data
+          let orderNo =  $("#drpOrderNo").val();
+         
+
+          if(orderNo != null){
+            let orderDate = $("#txtOrderDate").val();
+           
+            let supplier =  $("#txtSupplier").val();
+            
+
+            fetch(
+              "http://localhost:8086/order/updateOrderData/" + orderDate +"/"+ supplier +"/"+ orderNo,
+
+              {
+                method: "PUT",
+                mode: "cors",
+                cache: "no-cache",
+                headers: {
+                "Content-Type": "application/json",
+                },
+              }
+                          
+              )	
+              .then((response) => {
+                swal(
+                        "Successfully Updated!",
+                        "",
+                        "success"
+                      );		
+              })
+
+              .catch((error) => {
+                console.log(error);
+              });
+
+              closePage();
+
+              //insertDrugDatawithLookupButton();
+
+            
+
+          }else{
+          
+            swal(
+                      "Please select Order No!",
+                      "",
+                      "error"
+                    );
+        }
+      }
+
+     
+    }
+
+    //When click the look up button cal this method
+    function updateData(){
+        $(".orderTag").show();
+        //$("#btnSubmit").html("Update");
+        $("#update_criteria_id").val("UP");
+        loadOrderNo();
+
+     
+    }
+
+    function insertDrugDatawithLookupButton(){
+
+      var data = [];
+				$('#orderDrugdataBody tr').each(function (i, el) {
+					var Array = [];
+
+					var $tds = $(this).find('td'),
+					
+          drug = $tds.eq(1).text();
+					quantity = $tds.eq(2).text();
+					price = $tds.eq(3).text();
+          remarks = $tds.eq(4).text();
+
+					
+
+					Array.push(drug);
+					Array.push(quantity);
+					Array.push(price);
+          Array.push(remarks);
+
+					data.push(Array);
+				});
+
+        fetch("http://localhost:8086/orderDrug/addOrderDrug", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    
+                    data
+                  }),
+                })
+				.then(response => response.text())
+                
+				.then(data => {
+         
+
+        })
+    }
+
+    $("#drpOrderNo").on("change", function () {
+        let orderNo = $("#drpOrderNo").val();
+        
+        $("#update_criteria_id").val(orderNo);
+
+        let orderNoText = $("#drpOrderNo :selected").text();
+        
+
+        getGRNStatus(orderNoText);
+       
+
+    })
+
+    //Check whether order no is include grn no 
+    function getGRNStatus(orderNoText){
+
+      fetch("http://localhost:8086/receive/selectAllfromGrnno?order_no=" + orderNoText,{
+          method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+        })
+        .then((response) => response.text())
+        .then((result) => {
+            //If order no is not include grn num then hide update button and remove the delete icon in the table
+            if(result == "true"){
+             
+              fetch("http://localhost:8086/order/getDataFromOrderNo?order_no=" + orderNoText,{
+              method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              })
+              .then((response) => response.json())
+              .then((result) => {
+                
+                $(result).each(function (k, v) {
+                  let dt = v.orderDate.split(" ");
+                  $("#txtOrderDate").val(dt[0]);
+                  $("#txtSupplier").val(v.supplier);
+
+                  fetch(
+                  "http://localhost:8086/orderDrug/getDataFromOrderID?orderid=" + v.id,
+                  
+                  {
+                  method: "GET",
+                      mode: "cors",
+                      cache: "no-cache",
+                      headers: {
+                      "Content-Type": "application/json",
+                      },
+                    }
+                    )
+                  .then((response) => response.json())
+                  .then((result) => {
+                    $("#orderDrugdataBody").empty();
+                    $.each(result, function (key, value) {
+                    
+                    
+                      $("#orderDrugdataBody").append(
+                        "<tr style='text-align: center; padding-top: 2px; padding-bottom: 4px;'><td>" +
+                      value.drugName +
+                          "</td><td>" +
+                      value.quantity +
+                          "</td><td>" +
+                      value.unitPrice +
+                          "</td><td>" +
+                      value.remarks +
+                          "</td><td>" +
+                      value.totalPrice +
+                          "</td></tr>"
+                      );
+                    });
+                  })
+
+                })
+              })
+              loadSubTotal();
+              $("#btnSubmit").html("Update").hide();
+            }else{
+              //order no is include grn no then update the data and remove the table data
+              $("#btnSubmit").html("Update").show();
+              fetch("http://localhost:8086/order/getDataFromOrderNo?order_no=" + orderNoText,{
+              method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              })
+              .then((response) => response.json())
+              .then((result) => {
+                
+                $(result).each(function (k, v) {
+                  let date = v.orderDate.split(" ");
+                  $("#txtOrderDate").val(date[0]);
+                  $("#txtSupplier").val(v.supplier);
+
+                  fetch(
+                  "http://localhost:8086/orderDrug/getDataFromOrderID?orderid=" + v.id,
+                  
+                  {
+                  method: "GET",
+                      mode: "cors",
+                      cache: "no-cache",
+                      headers: {
+                      "Content-Type": "application/json",
+                      },
+                    }
+                    )
+                  .then((response) => response.json())
+                  .then((result) => {
+                    $("#orderDrugdataBody").empty();
+                    $.each(result, function (key, value) {
+                    
+                    
+                      $("#orderDrugdataBody").append(
+                        "<tr style='text-align: center; padding-top: 2px; padding-bottom: 4px;'><td>" +
+                      value.drugName +
+                          "</td><td>" +
+                      value.quantity +
+                          "</td><td>" +
+                      value.unitPrice +
+                          "</td><td>" +
+                      value.remarks +
+                          "</td><td>" +
+                      value.totalPrice +
+                          "</td><td><span class='fa fa-close' onclick='DeleteOrderDRugFromID(" +
+                        value.id +
+                          ",this)' style='color: red; font-size: 1.5rem;'></span></td></tr>"
+                      );
+                    });
+                  })
+
+                })
+              })
+              loadSubTotal();
+            }
+        })
+
+
+      
+    }
+
+    //Delete the table data from database
+		function DeleteOrderDRugFromID(id, btn) {
+        swal({
+          title: "Are you sure want to delete this row?",
+          text: "Once deleted, you will not be able to recover this row!",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        }).then((willDelete) => {
+          if (willDelete) {
+            fetch(
+              "http://localhost:8086/orderDrug/deleteOrderDrug/" + id,
+
+              {
+                method: "DELETE",
+                mode: "cors",
+                cache: "no-cache",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            )
+              .then((response) => {
+                if (response) {
+                  $(btn).closest("tr").remove();
+                }
+              })
+
+              .catch((error) => {
+                console.log(error);
+              });
+            swal("This row has been deleted!", {
+              icon: "success",
+            });
+          }
+        });
+      }
+
+     
+    </script>
+
+  </body>
+</html>

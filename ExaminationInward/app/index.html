@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>ExaminationInward</title>
+    <!-- openmrs favicon -->
+    <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+    <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+    <link rel="stylesheet"
+      href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+      type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"
+      integrity="sha512-s5u/JBtkPg+Ff2WEr49/cJsod95UgLHbC00N/GglqdQuLnYhALncz8ZHiW/LxDRGduijLKzeYb7Aal9h3codZA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/i18n/jquery-ui-timepicker-addon-i18n.min.js"
+      integrity="sha512-t2ZIJH81Sh+SWSb4BuA9en4j6fwja+sYOEXbqoepD9lJ+efUGD94gSWqdmgQchGmPez2ojECq4Fm6bKMUAzIiQ=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+
+
+    <script>
+      $(document).ready(function () {
+        $("#exaDate").datepicker({
+          changeYear: true,
+          changeMonth: true,
+          minDate: 0,
+        });
+        $('#exaTime').timepicker();
+        //$("#status").select2({ width: '180px', placeholder: "--Active / InActive--", allowClear: true });
+      });
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark navigation">
+        <div class="logo">
+          <a href="../../">
+            <img src="img/openmrs-with-title-small.png" />
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto user-options">
+            <li class="nav-item logout">
+              <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+                Logout <i class="icon-signout small"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="clear"></div>
+
+    <ul id="breadcrumbs">
+      <li>
+        <a href="/openmrs/index.htm">
+          <i class="icon-home small"></i>
+        </a>
+      </li>
+      <li>
+        <a href="/openmrs/admin/index.htm">
+          <i class="icon-chevron-right link"></i> Administration
+        </a>
+      </li>
+      <li>
+        <a href="/openmrs/module/owa/manage.form">
+          <i class="icon-chevron-right link"></i> Manage Apps
+        </a>
+      </li>
+      <li>
+        <i class="icon-chevron-right link"></i> Examination Inward
+      </li>
+    </ul>
+    <div id="body-wrapper">
+      <div class="cardBlock">
+        <h2>Examination-Inward</h2>
+
+        <div><u>Basic Examination</u></div>
+        <div class="row" style="margin-top: 15px;border: transparent;background-color: transparent;">
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Examination Date</label>
+          <div class="col-lg-4 form-group">
+            <input type="text" class="form-control" id="exaDate">
+          </div>
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Examination Time</label>
+          <div class="col-lg-4 form-group">
+            <input type="text" class="form-control" id="exaTime">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Height {cm}</label>
+          <div class="col-sm-2 col-form-label">
+            <input type="text" class="col-sm-10 form-control form-control-sm cal" id="txtheight" />
+          </div>
+          <label class="col-sm-2 col-form-label cal"><span class="icon-hand-right"></span>&nbsp;Weight {kg}</label>
+          <div class="col-sm-2 col-form-label">
+            <input type="text" class="col-sm-10 form-control form-control-sm cal" id="txtweight" />
+          </div>
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;BMI</label>
+          <div class="col-sm-2 col-form-label">
+            <input type="text" readonly class="col-sm-10 form-control form-control-sm" id="txtbmi" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Waist {cm}</label>
+          <div class="col-sm-2 col-form-label">
+            <input type="text" class="col-sm-10 form-control form-control-sm" id="txtWaist" />
+          </div>
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Systolic BP</label>
+          <div class="col-sm-2 col-form-label">
+            <input type="text" class="col-sm-10 form-control form-control-sm" id="txtsysto" />
+          </div>
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Diastolic BP</label>
+          <div class="col-sm-2 col-form-label">
+            <input type="text" class="col-sm-10 form-control form-control-sm" id="txtdiasto" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Pulse Rate</label>
+          <div class="col-sm-2 col-form-label">
+            <input type="text" class="col-sm-10 form-control form-control-sm" id="txtpuls" />
+          </div>
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;RS</label>
+          <div class="col-sm-2 col-form-label">
+            <input type="text" class="col-sm-10 form-control form-control-sm" id="txtRS" />
+          </div>
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Temperature
+            <sup>o</sup>C</label>
+          <div class="col-sm-2 col-form-label">
+            <input type="text" class="col-sm-10 form-control form-control-sm" id="txtTemp" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2"><span class="icon-hand-right"></span>&nbsp;Remarks</label>
+          <div class="col-sm-8">
+            <textarea class="col-sm-10 form-control form-control-sm" id="txtremark" rows="4"></textarea>
+          </div>
+        </div>
+        <div class="col-lg-12 form-group">
+          <div class="col-lg-6" style="padding: 0;">
+            <table>
+              <thead>
+                <tr>
+                  <th>General Examination</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyGeneralExamination">
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="col-sm-12 row">
+          <div class="col-sm-5 row">
+            <label class="col-sm-3 col-form-label"><span class="icon-hand-right"></span>&nbsp;Status</label>
+            <div class="col-lg-8 form">
+              <select class="form-control" id="status">
+                <option disabled selected hidden>--Select--</option>
+                <option>Active</option>
+                <option>InActive</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-12 form-group row justify-content-center" style="margin-top: 20px; margin-bottom: 10px;">
+          <div class="col-lg-2 form-group">
+            <button id="btnSubmit" class="btn btn-block btn-success" style="background: #28a745;">Save</button>
+          </div>
+          <div class="col-lg-2 form-group">
+            <button type="button" id="btnClear" class="btn btn-block btn-danger"
+              style="background: #dc3545;">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+
+  </body>
+
+</html>

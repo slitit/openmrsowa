@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Section</title>
+  <!-- openmrs favicon -->
+  <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+  <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet"
+    href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+    type="text/css" />
+
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navigation">
+      <div class="logo">
+        <a href="../../">
+          <img src="img/openmrs-with-title-small.png" />
+        </a>
+      </div>
+
+      <ul class="navbar-nav ml-auto user-options">
+        <li class="nav-item" style="font-weight: bold;">
+          <span class="icon-hospital"></span><span id="lblInstituteName"></span>
+          <input id="txtinstituteuuid" type="text" class="form-control" style="display: none;" />
+        </li>
+      </ul>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto user-options">
+          <li class="nav-item logout">
+            <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+              Logout <i class="icon-signout small"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="clear"></div>
+
+  <ul id="breadcrumbs">
+    <li>
+      <a href="/openmrs/index.htm">
+        <i class="icon-home small"></i>
+      </a>
+    </li>
+    <li>
+      <i class="icon-chevron-right link"></i> Section
+    </li>
+  </ul>
+
+  <div id="body-wrapper">
+    <div class="card" style="padding: 10px;border-radius: 5px;">
+      <div>
+        <div class="row" id="panelSectionName" style="display: none;">
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Section Name </label>
+          <div class="col-lg-4 form-group">
+            <select id="drpSectionName" class="form-control">
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Category</label>
+          <div class="col-lg-4 form-group">
+            <select id="Category" class="form-control clr">
+              <option disabled selected value="">-- Please Select --</option>
+              <option value="Ward">Ward</option>
+              <option value="Clinic">Clinic</option>
+              <option value="Unit">Unit</option>
+              <option value="Laboratory">Laboratory</option>
+              <option value="Store">Store</option>
+              <option value="Pharmacy">Pharmacy</option>
+              <option value="Theater">Theater</option>
+              <option value="Mobile Unit">Mobile Unit</option>
+              <option value="Radiology">Radiology</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Section Name </label>
+          <div class="col-lg-4 form-group">
+            <input type="text" class="form-control clr" id="SectionName">
+          </div>
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Section Short Code
+          </label>
+          <div class="col-lg-4 form-group">
+            <input type="text" class="form-control clr" id="SectionShortCode">
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Telephone</label>
+          <div class="col-lg-4 form-group">
+            <input type="text" class="form-control clr" id="Telephone">
+          </div>
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Type</label>
+          <div class="col-lg-4 form-group">
+            <select id="Type" class="form-control clr">
+              <option value="Logical">Logical</option>
+              <option value="Physical">Physical</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Status</label>
+          <div class="col-lg-4 form-group">
+            <select id="Status" class="form-control clr">
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+          <label class="col-sm-2 col-form-label hidePhy"><span class="icon-hand-right"></span>&nbsp;Physical Section
+          </label>
+          <div class="col-lg-4 form-group hidePhy">
+            <select id="PhysicalSection" class="form-control clr">
+
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Section In charge </label>
+          <div class="col-lg-4 form-group">
+            <input type="text" class="form-control clr" id="txtSectionInCharge">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="InwardUnit">
+              <label class="form-check-label" for="InwardUnit">
+                Inward Unit
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="wardhide" style="display: none;">
+          <div class="card bg-light mb-12">
+            <div class="card-header">Ward</div>
+            <div class="card-body">
+              <div class="row">
+                <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Bed Count
+                </label>
+                <div class="col-lg-4 form-group">
+                  <input type="text" class="form-control clr" id="BedCount">
+                </div>
+                <label class="col-sm-2 col-form-label"><span class="icon-hand-right"></span>&nbsp;Consultant
+                </label>
+                <div class="col-lg-4 form-group">
+                  <select id="drpConsultantList" class="form-control clr">
+
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="hideLab">
+          <div class="card bg-light mb-12">
+            <div class="card-header">Laboratory</div>
+            <div class="card-body">
+              <div class="row">
+                <label class="col-sm-2 col-form-label">
+                  <span class="icon-hand-right"></span>&nbsp;MLT Officer
+                </label>
+                <div class="col-lg-6 form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="MLTOfficerflexRadioDefault1"
+                      id="MLTOfficerflexRadioDefault1">
+                    <label class="form-check-label" for="MLTOfficerflexRadioDefault1">
+                      Available
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-sm-2 col-form-label">
+                  <span class="icon-hand-right"></span>&nbsp;MO
+                </label>
+                <div class="col-lg-6 form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="chkMo" id="chkMOAvailable"
+                      value="chkMOAvailable">
+                    <label class="form-check-label" for="chkMOAvailable">
+                      Available
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="chkMo" id="chkMONotAvailable"
+                      value="chkMONotAvailable" checked>
+                    <label class="form-check-label" for="chkMONotAvailable">
+                      Not Available
+                    </label>
+                  </div>
+                </div>
+
+              </div>
+              <div class="row">
+                <label class="col-sm-2 col-form-label">
+                  <span class="icon-hand-right"></span>&nbsp;Consultant
+                </label>
+                <div class="col-lg-6 form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="chkConsultant" value="chkConsultantAvailable"
+                      id="chkConsultantAvailable">
+                    <label class="form-check-label" for="chkConsultantAvailable">
+                      Available
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="chkConsultant" value="chkConsultantNotAvailable"
+                      id="chkConsultantNotAvailable" checked>
+                    <label class="form-check-label" for="chkConsultantNotAvailable">
+                      Not Available
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <hr style="background-color:rgb(100, 164, 168);border: 1px solid rgb(100, 164, 168);">
+      <div class="row">
+        <div class="col-lg-12 form-group row justify-content-center">
+
+          <div class="col-lg-2 form-group">
+            <button type="button" id="btnSave" class="btn btn-block submitButton confirm right focused">Save</button>
+          </div>
+
+          <div class="col-lg-2 form-group">
+            <button type="button" id="btnCancel" class="btn btn-block bn-danger"
+              style="background: #dc3545; color: white">Cancel</button>
+          </div>
+
+          <div class="col-lg-2 form-group">
+            <button id="btnLookup" type="button" class="btn btn-block btn-warning" style="background: #e0a800;">Look
+              Up</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+</html>

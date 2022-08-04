@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Patient Search</title>
+  <!-- openmrs favicon -->
+  <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+  <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/openmrs/ms/uiframework/resource/appui/styles/header.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet"
+    href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-colvis-1.7.1/b-html5-1.7.1/b-print-1.7.1/datatables.min.css" />
+
+  <style>
+    #patient-search {
+      display: inline;
+    }
+
+    #patient-search-clear-button {
+      position: absolute;
+      right: 20px;
+      padding: 14px;
+    }
+
+    .dataTables_length {
+      float: right !important;
+    }
+
+    .hiddenCol {
+      display: none;
+    }
+
+    .dataTablex tbody tr:hover {
+      cursor: pointer;
+      background-color: #900e0e !important;
+      color: white !important;
+      font-weight: bold !important;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navigation">
+      <div class="logo">
+        <a href="../../">
+          <img src="img/openmrs-with-title-small.png" />
+        </a>
+      </div>
+
+      <ul class="navbar-nav ml-auto user-options">
+        <li class="nav-item" style="font-weight: bold;">
+          <span class="icon-hospital"></span><span id="lblInstituteName"></span>
+          <input id="txtinstituteuuid" type="text" class="form-control" style="display: none;" />
+        </li>
+      </ul>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto user-options">
+          <li class="nav-item logout">
+            <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+              Logout <i class="icon-signout small"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="clear"></div>
+
+  <ul id="breadcrumbs">
+    <li>
+      <a href="/openmrs/index.htm">
+        <i class="icon-home small"></i>
+      </a>
+    </li>
+    <li>
+      <i class="icon-chevron-right link"></i> Patient Search
+    </li>
+  </ul>
+
+  <div id="body-wrapper">
+    <div class="card">
+      <div class="card-body row">
+
+        <div class="col-lg-12 form-group" style="padding: 0;">
+          <h2>Patient Search</h2>
+        </div>
+
+        <div class="col-12">
+
+          <!-- <form method="get" id="patient-search-form" onsubmit="return false">
+            <input class="form-control" type="text" id="patient-search" placeholder="Search by ID or Name"
+              autocomplete="off">
+            <i id="patient-search-clear-button" class="small icon-remove-sign"></i>
+          </form> -->
+
+
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped dataTablex nowrap">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th nowrap="">UUID</th>
+                  <th nowrap="">PHN No</th>
+                  <th nowrap="">Name</th>
+                  <th nowrap="">Gender</th>
+                  <th nowrap="">Age</th>
+                  <th nowrap="">Birthday</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+  <script type="text/javascript"
+    src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-colvis-1.7.1/b-html5-1.7.1/b-print-1.7.1/datatables.min.js"></script>
+
+  <script>
+
+    function returnUrl() {
+
+      var value = "";
+
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", "Basic YWRtaW46QWRtaW4xMjM=");
+      myHeaders.append("Cookie", "JSESSIONID=4F55735593751E224686B006CD388234");
+
+      $.ajax({
+        url: '/openmrs/ws/rest/v1/conceptreferenceterm?codeOrName=LaravelApi',
+        type: 'GET',
+        dataType: 'json',
+        async: false,
+        headers: myHeaders,
+        data: {},
+        success: function (data) {
+          var str = (data.results[0].display);
+
+          var mySubString = str.substring(
+            str.lastIndexOf("(") + 1,
+            str.lastIndexOf(")")
+          );
+
+          value = (mySubString);
+        }
+      });
+
+      return value;
+    }
+
+    LoadItemsTable();
+
+    function LoadItemsTable() {
+
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", "Basic YWRtaW46QWRtaW4xMjM=");
+      myHeaders.append("Cookie", "JSESSIONID=2D158E83ACFB788998C7DB495F07C1B9");
+
+      var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+
+      fetch("/openmrs/ws/rest/v1/session", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+
+          jQuery('#staticUsername').val(result.user.username);
+          var name = result.user.person.display;
+          var username = result.user.display;
+          var personuuid = result.user.person.uuid;
+          jQuery('#txtuseruuid').val(personuuid);
+
+          var requestHeaders = new Headers();
+          requestHeaders.append("Authorization", "Basic YWRtaW46QWRtaW4xMjM=");
+          requestHeaders.append("Cookie", "JSESSIONID=ED9DBD5CFD355A973EFFECD642D8331D");
+
+          var requestOptions = {
+            method: 'GET',
+            headers: requestHeaders,
+            redirect: 'follow'
+          };
+
+          fetch("/openmrs/ws/rest/v1/person/" + personuuid, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+
+              var InstituteUuid = "";
+              jQuery(result.attributes).each(function (k, v) {
+                if (v.display != null) {
+
+                  if (jQuery.trim(v.display.split("=")[0]) == "Institute Id") {
+                    InstituteUuid = jQuery.trim(v.display.split("=")[1]);
+                  }
+                }
+              });
+
+
+              var table1 = $('.dataTablex').DataTable({
+                processing: true,
+                serverSide: true,
+                "ajax": {
+                  url: returnUrl() + '/LoadPatientsDetails',
+                  type: 'POST',
+                  dataType: 'json',
+                  data: { InstituteUuid: InstituteUuid },
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+                },
+                "columns": [
+                  {
+                    "data": 'identifier',
+                    name: 'patient_identifier.identifier',
+                    orderable: false,
+                    serachable: false
+                  },
+                  {
+                    data: 'uuid',
+                    name: 'person.uuid'
+                  },
+                  {
+                    data: 'identifier',
+                    name: 'patient_identifier.identifier'
+                  },
+                  {
+                    "data": "given_name"
+                  },
+                  {
+                    data: "gender",
+                    name: 'person.gender'
+                  },
+                  {
+                    data: null,
+                    "searchable": false,
+                    render: function (data, type, row) {
+                      const getAge = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e+10)
+                      return getAge(data.birthdate);
+                    }
+                  },
+                  {
+                    data: "birthdate",
+                    name: 'person.birthdate'
+                  }
+                ],
+                "pageLength": 10,
+                "ordering": true,
+                "lengthMenu": [
+                  [10, 25, 50, 100, -1],
+                  [10, 25, 50, 100, "All"]
+                ],
+                "dom": '<"top"Blfrt<"clear">>rt<"bottom"ip<"clear">>',
+                "rowCallback": function (nRow, aData, iDisplayIndex) {
+                  var oSettings = this.fnSettings();
+                  $("td:first", nRow).html(oSettings._iDisplayStart + iDisplayIndex + 1);
+                  return nRow;
+                },
+                "buttons": [
+                  {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                      columns: ':visible'
+                    }
+                  },
+                  {
+                    extend: 'csvHtml5',
+                    exportOptions: {
+                      columns: ':visible'
+                    }
+                  },
+                  {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                      columns: ':visible'
+                    }
+                  },
+                  {
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                      columns: ':visible'
+                    }
+                  },
+                  {
+                    extend: 'print',
+                    text: 'Print',
+                    exportOptions: {
+                      columns: ':visible'
+                    }
+                  }
+                ],
+                "columnDefs": [
+                  { className: "text-center", "targets": [0] },
+                  { className: "hiddenCol uuidcol", "targets": [1] },
+                ],
+                "initComplete": function (settings, json) {
+
+                  // closewait();         
+
+                  $('.dataTablex').width("100%");
+                },
+
+              });
+
+
+            })
+            .catch(error => console.log('error', error));
+        })
+        .catch(error => console.log('error', error));
+
+    }
+
+  </script>
+
+</body>
+
+</html>

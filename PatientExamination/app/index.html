@@ -1,0 +1,3183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Patient Examination</title>
+  <!-- openmrs favicon -->
+  <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+  <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/openmrs/ms/uiframework/resource/appui/styles/header.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet"
+    href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sketchpad/0.1.0/styles/sketchpad.css"
+    integrity="sha512-1sx/jYcl5B9GIavcXM2o84h1X7UWB6EZQMlWBfZWfgoou5j4+G6pvQCe8cL2tIEYAlvEHtcuiTLASIP9FF8+pQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css"
+    integrity="sha512-LT9fy1J8pE4Cy6ijbg96UkExgOjCqcxAC7xsnv+mLJxSvftGVmmc236jlPTZXPcBRQcVOWoK1IJhb1dAjtb4lQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.23/sweetalert2.css"
+    integrity="sha512-gAU9FxrcktP/m5fRrn5P4FmIutdMP/kpVKsPerqffFy9gKQkR4cxrcrK3PtgTAgFiiN7b5+fwRbpCcO1F5cPew=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.23/sweetalert2.min.js"
+    integrity="sha512-eJK7xM/jkT80Ixs4NJuFhaqb/DfpGFP9j/GkZGzlQyn6nZmJPSXkWsLvRTcR4HBBe7bUlqwyWFpb0pJ44GyP/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+  <style>
+    label.row.col-md-12 {
+      line-height: 1 !important;
+    }
+
+    .input-file {
+      padding: 0px;
+      margin: 0 auto;
+      background: #ffffff;
+      -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.04);
+      box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0);
+    }
+
+    .upload-img {
+      border-radius: 16px;
+      display: inline-block;
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      object-position: 50% 50%;
+      border: 3px solid #20e5bf;
+      margin-right: 15px;
+      vertical-align: middle;
+    }
+
+    .input-file-upload {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .input-file-upload input[type="file"] {
+      opacity: 0;
+      padding: 10px 0;
+      height: 36px;
+      width: 150px;
+    }
+
+    .upload-label {
+      width: 150px;
+      height: 36px;
+      background: #3b70f1;
+      text-align: center;
+      color: #ffffff;
+      display: block;
+      padding: 8px 0;
+      position: absolute;
+      line-height: normal;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .input-file-upload:hover .upload-label {
+      background: #eaf5fe;
+      color: #3b70f1;
+    }
+
+    .text-input {
+      width: 0px;
+    }
+
+    form select,
+    .form select {
+      min-width: 100% !important;
+    }
+
+    body,
+    .btn {
+      font-size: 12px !important;
+    }
+
+    .form-group {
+      margin-bottom: 10px !important;
+    }
+
+    .form-control {
+      height: 28px !important;
+      padding: 6px !important;
+      font-size: 12px !important;
+      line-height: 0;
+    }
+
+    body {
+      line-height: .8 !important;
+    }
+
+    form label,
+    .form label {
+      margin-bottom: 4px;
+    }
+
+    .top-btn {
+      all: unset;
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      cursor: pointer;
+      transform: scale(1.8);
+      opacity: 0;
+      transition: .3s;
+    }
+
+    .button-group#threeD .button {
+      /* background: linear-gradient(135deg, #39414E, #4C5363); */
+      background: linear-gradient(135deg, #549ee7, #36f1cf);
+      border: none;
+      width: 100%;
+      height: 45px;
+      padding: 8px 10px;
+      display: inline-block;
+      margin: 0 -2px 5px -3px;
+      /* color: #F89B72; */
+      color: #000;
+      font-size: 9px !important;
+      box-shadow: 0px 2px 15px #323A45;
+      position: relative;
+      font-weight: bolder;
+      display: flex;
+    }
+
+    .button-group#threeD .button img {
+      width: 32px !important;
+      height: 30px !important;
+      ;
+    }
+
+    .button-group#threeD .button p {
+      margin-left: 5px;
+    }
+
+    .button-group#threeD .button span {
+      text-align: center;
+      margin: 20px 0 20px 0;
+      display: block;
+      color: #fff;
+      text-shadow: 0 2px 30px #323A45;
+      font-size: 32px;
+    }
+
+    .button-group#threeD .button:hover {
+      background: linear-gradient(135deg, #4C5363, #39414E);
+    }
+
+    .button-group#threeD .button.active {
+      font-size: 14px;
+      text-shadow: 0 0 10px #fff;
+      background: linear-gradient(135deg, #4C5363, #39414E);
+      color: #fff;
+      vertical-align: bottom;
+    }
+
+    .button-group#threeD .button.active span {
+      text-shadow: 0 0 10px #fff;
+      margin-top: 10px;
+      font-size: 20px;
+    }
+
+    .button-group#threeD .button.next:before {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: -25px;
+      top: 0px;
+      line-height: 90px;
+      border-bottom: 20px solid #323A45;
+      border-left: 25px solid transparent;
+    }
+
+    .button-group#threeD .button.next:after {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: -25px;
+      top: 20px;
+      line-height: 90px;
+      border-top: 100px solid #323A45;
+      border-left: 25px solid transparent;
+    }
+
+    .button-group#threeD .button.prev:before {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: 100%;
+      top: 20px;
+      line-height: 90px;
+      border-top: 100px solid #323A45;
+      border-right: 25px solid transparent;
+    }
+
+    .button-group#threeD .button.prev:after {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: 100%;
+      top: 0px;
+      line-height: 90px;
+      border-bottom: 20px solid #323A45;
+      border-right: 25px solid transparent;
+    }
+
+    @media (max-width:765px) {
+      .button-group {
+        width: 100%;
+      }
+    }
+
+    .button-group {
+      display: inherit !important;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navigation">
+      <div class="logo">
+        <a href="../../">
+          <img src="img/openmrs-with-title-small.png" />
+        </a>
+      </div>
+
+      <ul class="navbar-nav ml-auto user-options">
+        <li class="nav-item" style="font-weight: bold;font-size: 1rem; position: relative; top: 3px;">
+          <span class="icon-hospital"></span><span id="lblInstituteName"></span>
+          <input id="txtinstituteuuid" type="text" class="form-control" style="display: none;" />
+        </li>
+      </ul>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto user-options">
+          <li class="nav-item logout" style="font-weight: bold; font-size: 1rem; position: relative; top: 2px;">
+            <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+              Logout <i class="icon-signout small"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="clear"></div>
+
+  <ul id="breadcrumbs">
+    <li>
+      <a href="/openmrs/index.htm">
+        <i class="icon-home small"></i>
+      </a>
+    </li>
+    <li>
+      <i class="icon-chevron-right link"></i> Patient Examination
+    </li>
+  </ul>
+
+  <div id="body-wrapper">
+    <div class="card">
+      <div class="card-body row justify-content-center">
+
+        <form class="row col-12" id="addLocationForm">
+
+          <div class="col-lg-4 form-group" style="margin-bottom: 0 !important">
+            <div class="row">
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;PHN</label>
+                <input id="txtPhnNo" type="text" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-2 form-group" style="margin-bottom: 0 !important">
+            <div class="row">
+              <div class="col-lg-12 form-group">
+                <label style="visibility: hidden;"><span class="icon-hand-right"></span>&nbsp;Insti</label>
+                <button class="btn btn-success btn-block" type="button" id="btnCallNext"
+                  style="background: #28a745;">Call Next</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 form-group" style="margin-bottom: 0 !important">
+            <div class="row">
+              <div class="col-lg-7 form-group row"
+                style="background: cornflowerblue; color: white; font-weight: bold; padding-bottom: 15px; margin: 0;">
+                <div class="col-lg-12 row">
+                  <label><span class="icon-hand-right"></span>&nbsp;Token No</label>
+                </div>
+                <div class="col-lg-6 row">
+                  <input id="txtSpecToken" type="text" class="form-control" />
+                </div>
+                <div class="col-lg-6">
+                  <button class="btn btn-warnning btn-block" style="margin-top: 2px; background: #ffc107;" type="button"
+                    id="btnCallSpecificToken">Call Token</button>
+                </div>
+              </div>
+              <div class="col-lg-5 form-group text-center" style="margin: 0;">
+                <p class="text-center" style="margin: 0;">Token No</p>
+                <div id="currentToken" style="font-size: 6rem; padding: 0; margin: 0;"> - </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group" style="border-bottom: 4px solid;"></div>
+
+          <div class="col-lg-12 form-group" style="padding: 0; margin-bottom: 0 !important;">
+            <div class="row">
+
+              <div class="col-lg-12 form-group" style="display: none;">
+                <label><span class="icon-hand-right"></span>&nbsp;Person UUID</label>
+                <input id="txtPersonUUID" type="text" class="form-control rof" readonly />
+              </div>
+              <div class="col-lg-12 form-group" style="display: o;">
+                <label><span class="icon-hand-right"></span>&nbsp;Encounter UUID</label>
+                <input id="txtEncounterUUID" type="text" class="form-control rof" readonly />
+              </div>
+
+              <div class="col-lg-5 form-group" style="margin-bottom: 0 !important;">
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Full Name: <span id="txtFullName"> </span></label>
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Gender: <span id="txtGender"> </span></label>
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;NIC No: <span id="txtNICNo"> </span></label>
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Civil Status: <span id="txtCivilStatus">
+                    </span></label>
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Gurdian Info: <span id="txtGurdianInfo">
+                    </span></label>
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Race: <span id="txtRace">
+                    </span></label>
+                </div>
+              </div>
+              <div class="col-lg-5 form-group" style="margin-bottom: 0 !important;">
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Address: <span id="txtAddress"> </span></label>
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Age: <span id="txtYears"></span> <span
+                      id="txtMonths"></span> <span id="txtDays"></span> </label>
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Date Of Birth: <span id="txtDob"> </span></label>
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Blood Group: <span id="txtBloodGroup">
+                    </span></label>
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Religion: <span id="txtEthnicity">
+                    </span></label>
+                </div>
+              </div>
+              <div class="col-lg-2 form-group" style="margin-bottom: 0 !important;">
+                <div class="col-lg-12 form-group" style="padding: 0;">
+                  <div class="input-file">
+                    <img id="file_upload" src="http://localhost/LaravelApiFile/storage/documents/useremprty.png"
+                      alt="your image" class="upload-img" />
+                  </div>
+                </div>
+                <div class="col-lg-12 form-group row"
+                  style="padding: 0; margin-bottom: 0px;margin: auto;justify-content: center;">
+                  <button id="btnOpenHistory" class="btn btn-link" type="button" style="padding: 2px 6px;">View
+                    History</button>
+                  <input type="text" id="patientUuid" class="rof" style="display: none;">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group" style="border-bottom: 4px solid;"></div>
+
+          <div class="col-lg-12 form-group row" style="margin: auto;">
+
+            <div class="button-group row threeD" id="threeD">
+              <div class="col-lg-2">
+                <div class="button" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapseOne" aria-expanded="true">
+                  <img src="https://cdn-icons-png.flaticon.com/512/162/162994.png" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">General Examination</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapse6" aria-expanded="false">
+                  <img src="https://www.svgrepo.com/show/17111/history.svg" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">History</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapse5" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://cdn-icons-png.flaticon.com/512/1581/1581820.png" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Allergies</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapse8" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://cdn1.iconfinder.com/data/icons/the-human-body-line/128/heart-organ-ol-2-512.png"
+                    style="width: 50px;">
+                  <p style="font-size: 11px;text-align: center;">Cardio Vascular System</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapse9" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://static.thenounproject.com/png/2588035-200.png" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Respiratory System</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapse10" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://static.thenounproject.com/png/1633429-200.png" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Abdomen System</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapse11" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://icon-library.com/images/anatomy-icon/anatomy-icon-18.jpg" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Other Systems</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapse12" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://cdn0.iconfinder.com/data/icons/raising-children-outline/512/0_Pregnant-512.png"
+                    style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Pregnancy Details</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapseLabTest" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="http://cdn.onlinewebfonts.com/svg/img_533612.png" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Lab Tests</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapseRadiology" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://icon-library.com/images/xray-icon/xray-icon-20.jpg" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Radiology Tests</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapsePrescribing" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://cdn-icons-png.flaticon.com/512/898/898671.png" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Prescribing</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapseTreatments" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://cdn-icons-png.flaticon.com/512/1934/1934407.png" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Treatments & Procedure</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapseWardReferral" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://cdn4.iconfinder.com/data/icons/hospital-1-1/512/Hospital_Bed-512.png"
+                    style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Ward Referral</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapseClinic" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://cdn-icons-png.flaticon.com/512/94/94830.png" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Clinic Referral</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapseInjury" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/injury-2069059-1757407.png"
+                    style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Injury Surveillance</p>
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="accordion" id="accordionExample" style="margin-top: 30px; width: 100% !important;">
+
+              <div class="card">
+                <div class="card-header">
+                </div>
+                <div class="card-body" id="panelBodyCon">
+
+                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="row">
+                        <div class="col-lg-8 form-group" style="margin-bottom: 0 !important;">
+                          <div class="row">
+
+                            <div class="col-lg-12" style="padding: 0;">
+                              <div class="col-lg-5 form-group">
+                                <label><span class="icon-hand-right"></span>&nbsp;Examination Date</label>
+                                <div class="input-group">
+                                  <input type="text" id="txtExaminationDate" class="form-control dppicker"
+                                    style="margin-top: 0;" />
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text"><span class="fa fa-calendar"></span></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12 form-group" style="margin-bottom: 0 !important;">
+                              <div class="row">
+                                <div class="col-lg-4 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Height (cm)</label>
+                                  <input id="txtBEHeight" type="text" class="form-control calBMI" />
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Weight (Kg)</label>
+                                  <input id="txtBEWeight" type="text" class="form-control calBMI" />
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Waist (cm)</label>
+                                  <input id="txtBEWaist" type="text" class="form-control" />
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12 form-group" style="margin-bottom: 0 !important;">
+                              <div class="row">
+                                <div class="col-lg-5 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;BMI</label>
+                                  <input id="txtBMI" type="text" class="form-control" readonly />
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12 form-group" style="margin-bottom: 0 !important;">
+                              <div class="row">
+                                <div class="col-lg-5 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Temperature <sup>0</sup>C</label>
+                                  <input id="txtTemperatre" type="text" class="form-control" />
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12 form-group" style="margin-bottom: 0 !important;">
+                              <div class="row">
+                                <div class="col-lg-5 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Date Of Onset</label>
+                                  <div class="input-group">
+                                    <input type="text" id="txtDateOfOnset" class="form-control dppicker"
+                                      style="margin-top: 0;" />
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text"><span class="fa fa-calendar"></span></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+
+                        <div class="col-lg-4 form-group" style="margin-bottom: 0 !important;">
+                          <div class="row form-group">
+                            <canvas id="sketchpad"
+                              style=" background:#FFF; border-radius:10px; box-shadow:0 0 15px #999; cursor:crosshair;">
+                            </canvas>
+                          </div>
+                          <div class="col-lg-12 row" style="padding: 0;">
+                            <div class="col-lg-3 form-group" style="padding: 0;">
+                              <button type="button" id="undo"><span class="fa fa-undo"></span></button>
+                            </div>
+                            <div class="col-lg-3 form-group" style="padding: 0;">
+                              <button type="button" id="redo"><span class="fa fa-repeat"></span></button>
+                            </div>
+                            <div class="col-lg-3 form-group" style="padding: 0;">
+                              <button type="button" id="clear">Redraw</button>
+                            </div>
+                            <div class="col-lg-3 form-group" style="padding: 0; display: none;">
+                              <button type="button" id="animateSketchpad">Animate</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 form-group">
+                          <div class="row">
+
+                            <div class="col-lg-12 form-group">
+                              <div class="row">
+                                <div class="col-lg-12 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Symptoms (Press Enter to
+                                    add)</label>
+                                  <input type="text" name="tagsSymptoms" id="txtPatientSymptoms">
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12 form-group">
+                              <div class="row">
+                                <div class="col-lg-12 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Complains (Press Enter to
+                                    add)</label>
+                                  <input type="text" name="tagsComplain" id="txtPatientComplains">
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12 form-group">
+                              <div class="row">
+                                <div class="col-lg-12 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Remarks</label>
+                                  <input type="text" name="txtRemarkName" id="txtPatientGERemark" style="width: 100%;">
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12 form-group">
+                              <div class="row">
+                                <div class="col-lg-12 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Diagnose (Press Enter to
+                                    add)</label>
+                                  <input type="text" name="tagsDiagnose" id="txtPatientDiagnose">
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 form-group">
+                          <div class="row justify-content-center">
+                            <div class="col-lg-2 form-group">
+                              <button id="btnSaveGeneralExamination" type="button"
+                                class="btn btn-block submitButton confirm right focused">Save</button>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapse6" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-12 form-group">
+                            <label><span class="icon-hand-right"></span>&nbsp;History</label>
+                            <input type="text" name="tagsHistory" id="txtPatientHistory">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row justify-content-center">
+                          <div class="col-lg-2 form-group">
+                            <button id="btnSaveHistory" type="button"
+                              class="btn btn-block submitButton confirm right focused">Save</button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapse5" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Allergy</label>
+                            <input id="txtAllergyName" type="text" class="form-control allerrow" />
+                          </div>
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Status</label>
+                            <select id="drpStatusAllergy" class="form-control allerrow">
+                              <option value="">--Select--</option>
+                              <option>Present</option>
+                              <option>Past</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Remark</label>
+                            <input id="txtRemarksAllergy" type="text" class="form-control allerrow" />
+                          </div>
+                          <div class="col-lg-1 row" style="align-content: end;">
+                            <button class="btn btn-priary" type="button" id="btnAddAllergy"
+                              style="background: #007bff; position: relative;"><span class="fa fa-plus"></span></button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Allergy</th>
+                              <th>Status</th>
+                              <th>Remarks</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody id="AllergyTbody">
+
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row justify-content-center">
+                          <div class="col-lg-2 form-group">
+                            <button id="btnSaveAllergies" type="button"
+                              class="btn btn-block submitButton confirm right focused">Save</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="collapse8" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-4 form-group">
+                            <label><span class="icon-hand-right"></span>&nbsp;Pulse Rate</label>
+                            <input id="txtPulseRate" type="text" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-5 form-group">
+                            <label><span class="icon-hand-right"></span>&nbsp;Systolic BP</label>
+                            <input id="txtSystolicBP" type="text" class="form-control" />
+                          </div>
+                          <div class="col-lg-5 form-group">
+                            <label><span class="icon-hand-right"></span>&nbsp;Diastolic BP</label>
+                            <input id="txtDiastolicBP" type="text" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-4 form-group">
+                            <label><span class="icon-hand-right"></span>&nbsp;Remarks</label>
+                            <input id="txtRemarksCardioVascularSystem" type="text" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row justify-content-center">
+                          <div class="col-lg-2 form-group">
+                            <button id="btnSaveCardioVasculorSystem" type="button"
+                              class="btn btn-block submitButton confirm right focused">Save</button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapse9" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-4 form-group">
+                            <label for="txtRespiratoryRate"><span class="icon-hand-right"></span>&nbsp;Respiratory
+                              Rate</label>
+                            <input id="txtRespiratoryRate" type="text" class="form-control" />
+                          </div>
+                          <div class="col-lg-8 form-group">
+                            <label for="txtRespiratoryRate"><span class="icon-hand-right"></span>&nbsp;Lung
+                              Signs</label>
+                            <div class="row" style="align-items: baseline;">
+                              <div class="col-lg-1 form-group">
+                                <label for="chkCrepsL">L</label>
+                              </div>
+                              <div class="col-lg-5 form-group">
+                                <input type="checkbox" id="chkCrepsL">Creps
+                              </div>
+                              <div class="col-lg-5 form-group">
+                                <input type="checkbox" id="chkRhonchiL">Rhonchi
+                              </div>
+                            </div>
+                            <div class="row" style="align-items: baseline;">
+                              <div class="col-lg-1 form-group">
+                                <label for="chkCrepsR">R</label>
+                              </div>
+                              <div class="col-lg-5 form-group">
+                                <input type="checkbox" id="chkCrepsR">Creps
+                              </div>
+                              <div class="col-lg-5 form-group">
+                                <input type="checkbox" id="chkRhonchiR">Rhonchi
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-4 form-group">
+                            <label for="drpRhythm"><span class="icon-hand-right"></span>&nbsp;Rhythm</label>
+                            <select class="form-control" id="drpRhythm">
+                              <option value="">--Select--</option>
+                              <option>Regular</option>
+                              <option>Irregular</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-4 form-group">
+                            <label for="drpSound"><span class="icon-hand-right"></span>&nbsp;Sound</label>
+                            <select class="form-control" id="drpSound">
+                              <option value="">--Select--</option>
+                              <option>Normal</option>
+                              <option>Added</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-6 form-group">
+                            <label for="txtRemarksRespiratory"><span
+                                class="icon-hand-right"></span>&nbsp;Remarks</label>
+                            <input id="txtRemarksRespiratory" type="text" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row justify-content-center">
+                          <div class="col-lg-2 form-group">
+                            <button id="btnSaveRespiratorySystem" type="button"
+                              class="btn btn-block submitButton confirm right focused">Save</button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapse10" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-4 form-group">
+                            <label for="drpTypeAbdomen"><span class="icon-hand-right"></span>&nbsp;Type</label>
+                            <select class="form-control" id="drpTypeAbdomen">
+                              <option value="">--Select--</option>
+                              <option>Normal</option>
+                              <option>Distended</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-4 form-group">
+                            <label for="drpLiverAbdomen"><span class="icon-hand-right"></span>&nbsp;Liver</label>
+                            <select class="form-control" id="drpLiverAbdomen">
+                              <option value="">--Select--</option>
+                              <option>Enlarged</option>
+                              <option>Not Enlarged</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-4 form-group">
+                            <label for="drpSpleenAbdomen"><span class="icon-hand-right"></span>&nbsp;Spleen</label>
+                            <select class="form-control" id="drpSpleenAbdomen">
+                              <option value="">--Select--</option>
+                              <option>Enlarged</option>
+                              <option>Not Enlarged</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-4 form-group">
+                            <label for="drpBowelSoundAbdomen"><span class="icon-hand-right"></span>&nbsp;Bowel
+                              Sound</label>
+                            <select class="form-control" id="drpBowelSoundAbdomen">
+                              <option value="">--Select--</option>
+                              <option>Normal</option>
+                              <option>Exaggerated</option>
+                              <option>Absent</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-6 form-group">
+                            <label for="txtRemarksAbdomen"><span class="icon-hand-right"></span>&nbsp;Remarks</label>
+                            <input id="txtRemarksAbdomen" type="text" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row justify-content-center">
+                          <div class="col-lg-2 form-group">
+                            <button id="btnSaveAbdomenSystem" type="button"
+                              class="btn btn-block submitButton confirm right focused">Save</button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapse11" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-6 form-group">
+                            <label for="txtCNS"><span class="icon-hand-right"></span>&nbsp;CNS</label>
+                            <input id="txtCNS" type="text" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-6 form-group">
+                            <label for="txtLocomotorSystem"><span class="icon-hand-right"></span>&nbsp;Locomotor
+                              System</label>
+                            <input id="txtLocomotorSystem" type="text" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-6 form-group">
+                            <label for="txtGenitourinary"><span
+                                class="icon-hand-right"></span>&nbsp;Genitourinary</label>
+                            <input id="txtGenitourinary" type="text" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-6 form-group">
+                            <label for="txtOther"><span class="icon-hand-right"></span>&nbsp;Other</label>
+                            <input id="txtOther" type="text" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row justify-content-center">
+                          <div class="col-lg-2 form-group">
+                            <button id="btnSaveOtherSystem" type="button"
+                              class="btn btn-block submitButton confirm right focused">Save</button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapse12" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12" style="padding: 0;">
+                        <div class="col-lg-5 form-group">
+                          <label><span class="icon-hand-right"></span>&nbsp;Last Menstrual Date</label>
+                          <div class="input-group">
+                            <input type="text" id="txtLastMenstrualDate" class="form-control dppicker"
+                              style="margin-top: 0;" />
+                            <div class="input-group-prepend">
+                              <div class="input-group-text"><span class="fa fa-calendar"></span></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-5 form-group">
+                            <label for="drpPregnancyStatus"><span class="icon-hand-right"></span>&nbsp;Pregnancy
+                              Status</label>
+                            <select class="form-control" id="drpPregnancyStatus">
+                              <option value="">--Select--</option>
+                              <option>Yes</option>
+                              <option>No</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-5 form-group">
+                            <label for="txtNoOfWeeks"><span class="icon-hand-right"></span>&nbsp;No Of Weeks</label>
+                            <input id="txtNoOfWeeks" type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row justify-content-center">
+                          <div class="col-lg-2 form-group">
+                            <button id="btnSavePregnancyDetails" type="button"
+                              class="btn btn-block submitButton confirm right focused">Save</button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <!-- ====================================== -->
+
+                  <div id="collapseLabTest" class="collapse" aria-labelledby="headingLabTest"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row" style="justify-content: end;">
+                          <div class="col-lg-4">
+                            <label><span class="icon-hand-right"></span>&nbsp;Load From Test Group</label>
+                            <select class="form-control" id="drpTestGroups">
+                              <option value="">--Select--</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Tests</label>
+                            <select class="form-control labterow" id="drpTestLabTest">
+                              <option value="">--Select--</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Priority</label>
+                            <select class="form-control labterow" id="drpPriorityLabTest">
+                              <option>Normal</option>
+                              <option>Urgent</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Laboratory</label>
+                            <select class="form-control labterow" id="drpLaboratoryLabTest">
+                              <option value="">--Select--</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Special Notes</label>
+                            <input type="text" class="form-control labterow" id="txtSpecialNotesLabTest">
+                          </div>
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Antibiotic Given</label>
+                            <select class="form-control labterow" id="drpAntibioticGivenLabTest">
+                              <option>Yes</option>
+                              <option>No</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Antibiotic Details</label>
+                            <input type="text" class="form-control labterow" id="txtAntibioticDetails">
+                          </div>
+                          <div class="col-lg-1 row" style="align-content: end;">
+                            <button class="btn btn-priary" type="button" id="btnAddLabTest"
+                              style="background: #007bff; position: relative;"><span class="fa fa-plus"></span></button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Test</th>
+                              <th>Priority</th>
+                              <th>Laboratory</th>
+                              <th>Special Notes</th>
+                              <th>Antibiotic Given</th>
+                              <th>Antibiotic Details</th>
+                              <th></th>
+                              <th style="display: none;"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="labTestTbody">
+
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row" style="justify-content: flex-end;">
+                          <div class="col-lg-3 form-group">
+                            <button type="button" data-toggle="modal" data-target="#labTestModal"
+                              class="btn btn-block submitButton confirm right focused">Save Test Group</button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="modal fade" id="labTestModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Save Test Group</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="col-lg-12 form-group">
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                    <label><span class="icon-hand-right"></span>&nbsp;Test Group Name</label>
+                                    <input id="txtTestGroupName" type="text" class="form-control">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-lg-12 form-group">
+                                <div class="row" style="display: none;">
+                                  <div class="col-lg-12">
+                                    <label>
+                                      <input type="radio" name='type' checked="true" value="Save for me only"> Save for
+                                      me only
+                                    </label>
+                                  </div>
+                                  <div class="col-lg-12">
+                                    <label>
+                                      <input type="radio" name='type' value="Save for unit"> Save for unit
+                                    </label>
+                                  </div>
+                                  <div class="col-lg-12">
+                                    <label>
+                                      <input type="radio" name='type' value="Save for everyone"> Save for everyone
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <div class="col-12 row justify-content-center">
+                                <div class="col-lg-4">
+                                  <button type="button" class="btn btn-block cancel" data-dismiss="modal">Close</button>
+                                </div>
+                                <div class="col-lg-4">
+                                  <button type="button" id="btnSaveTestGroupLabTest"
+                                    class="btn btn-block submitButton confirm right focused">Save</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row justify-content-center">
+                          <div class="col-lg-2 form-group">
+                            <button id="btnSaveLabTests" type="button"
+                              class="btn btn-block submitButton confirm right focused">Save</button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapseRadiology" class="collapse" aria-labelledby="headingThree"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Test</label>
+                            <select class="form-control radrow" id="drpTestsRadiology">
+                              <option value="">--Select--</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Region</label>
+                            <select class="form-control radrow " id="drpRegionRadiology">
+                              <option value="">--Select--</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Localization</label>
+                            <select class="form-control radrow " id="drpLocalizationRadiology">
+                              <option value="">--Select--</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Position</label>
+                            <select class="form-control radrow " id="drpPositionRadiology">
+                              <option value="">--Select--</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Comments</label>
+                            <input id="txtCommentRadiology" type="text" class="form-control radrow" />
+                          </div>
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Priority</label>
+                            <select class="form-control radrow" id="drpPriorityRadiology">
+                              <option>Normal</option>
+                              <option>Urgent</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-1 row" style="align-content: end;">
+                            <button class="btn btn-priary" type="button" id="btnAddRadiology"
+                              style="background: #007bff; position: relative;"><span class="fa fa-plus"></span></button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Test</th>
+                              <th>Region</th>
+                              <th>Localization</th>
+                              <th>View Position</th>
+                              <th>Comments</th>
+                              <th>Priority</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody id="radiologyTbody">
+
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row justify-content-center">
+                          <div class="col-lg-2 form-group">
+                            <button id="btnSaveRadiologyTests" type="button"
+                              class="btn btn-block submitButton confirm right focused">Save</button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapsePrescribing" class="collapse" aria-labelledby="headingThree"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row" style="justify-content: end;">
+                          <div class="col-lg-4">
+                            <label><span class="icon-hand-right"></span>&nbsp;Load From Drug Group</label>
+                            <select class="form-control" id="drugGroups">
+                              <option value="">--Select--</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <label for="drpDrugNameAvaiable"><span class="icon-hand-right"></span>&nbsp;Drug
+                              Name</label>
+                            <select class="form-control" id="drpDrugNameAvaiable">
+                              <option value="">--Select--</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-3">
+                            <label for="drpDose"><span class="icon-hand-right"></span>&nbsp;Dose</label>
+                            <select class="form-control" id="drpDose">
+                              <option value="">--Select--</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-3">
+                            <label for="drpFrequency"><span class="icon-hand-right"></span>&nbsp;Frequency</label>
+                            <select class="form-control drugrow" id="drpFrequency">
+                              <option value="">--Select--</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Dose Comment</label>
+                            <input type="text" class="form-control drugrow" id="txtDoseComment">
+                          </div>
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Period</label>
+                            <input type="number" placeholder="(No of days)" class="form-control drugrow"
+                              id="txtPeriodPrescribing">
+                          </div>
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Pharmacy</label>
+                            <select class="form-control drugrow" id="drpPharmacy">
+                              <option value="">--Select--</option>
+                              <option>OPD</option>
+                              <option>Clinic</option>
+                              <option>Outdoor</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-1 row" style="align-content: end;">
+                            <button class="btn btn-priary" type="button" id="addToTablePrescribing"
+                              style="background: #007bff; position: relative;"><span class="fa fa-plus"></span></button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Drug Name</th>
+                              <th>Dose</th>
+                              <th>Frequency</th>
+                              <th>Dose Comment</th>
+                              <th>Period</th>
+                              <th>Pharmacy</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody id="drugPrescribingTbody">
+
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row" style="justify-content: flex-end;">
+                          <div class="col-lg-3 form-group">
+                            <button type="button" data-toggle="modal" data-target="#PrescribingModal"
+                              class="btn btn-block submitButton confirm right focused">Save Drug Group</button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="modal fade" id="PrescribingModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Save Drug Group</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="col-lg-12 form-group">
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                    <label><span class="icon-hand-right"></span>&nbsp;Drug Group Name</label>
+                                    <input type="text" id="txtTestGroupNamePrescribing" class="form-control">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-lg-12 form-group">
+                                <div class="row" style="display: none;">
+                                  <div class="col-lg-12">
+                                    <label>
+                                      <input type="radio" name='typePrescribing' checked="true"
+                                        value="Save for me only"> Save for me only
+                                    </label>
+                                  </div>
+                                  <div class="col-lg-12">
+                                    <label>
+                                      <input type="radio" name='typePrescribing' value="Save for unit"> Save for unit
+                                    </label>
+                                  </div>
+                                  <div class="col-lg-12">
+                                    <label>
+                                      <input type="radio" name='typePrescribing' value="Save for everyone"> Save for
+                                      everyone
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <div class="col-12 row justify-content-center">
+                                <div class="col-lg-4">
+                                  <button type="button" class="btn btn-block cancel" data-dismiss="modal">Close</button>
+                                </div>
+                                <div class="col-lg-4">
+                                  <button type="button" id="btnSaveTestGroupPrescribing"
+                                    class="btn btn-block submitButton confirm right focused">Save</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row justify-content-center">
+                          <div class="col-lg-2 form-group">
+                            <button id="btnSavePrescribingTests" type="button"
+                              class="btn btn-block submitButton confirm right focused">Save</button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapseTreatments" class="collapse" aria-labelledby="headingThree"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <label><span class="icon-hand-right"></span>&nbsp;Procedure Type</label>
+                            <select class="form-control selectTo" id="drpProcedureType">
+                              <option value="">--Select--</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-4">
+                            <label><span class="icon-hand-right"></span>&nbsp;Injection</label>
+                            <select class="form-control" id="drpInjectionsProcedures">
+                              <option value=""></option>
+                            </select>
+                          </div>
+                          <div class="col-lg-4">
+                            <label><span class="icon-hand-right"></span>&nbsp;Remark</label>
+                            <input id="txtRemarksProcedures" type="text" class="form-control procrow" />
+                          </div>
+                          <div class="col-lg-4">
+                            <label><span class="icon-hand-right"></span>&nbsp;Type</label>
+                            <select class="form-control procrow" id="drpTypeProcedures">
+                              <option value="">--Select--</option>
+                              <option>Internal</option>
+                              <option>External</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-1 row" style="align-content: end;">
+                            <button class="btn btn-priary" type="button" id="btnAddTreatmentsProcedure"
+                              style="background: #007bff; position: relative;"><span class="fa fa-plus"></span></button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Procedure Type</th>
+                              <th>Injection</th>
+                              <th>Remarks</th>
+                              <th>Type</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody id="procedurestbody">
+
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row justify-content-center">
+                          <div class="col-lg-2 form-group">
+                            <button id="btnSaveTreatmentsAndProcedures" type="button"
+                              class="btn btn-block submitButton confirm right focused">Save</button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapseWardReferral" class="collapse" aria-labelledby="headingThree"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Ward</label>
+                          </div>
+                          <div class="col-lg-4">
+                            <select class="form-control" id="drpWardWardReferral">
+                              <option value="">--Select--</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Remark</label>
+                          </div>
+                          <div class="col-lg-4">
+                            <input id="txtWardRemarks" type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row justify-content-center">
+                          <div class="col-lg-2 form-group">
+                            <button id="btnSaveWardReferral" type="button"
+                              class="btn btn-block submitButton confirm right focused">Save</button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapseClinic" class="collapse" aria-labelledby="headingThree"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Clinic</label>
+                          </div>
+                          <div class="col-lg-4">
+                            <select class="form-control" id="drpclinicReferral">
+                              <option value="">--Select--</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Remark</label>
+                          </div>
+                          <div class="col-lg-4">
+                            <input id="txtClinicRemarks" type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row justify-content-center">
+                          <div class="col-lg-2 form-group">
+                            <button id="btnSaveClinicReferral" type="button"
+                              class="btn btn-block submitButton confirm right focused">Save</button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapseInjury" class="collapse" aria-labelledby="headingThree"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-6 row" style="align-items: center;">
+                            <input type="checkbox" id="chkNotyInJSurSys"> Notify National Injury Surveillance System
+                          </div>
+                          <div class="col-lg-6 row" style="align-items: center;">
+                            <input type="checkbox" id="chkNotifyAreaMoh"> Notify Area MOH
+                          </div>
+                        </div>
+                      </div>
+
+                      <div id="showHideDiv" style="display: none;">
+
+                        <div class="col-lg-12 form-group">
+                          <div class="row">
+                            <div class="col-lg-3">
+                              <label><span class="icon-hand-right"></span>&nbsp;Time Of Injury</label>
+                              <input id="txtTimeOfInjury" readonly type="text" class="form-control timePicker" />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 form-group" style="border-bottom: 4px solid rgb(15, 112, 119);"></div>
+
+                        <div class="col-lg-12 form-group">
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <span class=" icon-hand-right"></span>&nbsp;Mechanism Of Injury
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk5" class="chkW" /> Transport Injuries
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk6" class="chkW" /> Fall
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk7" class="chkW" /> Stuck/Hit By Object
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk8" class="chkW" /> Stuck/Hit By Person
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk9" class="chkW" /> Stab Or Cut
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk10" class="chkW" /> Firearm Injuries
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk11" class="chkW" /> Blast Injuries
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk12" class="chkW" /> Noise/ Vibration<br /> Injuries
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk13" class="chkW" /> Animal Bite
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk14" class="chkW" /> Animal Attack
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk15" class="chkW" /> Animal/ Plant<br /> Sting
+                                (nonvenomous)
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk16" class="chkW" /> Animal Sting <br />(venomous)
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk17" class="chkW" /> Plant Sting <br />(venomous)
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk18" class="chkW" /> Poisoning
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk19" class="chkW" /> Drowning & <br />Submersion
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk20" class="chkW" /> Threats To Breathing
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk21" class="chkW" /> Injuries Due To <br />Forces Of Nature
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk22" class="chkW" /> Exposure To Electric <br />Current
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk23" class="chkW" /> Exposure To Radiation
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk24" class="chkW" /> Exposure To Excessive <br />Cold/ Heat
+                                (man-made)
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk25" class="chkW" /> Exposure To Smoke/ <br />Fire/ Flame
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk26" class="chkW" /> Exposure To Heat & <br />Hot
+                                Substances
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk27" class="chkW" /> Exposure To Acid/ <br />Corrosives
+                              </label>
+                            </div>
+                            <div class="col-lg-3">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk28" class="chkW" /> Others (Pl. mention)
+                              </label>
+                              <input type="text" id="txt28" class="form-control" />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 form-group" style="border-bottom: 4px solid rgb(15, 112, 119);"></div>
+
+                        <div class="col-lg-12 form-group">
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <span class=" icon-hand-right"></span>&nbsp;Place Of Occurence Of Injury
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk30" class="chkW" /> Home
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk31" class="chkW" /> Residential Institution
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk32" class="chkW" /> Educational Institution
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk33" class="chkW" /> Public Administrative Area
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk34" class="chkW" /> Sports & Athletic Area
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk35" class="chkW" /> Leisure/ Recreational Area
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk36" class="chkW" /> Street/ Road/ Highway/ Rail Track
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk37" class="chkW" /> Other Transport Area(Water/ Air)
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk38" class="chkW" /> Trade & Service Area
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk39" class="chkW" /> Occupational Setting <br>(Pl. mention)
+                              </label>
+                              <input id="txt39" class="form-control" />
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk40" class="chkW" /> Other Specified Places
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk41" class="chkW" /> Unknown
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 form-group" style="border-bottom: 4px solid rgb(15, 112, 119);"></div>
+
+                        <div class="col-lg-12 form-group">
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <span class=" icon-hand-right"></span>&nbsp;Activity Done At The Time Of Injury
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk42" class="chkW" /> Educational Activities
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk43" class="chkW" /> Sports Activities
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk44" class="chkW" /> Leisure Activities
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk45" class="chkW" /> Working From Income
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk46" class="chkW" /> Traveling
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk47" class="chkW" /> House Hold Activities
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk48" class="chkW" /> Resting, Sleeping, Eating or<br>
+                                Engaging in Other
+                                Vital Activities
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk49" class="chkW" /> Others <br>(Pl. mention)
+                              </label>
+                              <input id="txt49" class="form-control" />
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk50" class="chkW" /> Unknown
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 form-group" style="border-bottom: 4px solid rgb(15, 112, 119);"></div>
+
+                        <div class="col-lg-12 form-group">
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <span class=" icon-hand-right"></span>&nbsp;Intent
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk51" class="chkW" /> Unintentional
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk52" class="chkW" /> Other Intentional
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk53" class="chkW" /> Deliberate Self - harm
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 form-group" style="border-bottom: 4px solid rgb(15, 112, 119);"></div>
+
+                        <div class="col-lg-12 form-group">
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <span class=" icon-hand-right"></span>&nbsp;Affected Body Region
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk54" class="chkW" /> Head
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk55" class="chkW" /> Face
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk56" class="chkW" /> ENT
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk57" class="chkW" /> Eyes
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk58" class="chkW" /> Oro Maxiliary Region
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk59" class="chkW" /> Neck
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk60" class="chkW" /> Spine
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk61" class="chkW" /> Chest
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk62" class="chkW" /> Back Of Chest
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk63" class="chkW" /> Abdomen
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk64" class="chkW" /> Genitalia
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk65" class="chkW" /> Upper Limbs Including Shoulder
+                                <br>Girdle, Palm &
+                                Fingers
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk66" class="chkW" /> Lower Limbs Including Pelvic
+                                <br>Girdle, Foot &
+                                Toes
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk67" class="chkW" /> Any Other Region <br>Affected (Pl.
+                                mention)
+                              </label>
+                              <input type="text" id="txt67" />
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk68" class="chkW" /> No External Injuries
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 form-group" style="border-bottom: 4px solid rgb(15, 112, 119);"></div>
+
+                        <div class="col-lg-12 form-group">
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <span class=" icon-hand-right"></span>&nbsp;Nature Of Injury
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk70" class="chkW" /> Superficial Injury
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk71" class="chkW" /> Open Wound
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk72" class="chkW" /> Fracture
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk73" class="chkW" /> Dislocation, Sprain & Strain
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk74" class="chkW" /> Injury To Nurve & Spinal Cord
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk75" class="chkW" /> Injury To Blood Vesel
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk76" class="chkW" /> Injury To Muscle & Tendon
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk77" class="chkW" /> Crushing Injury
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk78" class="chkW" /> Traumatic Amputation
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk79" class="chkW" /> Injury To Internal Organs
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk80" class="chkW" /> Other & Unspecified
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 form-group" style="border-bottom: 4px solid rgb(15, 112, 119);"></div>
+
+                        <div class="col-lg-12 form-group">
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <span class=" icon-hand-right"></span>&nbsp;Evidence Of Alcohol Use
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk82" class="chkW" /> Yes
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk83" class="chkW" /> No
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk84" class="chkW" /> Unknown
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 form-group" style="border-bottom: 4px solid rgb(15, 112, 119);"></div>
+
+                        <div class="col-lg-12 form-group">
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <span class=" icon-hand-right"></span>&nbsp;Evidence Of Substance Use
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk85" class="chkW" /> Yes
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk86" class="chkW" /> No
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk87" class="chkW" /> Unknown
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 form-group" style="border-bottom: 4px solid rgb(15, 112, 119);"></div>
+
+                        <div class="col-lg-12 form-group">
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <span class=" icon-hand-right"></span>&nbsp;Disablity At The Time Of Discharge
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk88" class="chkW" /> No Disablity
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk89" class="chkW" /> Presence Of Disablity
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 form-group" style="border-bottom: 4px solid rgb(15, 112, 119);"></div>
+
+                        <div class="col-lg-12 form-group">
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <span class=" icon-hand-right"></span>&nbsp;Patient's Outcome
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk90" class="chkW" /> Treated & Sent Home
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk91" class="chkW" /> Left Against Medicle Advice
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk92" class="chkW" /> Death Before Admission
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk93" class="chkW" /> Death After Admission
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 form-group" style="border-bottom: 4px solid rgb(15, 112, 119);"></div>
+
+                        <div class="col-lg-12 form-group">
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <span class=" icon-hand-right"></span>&nbsp;Tertiary Care
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk96" class="chkW" /> Not Reffered For Tertiary Care
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk97" class="chkW" /> Reffered For Rehabilitation
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk98" class="chkW" /> Reffered For Social Support
+                              </label>
+                            </div>
+                            <div class="col-lg-4">
+                              <label class="row col-md-12" style="align-items: center;">
+                                <input type="checkbox" id="chk99" class="chkW" /> Others (Pl. mention)
+                              </label>
+                              <input type="text" id="txt99" class="form-control" />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 form-group">
+                          <div class="row justify-content-center">
+                            <div class="col-lg-3 form-group">
+                              <button id="btnPrint" type="button"
+                                class="btn btn-block submitButton confirm right focused">Save & Print</button>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+                <div class="card-footer">
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+
+
+          <div class="col-lg-12 form-group" style="border-bottom: 4px solid;"></div>
+
+
+          <div class="col-lg-12 form-group row justify-content-center">
+            <div class="col-lg-3 form-group">
+              <button id="btnSaveCallNext" type="button"
+                class="btn btn-block submitButton confirm right focused">Complete & Call
+                Next</button>
+            </div>
+            <div class="col-lg-2 form-group">
+              <button id="btnCompleteForm" type="button"
+                class="btn btn-block submitButton confirm right focused">Complete</button>
+            </div>
+            <div class="col-lg-2 form-group">
+              <button type="button" id="btnClear" class="btn btn-block cancel">Cancel</button>
+            </div>
+          </div>
+
+          <button type="button" class="top-btn" style="font-size: 1.5rem;">🔝</button>
+
+        </form>
+
+        <style>
+          page[size="A4"] {
+            background: white;
+            width: 21cm;
+            height: 29.7cm;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 0.5cm;
+            box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+          }
+
+          page td,
+          th {
+            line-height: 1.2 !important;
+            padding: 2px !important;
+          }
+
+          td span {
+            font-weight: bold !important;
+          }
+
+          @media print {
+
+            body,
+            page[size="A4"] {
+              margin: 0;
+              box-shadow: 0;
+            }
+          }
+        </style>
+
+        <div id="containerPrint" style="display: none; font-size: 10px !important;">
+
+          <page size="A4">
+            <div style="display: flex; padding: 0px 15px;">
+              <div style="width: 30%;">
+                <p style="font-size: 11px; position: relative; top: 15px;">This information can be only used for the
+                  purpose of improving the quality of the system.</p>
+              </div>
+              <div style="width: 2%;"></div>
+              <div style="width: 40%;">
+                <h1 style="font-size: 1.5rem;font-weight: bold;border: 4px solid;text-align: center;padding: 4px;">
+                  Information of Injury</h1>
+              </div>
+              <div style="width: 28%;"></div>
+            </div>
+            <div style="display: flex; padding: 0px 15px;">
+              <div style="width: 49.8%;">
+                <table border="2">
+                  <tbody>
+                    <tr>
+                      <th width="40%">Health Institute:</th>
+                      <th id="tdInsname"></th>
+                    </tr>
+                    <tr>
+                      <th width="40%">OPD/BHT/PHN:</th>
+                      <th id="tdPhn"></th>
+                    </tr>
+                    <tr>
+                      <th width="40%">Name Of the injured:</th>
+                      <th id="tdName"></th>
+                    </tr>
+                  </tbody>
+                </table>
+                <table border="2" style="margin-top: 21px; text-align: center;">
+                  <tbody style="white-space: nowrap;">
+                    <tr>
+                      <th colspan="3" style="background: black; color: white;">Time of injury:</th>
+                      <th>am/pm/noon/midnight</th>
+                    </tr>
+                    <tr>
+                      <th>1</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 01</th>
+                      <td>12.01am - 06.00am</td>
+                      <td id="td00106"></td>
+                    </tr>
+                    <tr>
+                      <th>2</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 02</th>
+                      <td>06.01am - 12.00noon</td>
+                      <td id="td6100"></td>
+                    </tr>
+                    <tr>
+                      <th>3</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 03</th>
+                      <td>12.01pm - 06.00pm</td>
+                      <td id="td12118"></td>
+                    </tr>
+                    <tr>
+                      <th>4</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 04</th>
+                      <td>06.01pm - 12.00noon</td>
+                      <td id="td18112"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style="width: 0.2%;"></div>
+              <div style="width: 50%;">
+                <table border="2">
+                  <tbody>
+                    <tr>
+                      <th width="40%">Age:</th>
+                      <th id="tdAge"></th>
+                    </tr>
+                    <tr>
+                      <th width="40%">Sex:</th>
+                      <th id="tdSex"></th>
+                    </tr>
+                    <tr>
+                      <th width="40%">Contact No:</th>
+                      <th id="tdContactNo"></th>
+                    </tr>
+                    <tr>
+                      <th width="40%">Date of injury:</th>
+                      <th id="tdDateOnSet"></th>
+                    </tr>
+                    <tr>
+                      <th width="40%">MOH Division:</th>
+                      <th id="tdMohDivision"></th>
+                    </tr>
+                  </tbody>
+                </table>
+                <table border="2">
+                  <tbody>
+                    <tr>
+                      <th>Location/ Address whwere the injury has taken place:<br><br><br>
+                    </tr>
+                  </tbody>
+                </table>
+                <table border="2">
+                  <tbody>
+                    <tr>
+                      <th width="40%" style="line-height: 0.9;">Date of Dead(For dead victims only):</th>
+                      <th style="color: #c0c4c7;">Y</th>
+                      <th style="color: #c0c4c7;">Y</th>
+                      <th style="color: #c0c4c7;">Y</th>
+                      <th style="color: #c0c4c7;">Y</th>
+                      <th style="color: #c0c4c7;">M</th>
+                      <th style="color: #c0c4c7;">M</th>
+                      <th style="color: #c0c4c7;">D</th>
+                      <th style="color: #c0c4c7;">D</th>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div style="display: flex; padding: 4px 15px;">
+              <div style="width: 40%;">
+                <table border="2" style="margin-top: 4px; text-align: center;">
+                  <tbody>
+                    <tr>
+                      <th style="background: black; color: white; text-align: left;">A</th>
+                      <th colspan="3" style="background: black; color: white; text-align: left;">Mechanism Of Injury(How
+                        was the injury
+                        occured)</th>
+                    </tr>
+                    <tr>
+                      <th>1</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 05</th>
+                      <td style="text-align: left;">Transport Injuries</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="5"></td>
+                    </tr>
+                    <tr>
+                      <th>2</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 06</th>
+                      <td style="text-align: left;">Fall</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="6"></td>
+                    </tr>
+                    <tr>
+                      <th>3</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 07</th>
+                      <td style="text-align: left;">Stuck/ Hit By Object</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="7"></td>
+                    </tr>
+                    <tr>
+                      <th>4</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 08</th>
+                      <td style="text-align: left;">Stuck/ Hit By Person</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="8"></td>
+                    </tr>
+                    <tr>
+                      <th>5</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 09</th>
+                      <td style="text-align: left;">Stab Or Cut</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="9"></td>
+                    </tr>
+                    <tr>
+                      <th>6</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 10</th>
+                      <td style="text-align: left;">Firearm Injuries</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="10"></td>
+                    </tr>
+                    <tr>
+                      <th>7</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 11</th>
+                      <td style="text-align: left;">Blast Injuries</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="11"></td>
+                    </tr>
+                    <tr>
+                      <th>8</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 12</th>
+                      <td style="text-align: left;">Noise/ Vibration Injuries</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="12"></td>
+                    </tr>
+                    <tr>
+                      <th>9</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 13</th>
+                      <td style="text-align: left;">Animal Bite</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="13"></td>
+                    </tr>
+                    <tr>
+                      <th>10</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 14</th>
+                      <td style="text-align: left;">Animal Attack</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="14"></td>
+                    </tr>
+                    <tr>
+                      <th>11</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 15</th>
+                      <td style="text-align: left;">Animal/ Plant Sting (nonvenomous)</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="15"></td>
+                    </tr>
+                    <tr>
+                      <th>12</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 16</th>
+                      <td style="text-align: left;">Animal Sting (venomous)</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="16"></td>
+                    </tr>
+                    <tr>
+                      <th>13</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 17</th>
+                      <td style="text-align: left;">Plant Sting (venomous)</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="17"></td>
+                    </tr>
+                    <tr>
+                      <th>14</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 18</th>
+                      <td style="text-align: left;">Poisoning</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="18"></td>
+                    </tr>
+                    <tr>
+                      <th>15</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 19</th>
+                      <td style="text-align: left;">Drowning & Submersion</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="19"></td>
+                    </tr>
+                    <tr>
+                      <th>16</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 20</th>
+                      <td style="text-align: left;">Threats To Breathing</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="20"></td>
+                    </tr>
+                    <tr>
+                      <th>17</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 21</th>
+                      <td style="text-align: left;">Injuries Due To Forces Of Nature</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="21"></td>
+                    </tr>
+                    <tr>
+                      <th>18</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 22</th>
+                      <td style="text-align: left;">Exposure To Electric Current</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="22"></td>
+                    </tr>
+                    <tr>
+                      <th>19</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 23</th>
+                      <td style="text-align: left;">Exposure To Radiation</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="23"></td>
+                    </tr>
+                    <tr>
+                      <th>20</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 24</th>
+                      <td style="text-align: left;">Exposure To Excessive Cold/ Heat (man-made)</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="24"></td>
+                    </tr>
+                    <tr>
+                      <th>21</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 25</th>
+                      <td style="text-align: left;">Exposure To Smoke/ Fire/ Flame</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="25"></td>
+                    </tr>
+                    <tr>
+                      <th>22</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 26</th>
+                      <td style="text-align: left;">Exposure To Heat & Hot Substances</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="26"></td>
+                    </tr>
+                    <tr>
+                      <th>23</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 27</th>
+                      <td style="text-align: left;">Exposure To Acid/ Corrosives</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="27"></td>
+                    </tr>
+                    <tr>
+                      <th>24</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 28</th>
+                      <td style="text-align: left;">Others (Pl. mention) <span id="txt28Span"></span></td>
+                      <td style="padding: 0;" class="rowTd" attr-id="28"></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table border="2" style="margin-top: 4px; text-align: center;">
+                  <tbody>
+                    <tr>
+                      <th style="background: black; color: white; text-align: left;">B</th>
+                      <th colspan="3" style="background: black; color: white; text-align: left;">Place Of Occurence Of
+                        Injury</th>
+                    </tr>
+                    <tr>
+                      <th>1</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 30</th>
+                      <td style="text-align: left;">Home</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="30"></td>
+                    </tr>
+                    <tr>
+                      <th>2</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 31</th>
+                      <td style="text-align: left;">Residential Institution</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="31"></td>
+                    </tr>
+                    <tr>
+                      <th>3</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 32</th>
+                      <td style="text-align: left;">Educational Institution</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="32"></td>
+                    </tr>
+                    <tr>
+                      <th>4</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 33</th>
+                      <td style="text-align: left;">Public Administrative Area</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="33"></td>
+                    </tr>
+                    <tr>
+                      <th>5</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 34</th>
+                      <td style="text-align: left;">Sports & Athletic Area</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="34"></td>
+                    </tr>
+                    <tr>
+                      <th>6</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 35</th>
+                      <td style="text-align: left;">Leisure/ Recreational Area</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="35"></td>
+                    </tr>
+                    <tr>
+                      <th>7</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 36</th>
+                      <td style="text-align: left;">Street/ Road/ Highway/ Rail Track</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="36"></td>
+                    </tr>
+                    <tr>
+                      <th>8</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 37</th>
+                      <td style="text-align: left;">Other Transport Area(Water/ Air)</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="37"></td>
+                    </tr>
+                    <tr>
+                      <th>9</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 38</th>
+                      <td style="text-align: left;">Trade & Service Area</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="38"></td>
+                    </tr>
+                    <tr>
+                      <th>10</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 39</th>
+                      <td style="text-align: left;">Occupational Setting (Pl. mention) <span id="txt39Span"></span></td>
+                      <td style="padding: 0;" class="rowTd" attr-id="39"></td>
+                    </tr>
+                    <tr>
+                      <th>11</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 40</th>
+                      <td style="text-align: left;">Other Specified Places</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="40"></td>
+                    </tr>
+                    <tr>
+                      <th>12</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 41</th>
+                      <td style="text-align: left;">Unknown</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="41"></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table border="2" style="margin-top: 4px; text-align: center;">
+                  <tbody>
+                    <tr>
+                      <th style="background: black; color: white; text-align: left;">C</th>
+                      <th colspan="3" style="background: black; color: white; text-align: left;">Activity Done At The
+                        Time Of Injury</th>
+                    </tr>
+                    <tr>
+                      <th>1</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 42</th>
+                      <td style="text-align: left;">Educational Activities</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="42"></td>
+                    </tr>
+                    <tr>
+                      <th>2</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 43</th>
+                      <td style="text-align: left;">Sports Activities</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="43"></td>
+                    </tr>
+                    <tr>
+                      <th>3</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 44</th>
+                      <td style="text-align: left;">Leisure Activities</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="44"></td>
+                    </tr>
+                    <tr>
+                      <th>4</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 45</th>
+                      <td style="text-align: left;">Working From Income</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="45"></td>
+                    </tr>
+                    <tr>
+                      <th>5</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 46</th>
+                      <td style="text-align: left;">Traveling</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="46"></td>
+                    </tr>
+                    <tr>
+                      <th>6</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 47</th>
+                      <td style="text-align: left;">House Hold Activities</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="47"></td>
+                    </tr>
+                    <tr>
+                      <th>7</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 48</th>
+                      <td style="text-align: left;">Resting, Sleeping, Eating or Engaging in Other Vital Activities</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="48"></td>
+                    </tr>
+                    <tr>
+                      <th>8</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 49</th>
+                      <td style="text-align: left;">Others (Pl. mention) <span id="txt49Span"></span></td>
+                      <td style="padding: 0;" class="rowTd" attr-id="49"></td>
+                    </tr>
+                    <tr>
+                      <th>9</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 50</th>
+                      <td style="text-align: left;">Unknown</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="50"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style="width: 0.2%;"></div>
+              <div style="width: 59.8%;">
+
+                <table border="2" style="margin-top: 4px; text-align: center; width: 100%;">
+                  <tbody>
+                    <tr>
+                      <th style="background: black; color: white; text-align: left;">D</th>
+                      <th colspan="3" style="background: black; color: white; text-align: left;">Intent
+                        Injury</th>
+                    </tr>
+                    <tr>
+                      <th>1</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 51</th>
+                      <td style="text-align: left;">Unintentional</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="51"></td>
+                    </tr>
+                    <tr>
+                      <th>2</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 52</th>
+                      <td style="text-align: left;">Other Intentional</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="52"></td>
+                    </tr>
+                    <tr>
+                      <th>3</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 53</th>
+                      <td style="text-align: left;">Deliberate Self - harm</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="53"></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div style="display: flex; padding: 0px 0px;">
+                  <div style="width: 49.8%;">
+                    <table border="2" style="margin-top: 4px; text-align: center;">
+                      <tbody>
+                        <tr>
+                          <th style="background: black; color: white; text-align: left;">E</th>
+                          <th colspan="3" style="background: black; color: white; text-align: left;">Affected Body
+                            Region</th>
+                        </tr>
+                        <tr>
+                          <th>1</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 54</th>
+                          <td style="text-align: left;">Head</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="54"></td>
+                        </tr>
+                        <tr>
+                          <th>2</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 55</th>
+                          <td style="text-align: left;">Face</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="55"></td>
+                        </tr>
+                        <tr>
+                          <th>3</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 56</th>
+                          <td style="text-align: left;">ENT</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="56"></td>
+                        </tr>
+                        <tr>
+                          <th>4</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 57</th>
+                          <td style="text-align: left;">Eyes</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="57"></td>
+                        </tr>
+                        <tr>
+                          <th>5</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 58</th>
+                          <td style="text-align: left;">Oro Maxiliary Region</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="58"></td>
+                        </tr>
+                        <tr>
+                          <th>6</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 59</th>
+                          <td style="text-align: left;">Neck</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="59"></td>
+                        </tr>
+                        <tr>
+                          <th>7</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 60</th>
+                          <td style="text-align: left;">Spine</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="60"></td>
+                        </tr>
+                        <tr>
+                          <th>8</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 61</th>
+                          <td style="text-align: left;">Chest</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="61"></td>
+                        </tr>
+                        <tr>
+                          <th>9</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 62</th>
+                          <td style="text-align: left;">Back Of Chest</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="62"></td>
+                        </tr>
+                        <tr>
+                          <th>10</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 63</th>
+                          <td style="text-align: left;">Abdomen</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="63"></td>
+                        </tr>
+                        <tr>
+                          <th>11</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 64</th>
+                          <td style="text-align: left;">Genitalia</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="64"></td>
+                        </tr>
+                        <tr>
+                          <th>12</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 65</th>
+                          <td style="text-align: left;">Upper Limbs Including Shoulder Girdle, Palm & Fingers</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="65"></td>
+                        </tr>
+                        <tr>
+                          <th>13</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 66</th>
+                          <td style="text-align: left;">Lower Limbs Including Pelvic Girdle, Foot & Toes</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="66"></td>
+                        </tr>
+                        <tr>
+                          <th>14</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 67</th>
+                          <td style="text-align: left;">Any Other Region Affected (Pl. mention) <span
+                              id="txt67Span"></span></td>
+                          <td style="padding: 0;" class="rowTd" attr-id="67"></td>
+                        </tr>
+                        <tr>
+                          <th>15</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 68</th>
+                          <td style="text-align: left;">No External Injuries</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="68"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table border="2" style="margin-top: 4px; text-align: center;">
+                      <tbody>
+                        <tr>
+                          <th style="background: black; color: white; text-align: left;">H</th>
+                          <th colspan="3" style="background: black; color: white; text-align: left;">Evidence Of
+                            Substance Use </th>
+                        </tr>
+                        <tr>
+                          <th>1</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 85</th>
+                          <td style="text-align: left;">Yes</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="85"></td>
+                        </tr>
+                        <tr>
+                          <th>2</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 86</th>
+                          <td style="text-align: left;">No</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="86"></td>
+                        </tr>
+                        <tr>
+                          <th>3</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 87</th>
+                          <td style="text-align: left;">Unknown</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="87"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div style="width: 0.2%;"></div>
+                  <div style="width: 50%;">
+                    <table border="2" style="margin-top: 4px; text-align: center;">
+                      <tbody>
+                        <tr>
+                          <th style="background: black; color: white; text-align: left;">E</th>
+                          <th colspan="3" style="background: black; color: white; text-align: left;">Nature Of Injury
+                          </th>
+                        </tr>
+                        <tr>
+                          <th>1</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 70</th>
+                          <td style="text-align: left;">Superficial Injury</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="70"></td>
+                        </tr>
+                        <tr>
+                          <th>2</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 71</th>
+                          <td style="text-align: left;">Open Wound</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="71"></td>
+                        </tr>
+                        <tr>
+                          <th>3</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 72</th>
+                          <td style="text-align: left;">Fracture</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="72"></td>
+                        </tr>
+                        <tr>
+                          <th>4</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 73</th>
+                          <td style="text-align: left;">Dislocation, Sprain & Strain</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="73"></td>
+                        </tr>
+                        <tr>
+                          <th>5</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 74</th>
+                          <td style="text-align: left;">Injury To Nurve & Spinal Cord</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="74"></td>
+                        </tr>
+                        <tr>
+                          <th>6</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 75</th>
+                          <td style="text-align: left;">Injury To Blood Vesel</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="75"></td>
+                        </tr>
+                        <tr>
+                          <th>7</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 76</th>
+                          <td style="text-align: left;">Injury To Muscle & Tendon</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="76"></td>
+                        </tr>
+                        <tr>
+                          <th>8</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 77</th>
+                          <td style="text-align: left;">Crushing Injury</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="77"></td>
+                        </tr>
+                        <tr>
+                          <th>9</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 78</th>
+                          <td style="text-align: left;">Traumatic Amputation</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="78"></td>
+                        </tr>
+                        <tr>
+                          <th>10</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 79</th>
+                          <td style="text-align: left;">Injury To Internal Organs</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="79"></td>
+                        </tr>
+                        <tr>
+                          <th>11</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 80</th>
+                          <td style="text-align: left;">Other & Unspecified</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="80"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table border="2" style="margin-top: 4px; text-align: center;">
+                      <tbody>
+                        <tr>
+                          <th style="background: black; color: white; text-align: left;">G</th>
+                          <th colspan="3" style="background: black; color: white; text-align: left;">Evidence Of Alcohol
+                            Use</th>
+                        </tr>
+                        <tr>
+                          <th>1</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 82</th>
+                          <td style="text-align: left;">Yes</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="82"></td>
+                        </tr>
+                        <tr>
+                          <th>2</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 83</th>
+                          <td style="text-align: left;">No</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="83"></td>
+                        </tr>
+                        <tr>
+                          <th>3</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 84</th>
+                          <td style="text-align: left;">Unknown</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="84"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <table border="2" style="margin-top: 4px; text-align: center;">
+                      <tbody>
+                        <tr>
+                          <th style="background: black; color: white; text-align: left;">I</th>
+                          <th colspan="3" style="background: black; color: white; text-align: left;"> Disablity At The
+                            Time Of Discharge</th>
+                        </tr>
+                        <tr>
+                          <th>1</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 88</th>
+                          <td style="text-align: left;">No Disablity</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="88"></td>
+                        </tr>
+                        <tr>
+                          <th>2</th>
+                          <th style="font-size: 10px;white-space: nowrap;">INJ 89</th>
+                          <td style="text-align: left;">Presence Of Disablity</td>
+                          <td style="padding: 0;" class="rowTd" attr-id="89"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+
+                <table border="2" style="margin-top: 4px; text-align: center;">
+                  <tbody>
+                    <tr>
+                      <th style="background: black; color: white; text-align: left;">J</th>
+                      <th colspan="3" style="background: black; color: white; text-align: left;">Patient's Outcome</th>
+                    </tr>
+                    <tr>
+                      <th>1</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 90</th>
+                      <td style="text-align: left;">Treated & Sent Home</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="90"></td>
+                    </tr>
+                    <tr>
+                      <th>2</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 91</th>
+                      <td style="text-align: left;">Left Against Medicle Advice</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="91"></td>
+                    </tr>
+                    <tr>
+                      <th>3</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 92</th>
+                      <td style="text-align: left;">Death Before Admission</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="92"></td>
+                    </tr>
+                    <tr>
+                      <th>4</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 93</th>
+                      <td style="text-align: left;">Death After Admission</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="93"></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table border="2" style="margin-top: 4px; text-align: center;">
+                  <tbody>
+                    <tr>
+                      <th style="background: black; color: white; text-align: left;">K</th>
+                      <th colspan="3" style="background: black; color: white; text-align: left;">Tertiary Care</th>
+                    </tr>
+                    <tr>
+                      <th>1</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 96</th>
+                      <td style="text-align: left;">Not Reffered For Tertiary Care</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="96"></td>
+                    </tr>
+                    <tr>
+                      <th>2</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 97</th>
+                      <td style="text-align: left;">Reffered For Rehabilitation</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="97"></td>
+                    </tr>
+                    <tr>
+                      <th>3</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 98</th>
+                      <td style="text-align: left;">Reffered For Social Support</td>
+                      <td style="padding: 0;" class="rowTd" attr-id="98"></td>
+                    </tr>
+                    <tr>
+                      <th>4</th>
+                      <th style="font-size: 10px;white-space: nowrap;">INJ 99</th>
+                      <td style="text-align: left;">Others (Pl. mention) <span id="txt99Span"></span></td>
+                      <td style="padding: 0;" class="rowTd" attr-id="99"></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table border="2" style="margin-top: 4px; text-align: left;">
+                  <tbody>
+                    <tr>
+                      <th colspan="2">Signature Of Medical</td>
+                    </tr>
+                    <tr>
+                      <th>Officer</th>
+                      <th>....................................</th>
+                    </tr>
+                    <tr>
+                      <th>Name</th>
+                      <th>....................................</th>
+                    </tr>
+                    <tr>
+                      <th>Date</th>
+                      <th>....................................</th>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </page>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sketchpad/0.1.0/scripts/sketchpad.min.js"
+    integrity="sha512-GTMvKIuYWnu5y1gGLUbMNIXbxusPHehyCdBZJpv+oPikopcgjWBmsIziyp9N8QlRXRFB9y02mQ0C1MRnelE5tg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"
+    integrity="sha512-s5u/JBtkPg+Ff2WEr49/cJsod95UgLHbC00N/GglqdQuLnYhALncz8ZHiW/LxDRGduijLKzeYb7Aal9h3codZA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    $(".dppicker").datepicker({
+      dateFormat: 'yy-mm-dd',
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "-100:+100",
+    });
+
+    $(".dppickerMax").datepicker({
+      dateFormat: 'yy-mm-dd',
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "-100:+100",
+      maxDate: 0
+    });
+
+    $('.selectTo').select2({
+      dropdownAutoWidth: true,
+      width: '100%'
+    });
+
+    $(".timePicker").timepicker({
+      timeFormat: "HH:mm"
+    });
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Radiology Investigation</title>
+  <!-- openmrs favicon -->
+  <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+  <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/openmrs/ms/uiframework/resource/appui/styles/header.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet"
+    href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
+  <style>
+    .table td,
+    .table th {
+      padding: 3px !important;
+      vertical-align: middle;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navigation">
+      <div class="logo">
+        <a href="../../">
+          <img src="img/openmrs-with-title-small.png" />
+        </a>
+      </div>
+
+      <ul class="navbar-nav ml-auto user-options">
+        <li class="nav-item" style="font-weight: bold;">
+          <span class="icon-hospital"></span><span id="lblInstituteName"></span>
+          <input id="txtinstituteuuid" type="text" class="form-control" style="display: none;" />
+        </li>
+      </ul>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto user-options">
+          <li class="nav-item logout">
+            <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+              Logout <i class="icon-signout small"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="clear"></div>
+
+  <ul id="breadcrumbs">
+    <li>
+      <a href="/openmrs/index.htm">
+        <i class="icon-home small"></i>
+      </a>
+    </li>
+    <li>
+      <i class="icon-chevron-right link"></i> Radiology Investigations
+    </li>
+  </ul>
+
+  <div id="body-wrapper">
+    <!--<div class="instructions">Replace this with the content of your app.</div>-->
+    <div class="card">
+      <div class="card-body row">
+        <div class="col-lg-12 form-group" style="padding: 0;">
+          <h2>Radiology Investigations</h2>
+        </div>
+        <form class="row" id="registerPatientForm">
+
+          <div class="row mt-3" hidden>
+            <input type="text" id="update_criteria_id"></label>
+          </div>
+
+          <div class="col-lg-12 form-group">
+
+            <div class="row">
+
+              <div class="col-lg-3">
+
+                <div class="row">
+                  <div class="col-md-12 InstituteCont" style="display: none">
+                    <label><span class="icon-hand-right"></span>Test ID</label>
+                    <select id="drpTestId" class="form-control">
+                      <option disabled selected value="">--Select--</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 InstituteContHide">
+                    <label><span class="icon-hand-right"></span>&nbsp;Test ID</label>
+                    <input type="text" id="txtTestID" class="form-control" required />
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-lg-3">
+                <div class="row">
+                  <div class="col-md-12">
+                    <label><span class="icon-hand-right"></span>Test Name</label>
+                    <input id="txtTestName" type="text" class="form-control" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3">
+                <div class="row">
+                  <div class="col-lg-12 StatusCont">
+                    <label><span class="icon-hand-right"></span>Status</label>
+                    <select id="drpStatus" class="form-control">
+                      <option disabled value="">--Select--</option>
+                      <option selected>Active</option>
+                      <option>Inactive</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group">
+            <div class="row">
+
+              <div class="col-lg-3">
+                <div class="row">
+                  <div class="col-md-7">
+                    <label><span class="icon-hand-right "></span>Region</label>
+                  </div>
+
+                  <div class="col-md-5">
+                    <button type="button" style="background: blue; margin-top:3px;" id="btnNew1"
+                      class="btn btn-block btn-primary">
+                      NEW
+                    </button>
+                    <div id="myModal" class="modal fade" tabindex="-1">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" style="text-align: center">
+                              Add Region
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal">
+                              &times;
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="col-lg-12 form-group">
+                              <div class="row">
+                                <div class="col-lg-12">
+                                  <label><span class="icon-hand-right"></span>Region</label>
+                                  <input id="txtRegion" type="text" class="form-control" />
+                                </div>
+
+                              </div>
+                            </div>
+                            <div class="col-lg-12 form-group row justify-content-center">
+                              <div class="col-lg-4 form-group">
+                                <button type="button" style="background: blue" id="btnAddRegion"
+                                  class="btn btn-block btn-primary">
+                                  Save
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <select name="drpRegion" id="drpRegion" class="form-control">
+                      <option>--Select--</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3">
+                <div class="row">
+                  <div class="col-md-7">
+                    <label><span class="icon-hand-right "></span>Localization</label>
+                  </div>
+                  <div class="col-md-5">
+                    <button type="button" style="background: blue; margin-top:3px;" id="btnNew2"
+                      class="btn btn-block btn-primary">
+                      NEW
+                    </button>
+
+                    <div id="myModal1" class="modal fade" tabindex="-1">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" style="text-align: center">
+                              Add Localization
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal">
+                              &times;
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="col-lg-12 form-group">
+                              <div class="row">
+                                <div class="col-lg-12">
+                                  <label><span class="icon-hand-right"></span>Localization</label>
+                                  <input id="txtLocalization" type="text" class="form-control" />
+                                </div>
+
+                              </div>
+                            </div>
+                            <div class="col-lg-12 form-group row justify-content-center">
+                              <div class="col-lg-4 form-group">
+                                <button type="button" style="background: blue" id="btnAddLocalization"
+                                  class="btn btn-block btn-primary">
+                                  Save
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <select name="drpLocalization" id="drpLocalization" class="form-control">
+                      <option>--Select--</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3">
+                <div class="row">
+                  <div class="col-md-7">
+                    <label><span class="icon-hand-right "></span>Position</label>
+                  </div>
+
+                  <div class="col-md-5">
+                    <button type="button" style="background: blue; margin-top:3px;" id="btnNew3"
+                      class="btn btn-block btn-primary">
+                      NEW
+                    </button>
+
+                    <div id="myModal3" class="modal fade" tabindex="-1">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" style="text-align: center">
+                              Add Position
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal">
+                              &times;
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="col-lg-12 form-group">
+                              <div class="row">
+                                <div class="col-lg-12">
+                                  <label><span class="icon-hand-right"></span>View
+                                    Position</label>
+                                  <input id="txtPosition" type="text" class="form-control" />
+                                </div>
+
+                              </div>
+                            </div>
+                            <div class="col-lg-12 form-group row justify-content-center">
+                              <div class="col-lg-4 form-group">
+                                <button type="button" style="background: blue" id="btnAddPosition"
+                                  class="btn btn-block btn-primary">
+                                  Save
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <select name="drpPosititon" id="drpPosititon" class="form-control">
+                      <option>--Select--</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-1 form-group">
+                <button type="button" style="background: blue; margin-top:45px;" id="btnAddToGrid"
+                  class="btn btn-block btn-primary">
+                  <span class="fa fa-plus"></span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-lg-12 form-group">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Region</th>
+                  <th scope="col">Localization</th>
+                  <th scope="col">Position</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="regiondataBody">
+
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-lg-12 form-group row justify-content-center">
+            <div class="col-lg-2 form-group">
+              <button id="btnSubmit" class="btn btn-block submitButton confirm right focused">
+                <span id="nameBtn">Save</span>
+              </button>
+            </div>
+            <div class="col-lg-2 form-group">
+              <button type="button" id="btnCancel" class="btn btn-block cancel">
+                Cancel
+              </button>
+            </div>
+            <div class="col-lg-2 form-group">
+              <button type="button" style="background: #ffc107" id="btnLookup" class="btn btn-block btn-warning">
+                Look Up
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+  <script>
+
+    $('.selectTo').select2({
+      dropdownAutoWidth: true,
+      width: '100%'
+    });
+
+    $(document).ready(function () {
+      $("#btnNew1").click(function () {
+        $("#myModal").modal("show");
+      });
+
+      $("#btnNew2").click(function () {
+        $("#myModal1").modal("show");
+      });
+
+      $("#btnNew3").click(function () {
+        $("#myModal3").modal("show");
+      });
+    })
+  </script>
+
+</body>
+
+</html>

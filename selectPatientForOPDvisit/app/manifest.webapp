@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "name": "selectPatientForOPDvisit",
+  "description": "select Patient For OPD visit Summery Details",
+  "launch_path": "index.html",
+  "icons": {
+    "48": "/img/omrs-button.png"
+  },
+  "developer": {
+    "name": "",
+    "url": "https://github.com//openmrs-owa-selectpatientforopdvisit"
+  },
+  "default_locale": "en",
+    "activities": {
+      "openmrs": {
+        "href": "*"
+      }
+    }
+}

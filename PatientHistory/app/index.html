@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Patient History</title>
+  <!-- openmrs favicon -->
+  <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+  <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/openmrs/ms/uiframework/resource/appui/styles/header.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet"
+    href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-colvis-1.7.1/b-html5-1.7.1/b-print-1.7.1/datatables.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sketchpad/0.1.0/styles/sketchpad.css"
+    integrity="sha512-1sx/jYcl5B9GIavcXM2o84h1X7UWB6EZQMlWBfZWfgoou5j4+G6pvQCe8cL2tIEYAlvEHtcuiTLASIP9FF8+pQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    .SelectedRowMain {
+      background-color: #e0a800 !important;
+    }
+
+    label.row.col-md-12 {
+      line-height: 1 !important;
+    }
+
+    .input-file {
+      padding: 0px;
+      margin: 0 auto;
+      background: #ffffff;
+      -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.04);
+      box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0);
+    }
+
+    .upload-img {
+      border-radius: 16px;
+      display: inline-block;
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      object-position: 50% 50%;
+      border: 3px solid #20e5bf;
+      margin-right: 15px;
+      vertical-align: middle;
+    }
+
+    .input-file-upload {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .input-file-upload input[type="file"] {
+      opacity: 0;
+      padding: 10px 0;
+      height: 36px;
+      width: 150px;
+    }
+
+    .upload-label {
+      width: 150px;
+      height: 36px;
+      background: #3b70f1;
+      text-align: center;
+      color: #ffffff;
+      display: block;
+      padding: 8px 0;
+      position: absolute;
+      line-height: normal;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .input-file-upload:hover .upload-label {
+      background: #eaf5fe;
+      color: #3b70f1;
+    }
+
+    .text-input {
+      width: 0px;
+    }
+
+    form select,
+    .form select {
+      min-width: 100% !important;
+    }
+
+    body,
+    .btn {
+      font-size: 12px !important;
+    }
+
+    .form-group {
+      margin-bottom: 10px !important;
+    }
+
+    .form-control {
+      height: 28px !important;
+      padding: 6px !important;
+      font-size: 12px !important;
+      line-height: 0;
+    }
+
+    body {
+      line-height: .8 !important;
+    }
+
+    form label,
+    .form label {
+      margin-bottom: 4px;
+    }
+
+    .top-btn {
+      all: unset;
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      cursor: pointer;
+      transform: scale(1.8);
+      opacity: 0;
+      transition: .3s;
+    }
+
+    .button-group#threeD .button {
+      /* background: linear-gradient(135deg, #39414E, #4C5363); */
+      background: linear-gradient(135deg, #549ee7, #36f1cf);
+      border: none;
+      width: 100%;
+      height: 45px;
+      padding: 8px 10px;
+      display: inline-block;
+      margin: 0 -2px 5px -3px;
+      /* color: #F89B72; */
+      color: #000;
+      font-size: 9px !important;
+      box-shadow: 0px 2px 15px #323A45;
+      position: relative;
+      font-weight: bolder;
+      display: flex;
+    }
+
+    .button-group#threeD .button img {
+      width: 32px !important;
+      height: 30px !important;
+      ;
+    }
+
+    .button-group#threeD .button p {
+      margin-left: 5px;
+    }
+
+    .button-group#threeD .button span {
+      text-align: center;
+      margin: 20px 0 20px 0;
+      display: block;
+      color: #fff;
+      text-shadow: 0 2px 30px #323A45;
+      font-size: 32px;
+    }
+
+    .button-group#threeD .button:hover {
+      background: linear-gradient(135deg, #4C5363, #39414E);
+    }
+
+    .button-group#threeD .button.active {
+      font-size: 14px;
+      text-shadow: 0 0 10px #fff;
+      background: linear-gradient(135deg, #4C5363, #39414E);
+      color: #fff;
+      vertical-align: bottom;
+    }
+
+    .button-group#threeD .button.active span {
+      text-shadow: 0 0 10px #fff;
+      margin-top: 10px;
+      font-size: 20px;
+    }
+
+    .button-group#threeD .button.next:before {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: -25px;
+      top: 0px;
+      line-height: 90px;
+      border-bottom: 20px solid #323A45;
+      border-left: 25px solid transparent;
+    }
+
+    .button-group#threeD .button.next:after {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: -25px;
+      top: 20px;
+      line-height: 90px;
+      border-top: 100px solid #323A45;
+      border-left: 25px solid transparent;
+    }
+
+    .button-group#threeD .button.prev:before {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: 100%;
+      top: 20px;
+      line-height: 90px;
+      border-top: 100px solid #323A45;
+      border-right: 25px solid transparent;
+    }
+
+    .button-group#threeD .button.prev:after {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: 100%;
+      top: 0px;
+      line-height: 90px;
+      border-bottom: 20px solid #323A45;
+      border-right: 25px solid transparent;
+    }
+
+    @media (max-width:765px) {
+      .button-group {
+        width: 100%;
+      }
+    }
+
+    .button-group {
+      display: inherit !important;
+    }
+
+    .input-group-text {
+      font-size: 12px !important;
+      padding: 6px !important;
+      line-height: 0 !important;
+    }
+
+    .dataTables_filter {
+      float: revert !important;
+      width: 100% !important;
+    }
+
+    #patient-search {
+      display: inline;
+    }
+
+    .dataTables_wrapper {
+      min-height: 282px !important;
+    }
+
+    #patient-search-clear-button {
+      position: absolute;
+      right: 20px;
+      padding: 14px;
+    }
+
+    .dataTables_length {
+      float: right !important;
+    }
+
+    .hiddenCol {
+      display: none;
+    }
+
+    .dataTablex tbody tr:hover {
+      cursor: pointer;
+      background-color: #900e0e !important;
+      color: white !important;
+      font-weight: bold !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navigation">
+      <div class="logo">
+        <a href="../../">
+          <img src="img/openmrs-with-title-small.png" />
+        </a>
+      </div>
+
+      <ul class="navbar-nav ml-auto user-options">
+        <li class="nav-item" style="font-weight: bold;font-size: 1rem; position: relative; top: 3px;">
+          <span class="icon-hospital"></span><span id="lblInstituteName"></span>
+          <input id="txtinstituteuuid" type="text" class="form-control" style="display: none;" />
+        </li>
+      </ul>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto user-options">
+          <li class="nav-item logout" style="font-weight: bold; font-size: 1rem; position: relative; top: 2px;">
+            <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+              Logout <i class="icon-signout small"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="clear"></div>
+
+  <ul id="breadcrumbs">
+    <li>
+      <a href="/openmrs/index.htm">
+        <i class="icon-home small"></i>
+      </a>
+    </li>
+    <li>
+      <i class="icon-chevron-right link"></i> Patient History
+    </li>
+  </ul>
+
+  <div id="body-wrapper">
+    <div class="card">
+      <div class="card-body row">
+
+        <div class="col-lg-12 form-group" style="padding: 0;">
+          <h2>Patient History</h2>
+        </div>
+
+        <div class="col-12 form-group">
+          <table class="table table-bordered table-hover table-striped dataTablex nowrap">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>UUID</th>
+                <th>PHN No</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Birthday</th>
+              </tr>
+            </thead>
+            <tbody id="tBodyPatientHistory">
+
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-12">
+          <div class="row">
+            <div class="col-lg-5 form-group">
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Encounter</label>
+                <select class="form-control" id="drpEncounter" style="height: 32px !important;">
+                  <option selected value="">--Select--</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+
+          <div class="row">
+            <div class="col-lg-5 form-group" style="margin-bottom: 0 !important;">
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Full Name: <span id="txtFullName"> </span></label>
+              </div>
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Gender: <span id="txtGender"> </span></label>
+              </div>
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;NIC No: <span id="txtNICNo"> </span></label>
+              </div>
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Civil Status: <span id="txtCivilStatus">
+                  </span></label>
+              </div>
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Gurdian Info: <span id="txtGurdianInfo">
+                  </span></label>
+              </div>
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Race: <span id="txtRace">
+                  </span></label>
+              </div>
+            </div>
+            <div class="col-lg-5 form-group" style="margin-bottom: 0 !important;">
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Address: <span id="txtAddress"> </span></label>
+              </div>
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Age: <span id="txtYears"></span> <span
+                    id="txtMonths"></span> <span id="txtDays"></span> </label>
+              </div>
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Date Of Birth: <span id="txtDob"> </span></label>
+              </div>
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Blood Group: <span id="txtBloodGroup">
+                  </span></label>
+              </div>
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Religion: <span id="txtEthnicity">
+                  </span></label>
+              </div>
+            </div>
+            <div class="col-lg-2 form-group" style="margin-bottom: 0 !important;">
+              <div class="col-lg-12 form-group" style="padding: 0;">
+                <div class="input-file">
+                  <img id="file_upload" src="http://localhost/LaravelApiFile/storage/documents/useremprty.png"
+                    alt="your image" class="upload-img" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group row" style="margin: auto; margin-top: 25px;">
+
+            <div class="button-group row threeD" id="threeD">
+
+              <div class="col-lg-2">
+                <div class="button" id="tabGeneralExamination" style="justify-content: center;text-align: center;"
+                  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true">
+                  <img src="https://cdn-icons-png.flaticon.com/512/162/162994.png" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">General Examination</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" id="tabHistory" style="justify-content: center;text-align: center;"
+                  data-toggle="collapse" data-target="#collapse6" aria-expanded="false">
+                  <img src="https://www.svgrepo.com/show/17111/history.svg" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">History</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" id="tabAllergy" style="justify-content: center;text-align: center;"
+                  data-toggle="collapse" data-target="#collapse5" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://cdn-icons-png.flaticon.com/512/1581/1581820.png" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Allergies</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" id="tabCardioVascular" style="justify-content: center;text-align: center;"
+                  data-toggle="collapse" data-target="#collapse8" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://cdn1.iconfinder.com/data/icons/the-human-body-line/128/heart-organ-ol-2-512.png"
+                    style="width: 50px;">
+                  <p style="font-size: 11px;text-align: center;">Cardio Vascular System</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" id="tabRespiratory" style="justify-content: center;text-align: center;"
+                  data-toggle="collapse" data-target="#collapse9" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://static.thenounproject.com/png/2588035-200.png" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Respiratory System</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" id="tabAbdomen" style="justify-content: center;text-align: center;"
+                  data-toggle="collapse" data-target="#collapse10" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://static.thenounproject.com/png/1633429-200.png" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Abdomen System</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" id="tabOther" style="justify-content: center;text-align: center;"
+                  data-toggle="collapse" data-target="#collapse11" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://icon-library.com/images/anatomy-icon/anatomy-icon-18.jpg" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Other Systems</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" id="tabPregnancy" style="justify-content: center;text-align: center;"
+                  data-toggle="collapse" data-target="#collapse12" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://cdn0.iconfinder.com/data/icons/raising-children-outline/512/0_Pregnant-512.png"
+                    style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Pregnancy Details</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" id="tabLabTest" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapseLabTest" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="http://cdn.onlinewebfonts.com/svg/img_533612.png" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Lab Tests</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" id="tabRadiologyTest" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapseRadiology" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://icon-library.com/images/xray-icon/xray-icon-20.jpg" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Radiology Tests</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" id="tabPrescribing" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapsePrescribing" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://cdn-icons-png.flaticon.com/512/898/898671.png" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Prescribing</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" id="tabTreatmentsProcedure" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapseTreatments" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://cdn-icons-png.flaticon.com/512/1934/1934407.png" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Treatments & Procedure</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" id="tabWardReferral" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapseWardReferral" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://cdn4.iconfinder.com/data/icons/hospital-1-1/512/Hospital_Bed-512.png"
+                    style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Ward Referral</p>
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="button" id="tabClinicReferral" style="justify-content: center;text-align: center;" data-toggle="collapse"
+                  data-target="#collapseClinic" aria-expanded="false" aria-controls="collapseThree">
+                  <img src="https://cdn-icons-png.flaticon.com/512/94/94830.png" style="width: 50px;">
+                  <p style="font-size: 11px;margin-top: 5px;text-align: center;">Clinic Referral</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="accordion" id="accordionExample" style="margin-top: 30px; width: 100% !important;">
+
+              <div class="card">
+                <div class="card-header">
+                </div>
+                <div class="card-body" id="panelBodyCon">
+
+                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="row">
+                        <div class="col-lg-8 form-group" style="margin-bottom: 0 !important;">
+                          <div class="row">
+
+                            <div class="col-lg-12" style="padding: 0;">
+                              <div class="col-lg-5 form-group">
+                                <label><span class="icon-hand-right"></span>&nbsp;Examination Date</label>
+                                <input type="text" id="txtExaminationDate" class="form-control clrIn"
+                                  style="margin-top: 0;" readonly />
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12 form-group" style="margin-bottom: 0 !important;">
+                              <div class="row">
+                                <div class="col-lg-4 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Height (cm)</label>
+                                  <input id="txtBEHeight" type="text" class="form-control clrIn calBMI" readonly />
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Weight (Kg)</label>
+                                  <input id="txtBEWeight" type="text" class="form-control clrIn calBMI" readonly />
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Waist (cm)</label>
+                                  <input id="txtBEWaist" type="text" class="form-control clrIn" readonly />
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12 form-group" style="margin-bottom: 0 !important;">
+                              <div class="row">
+                                <div class="col-lg-5 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;BMI</label>
+                                  <input id="txtBMI" type="text" class="form-control" readonly />
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12 form-group" style="margin-bottom: 0 !important;">
+                              <div class="row">
+                                <div class="col-lg-5 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Temperature <sup>0</sup>C</label>
+                                  <input id="txtTemperatre" type="text" class="form-control" readonly />
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+
+                        <div class="col-lg-4 form-group" style="margin-bottom: 0 !important;">
+                          <div class="row form-group">
+                            <canvas id="sketchpad"
+                              style=" background:#FFF; border-radius:10px; box-shadow:0 0 15px #999; cursor:crosshair; pointer-events: none;">
+                            </canvas>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 form-group">
+                          <div class="row">
+
+                            <div class="col-lg-12 form-group">
+                              <div class="row">
+                                <div class="col-lg-12 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Symptoms</label>
+                                  <input type="text" name="tagsSymptoms" id="txtPatientSymptoms" readonly>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12 form-group">
+                              <div class="row">
+                                <div class="col-lg-12 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Complains</label>
+                                  <input type="text" name="tagsComplain" id="txtPatientComplains" readonly>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12 form-group">
+                              <div class="row">
+                                <div class="col-lg-12 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Remarks</label>
+                                  <input type="text" name="txtRemarkName" id="txtPatientGERemark" readonly
+                                    style="width: 100%;">
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12 form-group">
+                              <div class="row">
+                                <div class="col-lg-12 form-group">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Diagnose</label>
+                                  <input type="text" name="tagsDiagnose" id="txtPatientDiagnose" readonly>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapse6" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-12 form-group">
+                            <label><span class="icon-hand-right"></span>&nbsp;History</label>
+                            <input type="text" name="tagsHistory" readonly id="txtPatientHistory">
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapse5" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Allergy</th>
+                              <th>Status</th>
+                              <th>Remarks</th>
+                            </tr>
+                          </thead>
+                          <tbody id="AllergyTbody">
+
+                          </tbody>
+                        </table>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapse8" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-4 form-group">
+                            <label><span class="icon-hand-right"></span>&nbsp;Pulse Rate</label>
+                            <input id="txtPulseRate" type="text" class="form-control" readonly />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-5 form-group">
+                            <label><span class="icon-hand-right"></span>&nbsp;Systolic BP</label>
+                            <input id="txtSystolicBP" type="text" class="form-control" readonly />
+                          </div>
+                          <div class="col-lg-5 form-group">
+                            <label><span class="icon-hand-right"></span>&nbsp;Diastolic BP</label>
+                            <input id="txtDiastolicBP" type="text" class="form-control" readonly />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-4 form-group">
+                            <label><span class="icon-hand-right"></span>&nbsp;Remarks</label>
+                            <input id="txtRemarksCardioVascularSystem" type="text" class="form-control" readonly />
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapse9" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-4 form-group">
+                            <label for="txtRespiratoryRate"><span class="icon-hand-right"></span>&nbsp;Respiratory
+                              Rate</label>
+                            <input id="txtRespiratoryRate" type="text" class="form-control" readonly />
+                          </div>
+                          <div class="col-lg-8 form-group">
+                            <label for="txtRespiratoryRate"><span class="icon-hand-right"></span>&nbsp;Lung
+                              Signs</label>
+                            <div class="row" style="align-items: baseline;">
+                              <div class="col-lg-1 form-group">
+                                <label for="chkCrepsL">L</label>
+                              </div>
+                              <div class="col-lg-5 form-group">
+                                <input type="checkbox" id="chkCrepsL" style="margin-right: 8px; pointer-events: none;" >Creps
+                              </div>
+                              <div class="col-lg-5 form-group">
+                                <input type="checkbox" id="chkRhonchiL" style="margin-right: 8px; pointer-events: none;" >Rhonchi
+                              </div>
+                            </div>
+                            <div class="row" style="align-items: baseline;">
+                              <div class="col-lg-1 form-group">
+                                <label for="chkCrepsR">R</label>
+                              </div>
+                              <div class="col-lg-5 form-group">
+                                <input type="checkbox" id="chkCrepsR" style="margin-right: 8px; pointer-events: none;" >Creps
+                              </div>
+                              <div class="col-lg-5 form-group">
+                                <input type="checkbox" id="chkRhonchiR" style="margin-right: 8px; pointer-events: none;" >Rhonchi
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-4 form-group">
+                            <label for="drpRhythm"><span class="icon-hand-right"></span>&nbsp;Rhythm</label>
+                            <input id="drpRhythm" type="text" class="form-control" readonly />
+                          </div>
+                          <div class="col-lg-4 form-group">
+                            <label for="drpSound"><span class="icon-hand-right"></span>&nbsp;Sound</label>
+                            <input id="drpSound" type="text" class="form-control" readonly />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-6 form-group">
+                            <label for="txtRemarksRespiratory"><span
+                                class="icon-hand-right"></span>&nbsp;Remarks</label>
+                            <input id="txtRemarksRespiratory" type="text" class="form-control" readonly />
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+
+                  <div id="collapse10" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-4 form-group">
+                            <label for="drpTypeAbdomen"><span class="icon-hand-right"></span>&nbsp;Type</label>
+                            <input id="drpTypeAbdomen" type="text" class="form-control" readonly />
+                          </div>
+                          <div class="col-lg-4 form-group">
+                            <label for="drpLiverAbdomen"><span class="icon-hand-right"></span>&nbsp;Liver</label>
+                            <input id="drpLiverAbdomen" type="text" class="form-control" readonly />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-4 form-group">
+                            <label for="drpSpleenAbdomen"><span class="icon-hand-right"></span>&nbsp;Spleen</label>
+                            <input id="drpSpleenAbdomen" type="text" class="form-control" readonly />
+                          </div>
+                          <div class="col-lg-4 form-group">
+                            <label for="drpBowelSoundAbdomen"><span class="icon-hand-right"></span>&nbsp;Bowel
+                              Sound</label>
+                            <input id="drpBowelSoundAbdomen" type="text" class="form-control" readonly />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-6 form-group">
+                            <label for="txtRemarksAbdomen"><span class="icon-hand-right"></span>&nbsp;Remarks</label>
+                            <input id="txtRemarksAbdomen" type="text" class="form-control" readonly />
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapse11" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-6 form-group">
+                            <label for="txtCNS"><span class="icon-hand-right"></span>&nbsp;CNS</label>
+                            <input id="txtCNS" type="text" class="form-control" readonly />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-6 form-group">
+                            <label for="txtLocomotorSystem"><span class="icon-hand-right"></span>&nbsp;Locomotor
+                              System</label>
+                            <input id="txtLocomotorSystem" type="text" class="form-control" readonly />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-6 form-group">
+                            <label for="txtGenitourinary"><span
+                                class="icon-hand-right"></span>&nbsp;Genitourinary</label>
+                            <input id="txtGenitourinary" type="text" class="form-control" readonly />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-6 form-group">
+                            <label for="txtOther"><span class="icon-hand-right"></span>&nbsp;Other</label>
+                            <input id="txtOther" type="text" class="form-control" readonly />
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapse12" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12" style="padding: 0;">
+                        <div class="col-lg-5 form-group">
+                          <label><span class="icon-hand-right"></span>&nbsp;Last Menstrual Date</label>
+                          <input type="text" id="txtLastMenstrualDate" class="form-control" readonly />
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-5 form-group">
+                            <label for="drpPregnancyStatus"><span class="icon-hand-right"></span>&nbsp;Pregnancy
+                              Status</label>
+                            <input type="text" id="drpPregnancyStatus" class="form-control" readonly />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-5 form-group">
+                            <label for="txtNoOfWeeks"><span class="icon-hand-right"></span>&nbsp;No Of Weeks</label>
+                            <input id="txtNoOfWeeks" type="text" class="form-control" readonly>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <!-- ====================================== -->
+
+                  <div id="collapseLabTest" class="collapse" aria-labelledby="headingLabTest"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+                      <div class="col-lg-12 form-group">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Test</th>
+                              <th>Priority</th>
+                              <th>Laboratory</th>
+                              <th>Special Notes</th>
+                              <th>Antibiotic Given</th>
+                              <th>Antibiotic Details</th>                              
+                            </tr>
+                          </thead>
+                          <tbody id="labTestTbody">
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="collapseRadiology" class="collapse" aria-labelledby="headingThree"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+                      <div class="col-lg-12 form-group">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Test</th>
+                              <th>Region</th>
+                              <th>Localization</th>
+                              <th>View Position</th>
+                              <th>Comments</th>
+                              <th>Priority</th>
+                            </tr>
+                          </thead>
+                          <tbody id="radiologyTbody">
+
+                          </tbody>
+                        </table>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapsePrescribing" class="collapse" aria-labelledby="headingThree"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Drug Name</th>
+                              <th>Dose</th>
+                              <th>Frequency</th>
+                              <th>Dose Comment</th>
+                              <th>Period</th>
+                              <th>Pharmacy</th>                              
+                            </tr>
+                          </thead>
+                          <tbody id="drugPrescribingTbody">
+
+                          </tbody>
+                        </table>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapseTreatments" class="collapse" aria-labelledby="headingThree"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Procedure Type</th>
+                              <th>Injection</th>
+                              <th>Remarks</th>
+                              <th>Type</th>
+                            </tr>
+                          </thead>
+                          <tbody id="procedurestbody">
+
+                          </tbody>
+                        </table>
+                      </div>
+
+
+                    </div>
+                  </div>
+
+                  <div id="collapseWardReferral" class="collapse" aria-labelledby="headingThree"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Ward</label>
+                          </div>
+                          <div class="col-lg-4">
+                            <select class="form-control" id="drpWardWardReferral" disabled>
+                              <option value="">--Select--</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Remark</label>
+                          </div>
+                          <div class="col-lg-4">
+                            <input id="txtWardRemarks" type="text" class="form-control" readonly>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div id="collapseClinic" class="collapse" aria-labelledby="headingThree"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Clinic</label>
+                          </div>
+                          <div class="col-lg-4">
+                            <select class="form-control" id="drpclinicReferral" disabled>
+                              <option value="">--Select--</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-12 form-group">
+                        <div class="row">
+                          <div class="col-lg-3">
+                            <label><span class="icon-hand-right"></span>&nbsp;Remark</label>
+                          </div>
+                          <div class="col-lg-4">
+                            <input id="txtClinicRemarks" type="text" class="form-control" readonly>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+                <div class="card-footer">
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sketchpad/0.1.0/scripts/sketchpad.min.js"
+    integrity="sha512-GTMvKIuYWnu5y1gGLUbMNIXbxusPHehyCdBZJpv+oPikopcgjWBmsIziyp9N8QlRXRFB9y02mQ0C1MRnelE5tg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+  <script type="text/javascript"
+    src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-colvis-1.7.1/b-html5-1.7.1/b-print-1.7.1/datatables.min.js"></script>
+
+  <script>
+
+    function returnUrl() {
+
+      var value = "";
+
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", "Basic YWRtaW46QWRtaW4xMjM=");
+      myHeaders.append("Cookie", "JSESSIONID=4F55735593751E224686B006CD388234");
+
+      $.ajax({
+        url: '/openmrs/ws/rest/v1/conceptreferenceterm?codeOrName=LaravelApi',
+        type: 'GET',
+        dataType: 'json',
+        async: false,
+        headers: myHeaders,
+        data: {},
+        success: function (data) {
+          var str = (data.results[0].display);
+
+          var mySubString = str.substring(
+            str.lastIndexOf("(") + 1,
+            str.lastIndexOf(")")
+          );
+
+          value = (mySubString);
+        }
+      });
+
+      return value;
+    }
+
+    LoadItemsTable();
+
+    function LoadItemsTable() {
+
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", "Basic YWRtaW46QWRtaW4xMjM=");
+      myHeaders.append("Cookie", "JSESSIONID=2D158E83ACFB788998C7DB495F07C1B9");
+
+      var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+
+      fetch("/openmrs/ws/rest/v1/session", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+
+          jQuery('#staticUsername').val(result.user.username);
+          var name = result.user.person.display;
+          var username = result.user.display;
+          var personuuid = result.user.person.uuid;
+          jQuery('#txtuseruuid').val(personuuid);
+
+          var requestHeaders = new Headers();
+          requestHeaders.append("Authorization", "Basic YWRtaW46QWRtaW4xMjM=");
+          requestHeaders.append("Cookie", "JSESSIONID=ED9DBD5CFD355A973EFFECD642D8331D");
+
+          var requestOptions = {
+            method: 'GET',
+            headers: requestHeaders,
+            redirect: 'follow'
+          };
+
+          fetch("/openmrs/ws/rest/v1/person/" + personuuid, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+
+              var InstituteUuid = "";
+              jQuery(result.attributes).each(function (k, v) {
+                if (v.display != null) {
+
+                  if (jQuery.trim(v.display.split("=")[0]) == "Institute Id") {
+                    InstituteUuid = jQuery.trim(v.display.split("=")[1]);
+                  }
+                }
+              });
+
+
+              var table1 = $('.dataTablex').DataTable({
+                processing: true,
+                serverSide: true,
+                "ajax": {
+                  url: returnUrl() + '/LoadPatientsDetails',
+                  type: 'POST',
+                  dataType: 'json',
+                  data: { InstituteUuid: InstituteUuid },
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+                },
+                "columns": [
+                  {
+                    "data": 'identifier',
+                    name: 'patient_identifier.identifier',
+                    orderable: false,
+                    serachable: false
+                  },
+                  {
+                    data: 'uuid',
+                    name: 'person.uuid'
+                  },
+                  {
+                    data: 'identifier',
+                    name: 'patient_identifier.identifier'
+                  },
+                  {
+                    "data": "given_name"
+                  },
+                  {
+                    data: "gender",
+                    name: 'person.gender'
+                  },
+                  {
+                    data: null,
+                    "searchable": false,
+                    render: function (data, type, row) {
+                      const getAge = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e+10)
+                      return getAge(data.birthdate);
+                    }
+                  },
+                  {
+                    data: "birthdate",
+                    name: 'person.birthdate'
+                  }
+                ],
+                "pageLength": 10,
+                "ordering": true,
+                "lengthMenu": [
+                  [10, 25, 50, 100, -1],
+                  [10, 25, 50, 100, "All"]
+                ],
+                "dom": '<"top"Blfrt<"clear">>rt<"bottom"ip<"clear">>',
+                "rowCallback": function (nRow, aData, iDisplayIndex) {
+                  var oSettings = this.fnSettings();
+                  $("td:first", nRow).html(oSettings._iDisplayStart + iDisplayIndex + 1);
+                  return nRow;
+                },
+                "buttons": [
+                  {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                      columns: ':visible'
+                    }
+                  },
+                  {
+                    extend: 'csvHtml5',
+                    exportOptions: {
+                      columns: ':visible'
+                    }
+                  },
+                  {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                      columns: ':visible'
+                    }
+                  },
+                  {
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                      columns: ':visible'
+                    }
+                  },
+                  {
+                    extend: 'print',
+                    text: 'Print',
+                    exportOptions: {
+                      columns: ':visible'
+                    }
+                  }
+                ],
+                "columnDefs": [
+                  { className: "text-center", "targets": [0] },
+                  { className: "hiddenCol uuidcol", "targets": [1] },
+                ],
+                "initComplete": function (settings, json) {
+
+                  // closewait();         
+
+                  $('.dataTablex').width("100%");
+                },
+
+              });
+
+
+            })
+            .catch(error => console.log('error', error));
+        })
+        .catch(error => console.log('error', error));
+
+    }
+
+  </script>
+
+</body>
+
+</html>

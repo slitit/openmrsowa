@@ -1,0 +1,263 @@
+/* * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+ * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+ *
+ * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+ * graphic logo is a trademark of OpenMRS Inc.
+ */
+body {
+    font-family: "OpenSans", Arial, sans-serif;
+    -webkit-font-smoothing: subpixel-antialiased;
+    max-width: 1000px;
+    margin: 10px auto;
+    background: #eeeeee;
+    color: #363463;
+    font-size: 16px;
+}
+
+header {
+    position: relative;
+    background-color: #00463f;
+    color: #CCC;
+    line-height: 1em;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    display: block;
+    min-height: 48px;
+}
+
+.top{
+    margin-left: 500px;
+}
+
+header .logo {
+    float: left;
+    margin: 4px;
+    display: block;
+}
+
+header .logo img {
+    width: 120px;
+}
+
+#body-wrapper {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: white;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    min-height: 500px;
+    justify-content: center;
+}
+
+.app-title {
+    display: block;
+    float: left;
+    color: #eeeeee;
+    font-size: 32px;
+    margin: 4px;
+    height: 100%;
+    padding-top: 12px;
+    padding-right: 5px;
+}
+
+.instructions {
+    align-self: center;
+}
+
+.formInput1
+{
+   width: 130px;
+}
+
+.formInput3
+{
+   width: 150px;
+}
+
+.formInput4
+{
+   width: 150px;
+}
+
+.formInput5
+{
+   width: 150px;
+}
+
+.formInput6
+{
+   width: 180px;
+}
+
+.formInput7
+{
+   width: 300px;
+}
+
+.formInput2
+{
+   width: 130px;
+}
+
+.loadgroup{
+  width: 1000px;
+  margin-top: -20px;
+  margin-left: 600px;
+}
+
+.modal-content{
+  background-color:  #4fb3f5e3;
+}
+
+.label1{
+   width: auto;
+}
+
+.fourth {
+  display: flex;
+  margin-bottom: 10px;
+  width: 1000px;
+ }
+
+.fifth {
+  display: flex;
+  margin-bottom: 10px;
+  width: 1000px;
+ }
+
+.first {
+  display: grid;
+  grid-template-columns: 1000px auto;
+  margin-bottom: 10px;
+  }
+
+.first_one {
+  display: flex;
+  width: 950px;
+ 
+}
+.two {
+  display: grid;
+  grid-template-columns: 900px auto;
+  margin-bottom: 10px;
+}
+.two_one {
+  display: flex;
+  
+  width: 960px;
+}
+
+  .bottom1{
+    float:right;
+}
+
+.bottom2{
+    float:right;
+}
+
+.button-3d {
+    position: relative;
+    width: 100px;
+    height: 30px;
+    display: inline-block;
+    color: #030708;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    padding: 1px 2px 1px;
+    margin: 2px;
+    box-shadow: #e90f95 5px;
+    border-radius: 15px;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    transition: all 0.1s;
+  }
+   
+  .btnCancel{
+    background-color: #ebdc0fe3;
+  }
+  
+  .btnAdd2 {
+    background-color:  #21e207e3;
+    width: 150px;
+    height: 30px;
+  }
+  
+  .btnAdd3 {
+    background-color:  #21e207e3;
+  }
+  
+  .btnAdd4 {
+    background-color:  #21e207e3;
+  }
+
+  .btnAdd5 {
+    background-color:  #21e207e3;
+  }
+
+  .btnAdd6{
+    background-color: #ebdc0fe3;
+  }
+  
+  .btnAdd1 {
+    background-color:  #540cdae3;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+    display: inline-block;
+    color: #030708;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    padding: 1px 2px 1px;
+    margin: 2px;
+    box-shadow: #e90f95 3px;
+    border-radius: 3px;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    transition: all 0.1s;
+  }
+
+  table{
+    border: grey;
+  }
+  thead {
+    background-color: rgb(15, 126, 83);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    border: 0px rgb(35 135 143);
+    height: 50px;
+  }
+
+ 
+  tbody {
+    background-color: rgb(126, 148, 126);
+    color: rgb(0, 0, 0);
+    text-align: center;
+    height: 30px;
+    border: 1px solid black;
+  }
+  
+  td {
+    border-left: 1px solid #23878f;
+    border-top: 1px solid #23878f;
+  }
+  tr {
+    line-height: 15px;
+    min-height: 15px;
+    height: 15px;
+    max-height: 20px;
+  }

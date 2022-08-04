@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Reprint Prescription</title>
+  <!-- openmrs favicon -->
+  <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+  <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/openmrs/ms/uiframework/resource/appui/styles/header.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet"
+    href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .upload-img {
+      border-radius: 16px;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;
+      border: 3px solid #20e5bf;
+      margin-right: 15px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navigation">
+      <div class="logo">
+        <a href="../../">
+          <img src="img/openmrs-with-title-small.png" />
+        </a>
+      </div>
+      <ul class="navbar-nav ml-auto user-options">
+        <li class="nav-item" style="font-weight: bold;">
+          <span class="icon-hospital"></span>&nbsp;&nbsp;<span id="lblInstituteName"></span>
+          <input id="txtinstituteuuid" type="text" class="form-control" style="display: none;" />
+        </li>
+      </ul>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto user-options">
+          <li class="nav-item logout">
+            <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+              Logout <i class="icon-signout small"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="clear"></div>
+
+  <ul id="breadcrumbs">
+    <li>
+      <a href="/openmrs/index.htm">
+        <i class="icon-home small"></i>
+      </a>
+    </li>
+    <li>
+      <i class="icon-chevron-right link"></i> Reprint Prescription
+    </li>
+  </ul>
+
+  <div id="body-wrapper">
+    <div class="card">
+      <div class="card-body row justify-content-center">
+
+        <div class="col-lg-12 form-group" style="padding: 0;">
+          <h2>Patient Examination</h2>
+        </div>
+
+        <form class="row col-12" id="addLocationForm">
+
+          <div class="col-lg-5 form-group">
+            <div class="row">
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;PHN</label>
+                <input id="txtPhnNo" type="text" class="form-control" />
+              </div>
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Full Name</label>
+                <input id="txtFullName" type="text" class="form-control rof" disabled />
+              </div>
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Gender</label>
+                <input id="txtGender" type="text" class="form-control rof" disabled />
+              </div>
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Date Of Birth</label>
+                <input id="txtDob" type="text" class="form-control rof" disabled />
+              </div>
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Age</label>
+                <div class="row">
+                  <div class="col-lg-4 form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">Y</div>
+                      </div>
+                      <input type="text" id="txtYears" class="form-control uuidfind rof" attr-uuid-find="Years"
+                        style="margin-top: 0;" readonly />
+                    </div>
+                  </div>
+                  <div class="col-lg-4 form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">M</div>
+                      </div>
+                      <input type="text" id="txtMonths" class="form-control uuidfind rof" attr-uuid-find="Months"
+                        style="margin-top: 0;" readonly />
+                    </div>
+                  </div>
+                  <div class="col-lg-4 form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">D</div>
+                      </div>
+                      <input type="text" id="txtDays" class="form-control uuidfind rof" attr-uuid-find="Days"
+                        style="margin-top: 0;" readonly />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 form-group">
+            <div class="col-lg-12 form-group">
+              <p>Patient Photo</p>
+              <div class="input-file">
+                <img id="file_upload" src="http://localhost/LaravelApiFile/storage/documents/useremprty.png"
+                  alt="your image" class="upload-img" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group table-responsive">
+            <table class="table table-bordered table-hover table-sripped">
+              <thead>
+                <tr>
+                  <th>Ordered Drug Name + Dose</th>
+                  <th>Issued Drug Name + Dose</th>
+                  <th>Batch No</th>
+                  <th>Dose Comment</th>
+                  <th>Period</th>
+                  <th>Qty</th>
+                </tr>
+              </thead>
+              <tbody id="lastPrescriptionTbody">
+
+              </tbody>
+            </table>
+          </div>
+
+          <div class="row col-md-12 form-group justify-content-center">
+            <div class="col-lg-2">
+              <button type="button" id="btnPrintLastPrescription" class="btn btn-warning btn-block" style="background: #c69500;">Print</button>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12" id="printableContent" style="display: none;">
+    <div class="demo-wrap"
+      style="width: 8.5in; height: 11in; max-width: 8.5in; max-height: 11in; border: 1px solid; border-radius: 20px; padding: 2px 10px; font-size: 8px;position: relative;">
+      <div>
+        <div>
+          <table border="0" width="100%">
+            <thead>
+              <tr>
+                <th colspan="2" style="text-align: left;">
+                  <h3 id="placeHolderInstituteName"
+                    style="text-decoration: underline; font-weight: 900; color: black; font-size: 24px;">-
+                  </h3>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="2" style="font-size: 16px;">
+                  Name: <span id="placeHolderPatientName">-</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-size: 18px;">
+                  PHN: <span id="placeHolderPHN">-</span>
+                </td>
+                <td style="font-size: 18px;">
+                  Age: <span id="placeHolderAge">-</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="col-lg-12 form-group" style="border-bottom: 3px solid;margin-bottom: 2px;"></div>
+          <table border="1" width="100%">
+            <tbody id="tBodyMedic" style="font-size: 16px;">
+
+            </tbody>
+          </table>
+          <table border="0" width="100%">
+            <tbody>
+              <tr>
+                <td style="text-align: right;">
+                  ..............................................
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: right;">
+                  Prescribed By: <span id="userNameCon">-</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Procedure Room</title>
+  
+  <!-- openmrs favicon -->
+  <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+  <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/openmrs/ms/uiframework/resource/appui/styles/header.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet"
+    href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .input-file {
+      padding: 0px;
+      margin: 0 auto;
+      background: #ffffff;
+      -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.04);
+      box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0);
+    }
+
+    .upload-img {
+      border-radius: 16px;
+      display: inline-block;
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      object-position: 50% 50%;
+      border: 3px solid #20e5bf;
+      margin-right: 15px;
+      vertical-align: middle;
+    }
+
+    .input-file-upload {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .input-file-upload input[type="file"] {
+      opacity: 0;
+      padding: 10px 0;
+      height: 36px;
+      width: 150px;
+    }
+
+    .upload-label {
+      width: 150px;
+      height: 36px;
+      background: #3b70f1;
+      text-align: center;
+      color: #ffffff;
+      display: block;
+      padding: 8px 0;
+      position: absolute;
+      line-height: normal;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .input-file-upload:hover .upload-label {
+      background: #eaf5fe;
+      color: #3b70f1;
+    }
+
+    .text-input {
+      width: 0px;
+    }
+
+    form select,
+    .form select {
+      min-width: 100% !important;
+    }
+
+    body,
+    .btn {
+      font-size: 12px !important;
+    }
+
+    .form-group {
+      margin-bottom: 10px !important;
+    }
+
+    .form-control {
+      height: 28px !important;
+      padding: 6px !important;
+      font-size: 12px !important;
+      line-height: 0;
+    }
+
+    body {
+      line-height: .8 !important;
+    }
+
+    form label,
+    .form label {
+      margin-bottom: 4px;
+    }
+
+    .top-btn {
+      all: unset;
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      cursor: pointer;
+      transform: scale(1.8);
+      opacity: 0;
+      transition: .3s;
+    }
+
+    .button-group#threeD .button {
+      /* background: linear-gradient(135deg, #39414E, #4C5363); */
+      background: linear-gradient(135deg, #549ee7, #36f1cf);
+      border: none;
+      width: 100%;
+      height: 45px;
+      padding: 8px 10px;
+      display: inline-block;
+      margin: 0 -2px 5px -3px;
+      /* color: #F89B72; */
+      color: #000;
+      font-size: 9px !important;
+      box-shadow: 0px 2px 15px #323A45;
+      position: relative;
+      font-weight: bolder;
+      display: flex;
+    }
+
+    .button-group#threeD .button img {
+      width: 32px !important;
+      height: 30px !important;
+      ;
+    }
+
+    .button-group#threeD .button p {
+      margin-left: 5px;
+    }
+
+    .button-group#threeD .button span {
+      text-align: center;
+      margin: 20px 0 20px 0;
+      display: block;
+      color: #fff;
+      text-shadow: 0 2px 30px #323A45;
+      font-size: 32px;
+    }
+
+    .button-group#threeD .button:hover {
+      background: linear-gradient(135deg, #4C5363, #39414E);
+    }
+
+    .button-group#threeD .button.active {
+      font-size: 14px;
+      text-shadow: 0 0 10px #fff;
+      background: linear-gradient(135deg, #4C5363, #39414E);
+      color: #fff;
+      vertical-align: bottom;
+    }
+
+    .button-group#threeD .button.active span {
+      text-shadow: 0 0 10px #fff;
+      margin-top: 10px;
+      font-size: 20px;
+    }
+
+    .button-group#threeD .button.next:before {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: -25px;
+      top: 0px;
+      line-height: 90px;
+      border-bottom: 20px solid #323A45;
+      border-left: 25px solid transparent;
+    }
+
+    .button-group#threeD .button.next:after {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: -25px;
+      top: 20px;
+      line-height: 90px;
+      border-top: 100px solid #323A45;
+      border-left: 25px solid transparent;
+    }
+
+    .button-group#threeD .button.prev:before {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: 100%;
+      top: 20px;
+      line-height: 90px;
+      border-top: 100px solid #323A45;
+      border-right: 25px solid transparent;
+    }
+
+    .button-group#threeD .button.prev:after {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      left: 100%;
+      top: 0px;
+      line-height: 90px;
+      border-bottom: 20px solid #323A45;
+      border-right: 25px solid transparent;
+    }
+
+    @media (max-width:765px) {
+      .button-group {
+        width: 100%;
+      }
+    }
+
+    .button-group {
+      display: inherit !important;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navigation">
+      <div class="logo">
+        <a href="../../">
+          <img src="img/openmrs-with-title-small.png" />
+        </a>
+      </div>
+
+      <ul class="navbar-nav ml-auto user-options">
+        <li class="nav-item" style="font-weight: bold;font-size: 1rem; position: relative; top: 3px;">
+          <span class="icon-hospital"></span><span id="lblInstituteName"></span>
+          <input id="txtinstituteuuid" type="text" class="form-control" style="display: none;" />
+        </li>
+      </ul>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto user-options">
+          <li class="nav-item logout" style="font-weight: bold; font-size: 1rem; position: relative; top: 2px;">
+            <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+              Logout <i class="icon-signout small"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+
+  <div class="clear"></div>
+
+  <ul id="breadcrumbs">
+    <li>
+      <a href="/openmrs/index.htm">
+        <i class="icon-home small"></i>
+      </a>
+    </li>
+    <li>
+      <i class="icon-chevron-right link"></i> Pharmcy Drug Issuing
+    </li>
+  </ul>
+
+  <div id="body-wrapper">
+
+    <div class="card">
+      <div class="card-body row justify-content-center">
+
+        <form class="row col-12" id="addLocationForm">
+
+          <div class="col-lg-4 form-group">
+            <div class="row">
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;PHN</label>
+                <input id="txtPhnNo" type="text" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-2 form-group" style="margin-bottom: 0 !important">
+            <div class="row">
+              <div class="col-lg-12 form-group">
+                <label style="visibility: hidden;"><span class="icon-hand-right"></span>&nbsp;Insti</label>
+                <button class="btn btn-success btn-block" type="button" id="btnCallNext"
+                  style="background: #28a745;">Call Next</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 form-group" style="margin-bottom: 0 !important">
+            <div class="row">
+              <div class="col-lg-7 form-group row"
+                style="background: cornflowerblue; color: white; font-weight: bold; padding-bottom: 15px; margin: 0;">
+                <div class="col-lg-12 row">
+                  <label><span class="icon-hand-right"></span>&nbsp;Token No</label>
+                </div>
+                <div class="col-lg-6 row">
+                  <input id="txtSpecToken" type="text" class="form-control" />
+                </div>
+                <div class="col-lg-6">
+                  <button class="btn btn-warnning btn-block" style="margin-top: 2px; background: #ffc107;" type="button"
+                    id="btnCallSpecificToken">Call Token</button>
+                </div>
+              </div>
+              <div class="col-lg-5 form-group text-center" style="margin: 0;">
+                <p class="text-center" style="margin: 0;">Token No</p>
+                <div id="currentToken" style="font-size: 6rem; padding: 0; margin: 0;"> - </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group" style="border-bottom: 4px solid;"></div>
+
+          <div class="col-lg-12 form-group">
+            <table class="table table-bordered table-hover table-sripped">
+              <thead>
+                <tr>
+                  <th>PHN</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Examination Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="listTbody">
+
+              </tbody>
+            </table>
+            <input type="text" id="selPhn" style="display: none;" />
+          </div>
+
+          <div class="col-lg-12 form-group" style="border-bottom: 4px solid;"></div>
+
+          <div class="col-lg-12 form-group">
+            <div class="row">
+              <div class="col-lg-3 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Ordered Drug Name</label>
+                <select class="form-control" id="orderedDrug">
+                  <option value="">--Select--</option>
+                </select>
+              </div>
+              <div class="col-lg-3 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Ordered Dose</label>
+                <input type="text" class="form-control" id="txtOrderedDose">
+              </div>
+              <div class="col-lg-3 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Issued Drug Name</label>
+                <select class="form-control" id="drpIssuedDrugName">
+                  <option value="">--Select--</option>
+                </select>
+              </div>
+              <div class="col-lg-3 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Issued Dose</label>
+                <select class="form-control" id="drpIssuedDose">
+                  <option value="">--Select--</option>
+                </select>
+              </div>
+              <div class="col-lg-3 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Batch No</label>
+                <select class="form-control" id="drpBatchNo">
+                  <option value="">--Select--</option>
+                </select>
+              </div>
+              <div class="col-lg-3 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Dose Comment</label>
+                <input type="text" class="form-control" id="txtDoseComment">
+              </div>
+              <div class="col-lg-3 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Period</label>
+                <input type="text" class="form-control" id="txtPeriod">
+              </div>
+              <div class="col-lg-2 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;Qty</label>
+                <input type="text" class="form-control" id="txtQty">
+              </div>
+              <div class="col-lg-2 form-group">
+                <label for="chkOutdoor"><span class="icon-hand-right"></span>&nbsp;Outdoor</label>
+                <input type="checkbox" id="chkOutdoor">
+              </div>
+              <div class="col-lg-2 form-group">
+                <button class="btn btn-primary" type="button" id="btnAddDrug"
+                  style="background: #007bff;position: relative;top: 15px;"><span class="fa fa-plus"></span></button>
+              </div>
+
+              <div class="col-lg-12 form-group table-responsive">
+                <table class="table table-bordered table-hover table-sripped" style="white-space: nowrap;">
+                  <thead>
+                    <tr>
+                      <th>Ordered Drug Name</th>
+                      <th>Ordered Dose</th>
+                      <th>Issued Drug Name</th>
+                      <th>Issued Dose</th>
+                      <th>Batch No</th>
+                      <th>Dose Comment</th>
+                      <th>Period</th>
+                      <th>Qty</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="tblBodyOrderedDrugs">
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group" style="border-bottom: 4px solid;"></div>
+
+          <div class="col-lg-12 form-group">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-10 form-group">
+                    <h3>Previous Prescription</h3>
+                  </div>
+                  <div class="col-lg-2 form-group">
+                    <button class="btn btn-warning" type="button" id="btnRepeatAll"
+                      style="padding: 2px 16px;border: 2px solid;border-radius: 15px;background: #007bff;">Repeat
+                      All</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12 form-group">
+                <table class="table table-bordered table-hover table-sripped">
+                  <thead>
+                    <tr>
+                      <th>Ordered Drug Name</th>
+                      <th>Ordered Dose</th>
+                      <th>Issued Drug Name</th>
+                      <th>Issued Dose</th>
+                      <th>Batch No</th>
+                      <th>Dose Comment</th>
+                      <th>Period</th>
+                      <th>Qty</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="prevPresTbody">
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group" style="border-bottom: 4px solid;"></div>
+
+          <div class="col-lg-12 form-group row justify-content-center">
+            <div class="col-lg-3 form-group">
+              <button id="btnSaveCallNext" class="btn btn-block submitButton confirm right focused">Save & Call
+                Next</button>
+            </div>
+            <div class="col-lg-2 form-group">
+              <button id="btnSave" type="button" class="btn btn-block submitButton confirm right focused">Save</button>
+            </div>
+            <div class="col-lg-2 form-group">
+              <button type="button" id="btnClear" class="btn btn-block cancel">Cancel</button>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-md-12" id="printableContent" style="display: none;">
+    <div class="demo-wrap"
+      style="width: 8.5in; height: 11in; max-width: 8.5in; max-height: 11in; border: 1px solid; border-radius: 20px; padding: 2px 10px; font-size: 8px;position: relative;">
+      <div>
+        <div>
+          <table border="0" width="100%">
+            <thead>
+              <tr>
+                <th colspan="2" style="text-align: left;">
+                  <h3 id="placeHolderInstituteName"
+                    style="text-decoration: underline; font-weight: 900; color: black; font-size: 24px;">-
+                  </h3>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="2" style="font-size: 16px;">
+                  Name: <span id="placeHolderPatientName">-</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-size: 18px;">
+                  PHN: <span id="placeHolderPHN">-</span>
+                </td>
+                <td style="font-size: 18px;">
+                  Age: <span id="placeHolderAge">-</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="col-lg-12 form-group" style="border-bottom: 3px solid;margin-bottom: 2px;"></div>
+          <table border="0" width="100%">
+            <tbody id="tBodyMedic" style="font-size: 16px;">
+
+            </tbody>
+          </table>
+          <table border="0" width="100%">
+            <tbody>
+              <tr>
+                <td style="text-align: right;">
+                  ..............................................
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: right;">
+                  Prescribed By: <span id="userNameCon">-</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="></script>
+</body>
+
+</html>

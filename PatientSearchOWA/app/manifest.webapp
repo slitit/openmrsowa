@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "name": "PatientSearch",
+  "description": "Patient Search OWA",
+  "launch_path": "index.html",
+  "icons": {
+    "48": "/img/omrs-button.png"
+  },
+  "developer": {
+    "name": "",
+    "url": "https://github.com//openmrs-owa-patientsearch"
+  },
+  "default_locale": "en",
+    "activities": {
+      "openmrs": {
+        "href": "*"
+      }
+    }
+}

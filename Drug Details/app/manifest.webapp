@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "name": "Drug Details",
+  "description": "Details of drug",
+  "launch_path": "index.html",
+  "icons": {
+    "48": "/img/omrs-button.png"
+  },
+  "developer": {
+    "name": "",
+    "url": "https://github.com//openmrs-owa-drugdetails"
+  },
+  "default_locale": "en",
+    "activities": {
+      "openmrs": {
+        "href": "*"
+      }
+    }
+}

@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "name": "DrugModule",
+  "description": "Drug Module OWA",
+  "launch_path": "index.html",
+  "icons": {
+    "48": "/img/omrs-button.png"
+  },
+  "developer": {
+    "name": "",
+    "url": "https://github.com//openmrs-owa-drugmodule"
+  },
+  "default_locale": "en",
+    "activities": {
+      "openmrs": {
+        "href": "*"
+      }
+    }
+}

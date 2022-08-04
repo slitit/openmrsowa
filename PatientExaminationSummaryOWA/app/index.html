@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Patient Examination Summary</title>
+  <!-- openmrs favicon -->
+  <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico" />
+  <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="/openmrs/ms/uiframework/resource/appui/styles/header.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet"
+    href="/openmrs/ms/uiframework/resource/referenceapplication/styles/referenceapplication.css?cache=1625626794012"
+    type="text/css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sketchpad/0.1.0/styles/sketchpad.css"
+    integrity="sha512-1sx/jYcl5B9GIavcXM2o84h1X7UWB6EZQMlWBfZWfgoou5j4+G6pvQCe8cL2tIEYAlvEHtcuiTLASIP9FF8+pQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    .input-file {
+      padding: 0px;
+      margin: 0 auto;
+      background: #ffffff;
+      -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.04);
+      box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0);
+    }
+
+    .upload-img {
+      border-radius: 16px;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;
+      border: 3px solid #20e5bf;
+      margin-right: 15px;
+      vertical-align: middle;
+    }
+
+    .input-file-upload {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .input-file-upload input[type="file"] {
+      opacity: 0;
+      padding: 10px 0;
+      height: 36px;
+      width: 150px;
+    }
+
+    .upload-label {
+      width: 150px;
+      height: 36px;
+      background: #3b70f1;
+      text-align: center;
+      color: #ffffff;
+      display: block;
+      padding: 8px 0;
+      position: absolute;
+      line-height: normal;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .input-file-upload:hover .upload-label {
+      background: #eaf5fe;
+      color: #3b70f1;
+    }
+
+    .text-input {
+      width: 0px;
+    }
+
+    form select,
+    .form select {
+      min-width: 100% !important;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark navigation">
+      <div class="logo">
+        <a href="../../">
+          <img src="img/openmrs-with-title-small.png" />
+        </a>
+      </div>
+
+      <ul class="navbar-nav ml-auto user-options">
+        <li class="nav-item" style="font-weight: bold;">
+          <span class="icon-hospital"></span><span id="lblInstituteName"></span>
+          <input id="txtinstituteuuid" type="text" class="form-control" style="display: none;" />
+        </li>
+      </ul>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto user-options">
+          <li class="nav-item logout">
+            <a href="/openmrs/appui/header/logout.action?successUrl=openmrs">
+              Logout <i class="icon-signout small"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="clear"></div>
+
+  <ul id="breadcrumbs">
+    <li>
+      <a href="/openmrs/index.htm">
+        <i class="icon-home small"></i>
+      </a>
+    </li>
+    <li>
+      <i class="icon-chevron-right link"></i> Patient Examination Summary
+    </li>
+  </ul>
+
+  <div id="body-wrapper">
+    <div class="card">
+      <div class="card-body row justify-content-center">
+
+        <div class="col-lg-12 form-group" style="padding: 0;">
+          <h2>Patient Examination Summary</h2>
+        </div>
+
+        <form class="row col-12" id="addLocationForm">
+
+          <div class="col-lg-4 form-group">
+            <div class="row">
+              <div class="col-lg-12 form-group">
+                <label><span class="icon-hand-right"></span>&nbsp;PHN</label>
+                <input id="txtPhnNo" type="text" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-2 form-group">
+            <div class="row">
+              <div class="col-lg-12 form-group">
+                <label style="visibility: hidden;"><span class="icon-hand-right"></span>&nbsp;Insti</label>
+                <button class="btn btn-success btn-block" type="button" id="btnCallNext"
+                  style="background: #28a745;">Call Next</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 form-group">
+            <div class="row justify-content-center align-items-center">
+              <div class="col-lg-7 form-group"
+                style="background: cornflowerblue; color: white; font-weight: bold; padding-bottom: 15px;">
+                <label><span class="icon-hand-right"></span>&nbsp;Token No</label>
+                <input id="txtSpecToken" type="text" class="form-control" />
+                <button class="btn btn-warnning btn-block" style="margin-top: 14px; background: #ffc107;" type="button"
+                  id="btnCallSpecificToken">Call Specific Token</button>
+              </div>
+              <div class="col-lg-5 form-group text-center">
+                <p class="text-center" style="margin: 0;">Token No</p>
+                <div id="currentToken" style="font-size: 6rem; padding: 0; margin: 0;"> - </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group" style="border-bottom: 4px solid;"></div>
+
+          <div class="col-lg-12 form-group" style="padding: 0;">
+            <div class="row">
+              <div class="col-lg-5 form-group">
+
+                <div class="col-lg-12 form-group" style="display: none;">
+                  <label><span class="icon-hand-right"></span>&nbsp;Person UUID</label>
+                  <input id="txtPersonUUID" type="text" class="form-control rof" />
+                </div>
+                <div class="col-lg-12 form-group" style="display: none;">
+                  <label><span class="icon-hand-right"></span>&nbsp;Encounter UUID</label>
+                  <input id="txtEncounterUUID" type="text" class="form-control rof" />
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Full Name</label>
+                  <input id="txtFullName" type="text" class="form-control rof" disabled />
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Gender</label>
+                  <input id="txtGender" type="text" class="form-control rof" disabled />
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Date Of Birth</label>
+                  <input id="txtDob" type="text" class="form-control rof" disabled />
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Age</label>
+                  <div class="row">
+                    <div class="col-lg-4 form-group">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Y</div>
+                        </div>
+                        <input type="text" id="txtYears" class="form-control uuidfind rof" attr-uuid-find="Years"
+                          style="margin-top: 0;" readonly />
+                      </div>
+                    </div>
+                    <div class="col-lg-4 form-group">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">M</div>
+                        </div>
+                        <input type="text" id="txtMonths" class="form-control uuidfind rof" attr-uuid-find="Months"
+                          style="margin-top: 0;" readonly />
+                      </div>
+                    </div>
+                    <div class="col-lg-4 form-group">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">D</div>
+                        </div>
+                        <input type="text" id="txtDays" class="form-control uuidfind rof" attr-uuid-find="Days"
+                          style="margin-top: 0;" readonly />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Civil Status</label>
+                  <input id="txtCivilStatus" type="text" class="form-control rof" disabled />
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Gurdian Info</label>
+                  <input id="txtGurdianInfo" type="text" class="form-control rof" disabled />
+                </div>
+              </div>
+              <div class="col-lg-5 form-group">
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;NIC No</label>
+                  <input id="txtNICNo" type="text" class="form-control rof" disabled />
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Address</label>
+                  <textarea id="txtAddress" rows="4" class="form-control rof" disabled></textarea>
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Religion</label>
+                  <input id="txtEthnicity" type="text" class="form-control rof" disabled />
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Race</label>
+                  <input id="txtRace" type="text" class="form-control rof" disabled />
+                </div>
+                <div class="col-lg-12 form-group">
+                  <label><span class="icon-hand-right"></span>&nbsp;Blood Group</label>
+                  <input id="txtBloodGroup" type="text" class="form-control rof" disabled />
+                </div>
+              </div>
+              <div class="col-lg-2 form-group">
+                <div class="col-lg-12 form-group" style="padding: 0;">
+                  <p>Patient Photo</p>
+                  <div class="input-file">
+                    <img id="file_upload" src="http://localhost/LaravelApiFile/storage/documents/useremprty.png"
+                      alt="your image" class="upload-img" />
+                  </div>
+                </div>
+                <div class="col-lg-12 form-group" style="padding: 0;">
+                  <button id="btnOpenHistory" class="btn btn-link" type="button">View History</button>
+                  <input type="text" id="patientUuid" class="rof" style="display: none;">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group" style="border-bottom: 4px solid;"></div>
+
+          <div class="col-lg-12 form-group">
+            <div class="accordion" id="accordionExample">
+
+              <div class="card">
+                <div class="card-header" id="headingOne" style="padding: 0;">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                      data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                      style="border: none; text-decoration: none; background: none; outline: none; box-shadow: none; max-width: 100%; padding: 0px 12px 8px;">
+                      Basic Examination
+                    </button>
+                  </h2>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="">
+                  <div class="card-body">
+
+                    <div class="row">
+                      <div class="col-lg-8 form-group">
+                        <div class="row">
+
+                          <div class="col-lg-12" style="padding: 0;">
+                            <div class="col-lg-5 form-group">
+                              <label><span class="icon-hand-right"></span>&nbsp;Examination Date</label>
+                              <div class="input-group">
+                                <input type="text" id="txtExaminationDate" class="form-control dppicker"
+                                  style="margin-top: 0;" />
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text"><span class="fa fa-calendar"></span></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-12 form-group" style="display: none;">
+                            <div class="row">
+                              <div class="col-lg-4 form-group">
+                                <label><span class="icon-hand-right"></span>&nbsp;Height (cm)</label>
+                                <input id="txtBEHeight" type="text" class="form-control calBMI" />
+                              </div>
+                              <div class="col-lg-4 form-group">
+                                <label><span class="icon-hand-right"></span>&nbsp;Weight (Kg)</label>
+                                <input id="txtBEWeight" type="text" class="form-control calBMI" />
+                              </div>
+                              <div class="col-lg-4 form-group">
+                                <label><span class="icon-hand-right"></span>&nbsp;Waist (cm)</label>
+                                <input id="txtBEWaist" type="text" class="form-control" />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-12 form-group" style="display: none;">
+                            <div class="row">
+                              <div class="col-lg-5 form-group">
+                                <label><span class="icon-hand-right"></span>&nbsp;BMI</label>
+                                <input id="txtBMI" type="text" class="form-control" readonly />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-12 form-group" style="display: none;">
+                            <div class="row">
+                              <div class="col-lg-5 form-group">
+                                <label><span class="icon-hand-right"></span>&nbsp;Temperature <sup>0</sup>C</label>
+                                <input id="txtTemperatre" type="text" class="form-control" />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-12 form-group">
+                            <div class="row">
+                              <div class="col-lg-12 form-group">
+                                <label><span class="icon-hand-right"></span>&nbsp;Symptoms (Press Enter to add)</label>
+                                <input type="text" name="tagsSymptoms" id="txtPatientSymptoms">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-12 form-group">
+                            <div class="row">
+                              <div class="col-lg-12 form-group">
+                                <label><span class="icon-hand-right"></span>&nbsp;Complains (Press Enter to add)</label>
+                                <input type="text" name="tagsComplain" id="txtPatientComplains">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-12 form-group">
+                            <div class="row">
+                              <div class="col-lg-12 form-group">
+                                <label><span class="icon-hand-right"></span>&nbsp;Remarks</label>
+                                <input type="text" name="txtRemarkName" id="txtPatientGERemark" style="width: 100%;">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-12 form-group">
+                            <div class="row">
+                              <div class="col-lg-12 form-group">
+                                <label><span class="icon-hand-right"></span>&nbsp;Diagnose (Press Enter to add)</label>
+                                <input type="text" name="tagsDiagnose" id="txtPatientDiagnose">
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+
+                      <div class="col-lg-4 form-group">
+                        <div class="row form-group">
+                          <canvas id="sketchpad"
+                            style=" background:#FFF; border-radius:10px; box-shadow:0 0 15px #999; cursor:crosshair;">
+                            <canvas>
+                        </div>
+
+                        <div class="col-lg-12 row" style="padding: 0;">
+                          <div class="col-lg-3 form-group" style="padding: 0;">
+                            <button type="button" id="undo"><span class="fa fa-undo"></span></button>
+                          </div>
+                          <div class="col-lg-3 form-group" style="padding: 0;">
+                            <button type="button" id="redo"><span class="fa fa-repeat"></span></button>
+                          </div>
+                          <div class="col-lg-6 form-group" style="padding: 0;">
+                            <button type="button" id="animateSketchpad">Animate</button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+
+              <!-- ====================================== -->
+
+
+
+              <div class="card">
+                <div class="card-header" id="headingLabTest" style="padding: 0;">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                      data-target="#collapseLabTest" aria-expanded="false" aria-controls="collapseThree"
+                      style="border: none; text-decoration: none; background: none; outline: none; box-shadow: none; max-width: 100%; padding: 0px 12px 8px;">
+                      Lab Tests
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseLabTest" class="collapse" aria-labelledby="headingLabTest" data-parent="">
+                  <div class="card-body">
+
+                    <div class="col-lg-12 form-group">
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <label><span class="icon-hand-right"></span>&nbsp;Load From Test Group</label>
+                          <select class="form-control" id="drpTestGroups">
+                            <option>--Select--</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 form-group">
+                      <div class="row">
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Tests</label>
+                          <select class="form-control labterow selectTo" id="drpTestLabTest">
+                            <option>--Select--</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Priority</label>
+                          <select class="form-control labterow" id="drpPriorityLabTest">
+                            <option>Normal</option>
+                            <option>Urgent</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Laboratory</label>
+                          <select class="form-control labterow selectTo" id="drpLaboratoryLabTest">
+                            <option>--Select--</option>
+                            <option value="1">Lab 01</option>
+                            <option value="2">Lab 02</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Special Notes</label>
+                          <input type="text" class="form-control labterow" id="txtSpecialNotesLabTest">
+                        </div>
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Antibiotic Given</label>
+                          <select class="form-control labterow" id="drpAntibioticGivenLabTest">
+                            <option>Yes</option>
+                            <option>No</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Antibiotic Details</label>
+                          <input type="text" class="form-control labterow" id="txtAntibioticDetails">
+                        </div>
+                        <div class="col-lg-1">
+                          <button class="btn btn-priary" type="button" id="btnAddLabTest"
+                            style="background: #007bff; position: relative; top: 34px;"><span
+                              class="fa fa-plus"></span></button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 form-group">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Test</th>
+                            <th>Priority</th>
+                            <th>Laboratory</th>
+                            <th>Special Notes</th>
+                            <th>Antibiotic Given</th>
+                            <th>Antibiotic Details</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody id="labTestTbody">
+
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="col-lg-12 form-group">
+                      <div class="row" style="justify-content: flex-end;">
+                        <div class="col-lg-3 form-group">
+                          <button type="button" data-toggle="modal" data-target="#labTestModal"
+                            class="btn btn-block submitButton confirm right focused">Save Test Group</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" id="labTestModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Save Test Group</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="col-lg-12 form-group">
+                              <div class="row">
+                                <div class="col-lg-12">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Test Group Name</label>
+                                  <input id="txtTestGroupName" type="text" class="form-control">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-12 form-group">
+                              <div class="row">
+                                <div class="col-lg-12">
+                                  <label>
+                                    <input type="radio" name='type' value="Save for me only"> Save for me only
+                                  </label>
+                                </div>
+                                <div class="col-lg-12">
+                                  <label>
+                                    <input type="radio" name='type' value="Save for unit"> Save for unit
+                                  </label>
+                                </div>
+                                <div class="col-lg-12">
+                                  <label>
+                                    <input type="radio" name='type' value="Save for everyone"> Save for everyone
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <div class="col-12 row justify-content-center">
+                              <div class="col-lg-4">
+                                <button type="button" class="btn btn-block cancel" data-dismiss="modal">Close</button>
+                              </div>
+                              <div class="col-lg-4">
+                                <button type="button" id="btnSaveTestGroupLabTest"
+                                  class="btn btn-block submitButton confirm right focused">Save</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header" id="headingRadiology" style="padding: 0;">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                      data-target="#collapseRadiology" aria-expanded="false" aria-controls="collapseThree"
+                      style="border: none; text-decoration: none; background: none; outline: none; box-shadow: none; max-width: 100%; padding: 0px 12px 8px;">
+                      Radiology Tests
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseRadiology" class="collapse" aria-labelledby="headingThree" data-parent="">
+                  <div class="card-body">
+
+                    <div class="col-lg-12 form-group">
+                      <div class="row">
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Test</label>
+                          <select class="form-control radrow selectTo" id="drpTestsRadiology">
+                            <option>--Select--</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Region</label>
+                          <select class="form-control radrow selectTo" id="drpRegionRadiology">
+                            <option>--Select--</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Localization</label>
+                          <select class="form-control radrow selectTo" id="drpLocalizationRadiology">
+                            <option>--Select--</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Position</label>
+                          <select class="form-control radrow selectTo" id="drpPositionRadiology">
+                            <option>--Select--</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Comments</label>
+                          <input id="txtCommentRadiology" type="text" class="form-control radrow" />
+                        </div>
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Priority</label>
+                          <select class="form-control radrow" id="drpPriorityRadiology">
+                            <option>Normal</option>
+                            <option>Urgent</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-1">
+                          <button class="btn btn-priary" type="button" id="btnAddRadiology"
+                            style="background: #007bff; position: relative; top: 34px;"><span
+                              class="fa fa-plus"></span></button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 form-group">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Test</th>
+                            <th>Region</th>
+                            <th>Localization</th>
+                            <th>View Position</th>
+                            <th>Comments</th>
+                            <th>Priority</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody id="radiologyTbody">
+
+                        </tbody>
+                      </table>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header" id="headingPrescribing" style="padding: 0;">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                      data-target="#collapsePrescribing" aria-expanded="false" aria-controls="collapseThree"
+                      style="border: none; text-decoration: none; background: none; outline: none; box-shadow: none; max-width: 100%; padding: 0px 12px 8px;">
+                      Prescribing
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapsePrescribing" class="collapse" aria-labelledby="headingThree" data-parent="">
+                  <div class="card-body">
+
+                    <div class="col-lg-12 form-group">
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <label><span class="icon-hand-right"></span>&nbsp;Load From Drug Group</label>
+                          <select class="form-control" id="drugGroups">
+                            <option>--Select--</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 form-group">
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <label><span class="icon-hand-right"></span>&nbsp;Drug Name</label>
+                          <select class="form-control drugrow selectTo" id="drpDrugStrength">
+                            <option>--Select--</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Dose</label>
+                          <select class="form-control drugrow selectTo" id="drpDose">
+                            <option>--Select--</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Frequency</label>
+                          <select class="form-control drugrow selectTo" id="drpFrequency">
+                            <option>--Select--</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Dose Comment</label>
+                          <input type="text" class="form-control drugrow" id="txtDoseComment">
+                        </div>
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Period</label>
+                          <input type="text" class="form-control drugrow" id="txtPeriodPrescribing">
+                        </div>
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Pharmacy</label>
+                          <select class="form-control drugrow" id="drpPharmacy">
+                            <option>--Select--</option>
+                            <option>OPD</option>
+                            <option>Clinic</option>
+                            <option>Outdoor</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-1">
+                          <button class="btn btn-priary" type="button" id="addPrescribing"
+                            style="background: #007bff; position: relative; top: 34px;"><span
+                              class="fa fa-plus"></span></button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 form-group">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Drug Name</th>
+                            <th>Dose</th>
+                            <th>Frequency</th>
+                            <th>Dose Comment</th>
+                            <th>Period</th>
+                            <th>Pharmacy</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody id="drugPrescribingTbody">
+
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="col-lg-12 form-group">
+                      <div class="row" style="justify-content: flex-end;">
+                        <div class="col-lg-3 form-group">
+                          <button type="button" data-toggle="modal" data-target="#PrescribingModal"
+                            class="btn btn-block submitButton confirm right focused">Save Drug Group</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" id="PrescribingModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Save Drug Group</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="col-lg-12 form-group">
+                              <div class="row">
+                                <div class="col-lg-12">
+                                  <label><span class="icon-hand-right"></span>&nbsp;Drug Group Name</label>
+                                  <input type="text" id="txtTestGroupNamePrescribing" class="form-control">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-12 form-group">
+                              <div class="row">
+                                <div class="col-lg-12">
+                                  <label>
+                                    <input type="radio" name='typePrescribing' value="Save for me only"> Save for me
+                                    only
+                                  </label>
+                                </div>
+                                <div class="col-lg-12">
+                                  <label>
+                                    <input type="radio" name='typePrescribing' value="Save for unit"> Save for unit
+                                  </label>
+                                </div>
+                                <div class="col-lg-12">
+                                  <label>
+                                    <input type="radio" name='typePrescribing' value="Save for everyone"> Save for
+                                    everyone
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <div class="col-12 row justify-content-center">
+                              <div class="col-lg-4">
+                                <button type="button" class="btn btn-block cancel" data-dismiss="modal">Close</button>
+                              </div>
+                              <div class="col-lg-4">
+                                <button type="button" id="btnSaveTestGroupPrescribing"
+                                  class="btn btn-block submitButton confirm right focused">Save</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header" id="headingTreatments" style="padding: 0;">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                      data-target="#collapseTreatments" aria-expanded="false" aria-controls="collapseThree"
+                      style="border: none; text-decoration: none; background: none; outline: none; box-shadow: none; max-width: 100%; padding: 0px 12px 8px;">
+                      Treatments & Procedure
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseTreatments" class="collapse" aria-labelledby="headingThree" data-parent="">
+                  <div class="card-body">
+
+                    <div class="col-lg-12 form-group">
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <label><span class="icon-hand-right"></span>&nbsp;Procedure Type</label>
+                          <select class="form-control procrow selectTo" id="drpProcedureType">
+                            <option>--Select--</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-4">
+                          <label><span class="icon-hand-right"></span>&nbsp;Injection</label>
+                          <select class="form-control procrow selectTo" id="drpInjectionsProcedures">
+                            <option value=""></option>
+                          </select>
+                        </div>
+                        <div class="col-lg-4">
+                          <label><span class="icon-hand-right"></span>&nbsp;Remark</label>
+                          <input id="txtRemarksProcedures" type="text" class="form-control procrow" />
+                        </div>
+                        <div class="col-lg-4">
+                          <label><span class="icon-hand-right"></span>&nbsp;Type</label>
+                          <select class="form-control procrow" id="drpTypeProcedures">
+                            <option>--Select--</option>
+                            <option>Internal</option>
+                            <option>External</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-1">
+                          <button class="btn btn-priary" type="button" id="btnAddTreatmentsProcedure"
+                            style="background: #007bff; position: relative; top: 34px;"><span
+                              class="fa fa-plus"></span></button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 form-group">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Procedure Type</th>
+                            <th>Injection</th>
+                            <th>Remarks</th>
+                            <th>Type</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody id="procedurestbody">
+
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="col-lg-12 form-group" style="display: none;">
+                      <div class="row" style="justify-content: flex-end;">
+                        <div class="col-lg-2 form-group">
+                          <button type="button" class="btn btn-block submitButton confirm right focused">Print</button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header" id="headingWardReferral" style="padding: 0;">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                      data-target="#collapseWardReferral" aria-expanded="false" aria-controls="collapseThree"
+                      style="border: none; text-decoration: none; background: none; outline: none; box-shadow: none; max-width: 100%; padding: 0px 12px 8px;">
+                      Ward Referral
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseWardReferral" class="collapse" aria-labelledby="headingThree" data-parent="">
+                  <div class="card-body">
+
+                    <div class="col-lg-12 form-group">
+                      <div class="row">
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Ward</label>
+                        </div>
+                        <div class="col-lg-4">
+                          <select class="form-control selectTo" id="drpWardWardReferral">
+                            <option value="">--Select--</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 form-group">
+                      <div class="row">
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Remark</label>
+                        </div>
+                        <div class="col-lg-4">
+                          <input id="txtWardRemarks" type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header" id="headingClinic" style="padding: 0;">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                      data-target="#collapseClinic" aria-expanded="false" aria-controls="collapseThree"
+                      style="border: none; text-decoration: none; background: none; outline: none; box-shadow: none; max-width: 100%; padding: 0px 12px 8px;">
+                      Clinic Referal
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseClinic" class="collapse" aria-labelledby="headingThree" data-parent="">
+                  <div class="card-body">
+
+                    <div class="col-lg-12 form-group">
+                      <div class="row">
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Clinic</label>
+                        </div>
+                        <div class="col-lg-4">
+                          <select class="form-control selectTo" id="drpclinicReferral">
+                            <option value="">--Select--</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 form-group">
+                      <div class="row">
+                        <div class="col-lg-3">
+                          <label><span class="icon-hand-right"></span>&nbsp;Remark</label>
+                        </div>
+                        <div class="col-lg-4">
+                          <input id="txtClinicRemarks" type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header" id="headingInjury" style="padding: 0;">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                      data-target="#collapseInjury" aria-expanded="false" aria-controls="collapseThree"
+                      style="border: none; text-decoration: none; background: none; outline: none; box-shadow: none; max-width: 100%; padding: 0px 12px 8px;">
+                      Injury Surveillance
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseInjury" class="collapse" aria-labelledby="headingThree" data-parent="">
+                  <div class="card-body">
+
+                    <div class="col-lg-12 form-group">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <input type="checkbox"> Notify National Injury Surveillance System
+                        </div>
+                        <div class="col-lg-6">
+                          <input type="checkbox" id="chkNotifyAreaMoh"> Notify Area MOH
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+
+          <div class="col-lg-12 form-group" style="border-bottom: 4px solid;"></div>
+
+
+          <div class="col-lg-12 form-group row justify-content-center">
+            <div class="col-lg-3 form-group">
+              <button id="btnSaveCallNext" class="btn btn-block submitButton confirm right focused">Save & Call
+                Next</button>
+            </div>
+            <div class="col-lg-2 form-group">
+              <button id="btnSaveForm" type="button"
+                class="btn btn-block submitButton confirm right focused">Save</button>
+            </div>
+            <div class="col-lg-2 form-group">
+              <button type="button" id="btnClear" class="btn btn-block cancel">Cancel</button>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sketchpad/0.1.0/scripts/sketchpad.min.js"
+    integrity="sha512-GTMvKIuYWnu5y1gGLUbMNIXbxusPHehyCdBZJpv+oPikopcgjWBmsIziyp9N8QlRXRFB9y02mQ0C1MRnelE5tg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    $(".dppicker").datepicker({
+      dateFormat: 'yy-mm-dd',
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "-100:+100",
+    });
+
+    $(".dppickerMax").datepicker({
+      dateFormat: 'yy-mm-dd',
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "-100:+100",
+      maxDate: 0
+    });
+
+    $('.selectTo').select2({
+      dropdownAutoWidth: true,
+      width: '100%'
+    });
+
+
+  </script>
+
+</body>
+
+</html>
